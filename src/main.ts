@@ -20,6 +20,7 @@ export default class PerformiumPlugin extends Plugin {
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue).open();
+		new Notice("Performance points calculation has started");
       },
       hotkeys: [
         {
@@ -35,6 +36,7 @@ export default class PerformiumPlugin extends Plugin {
       async () => {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue).open();
+		new Notice("Performance points calculation has started");
       },
     );
   }
@@ -61,18 +63,14 @@ export class PerformanceModal extends Modal {
   }
 
   onOpen() {
-    new Notice("Performance points calculation has started");
     const startTime = performance.now();
 
     const { contentEl } = this;
     contentEl.empty();
     contentEl.style.textAlign = "center";
-    contentEl.style.fontFamily = "var(--font-interface, var(--default-font))";
+    // contentEl.style.fontFamily = "var(--font-interface, var(--default-font))";
 
-    contentEl.createEl("h4", {
-      text: "Calculated Points",
-      cls: "window-header",
-    });
+    this.setTitle("Calculated Performance Points");
 
     const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     
@@ -81,10 +79,7 @@ export class PerformanceModal extends Modal {
 
     var valueText: string = `${formattedValue}pp`;
 
-    contentEl.createEl("h1", {
-      text: valueText,
-      cls: "window-value"
-    });
+    this.setContent(`${valueText}`);
 
     const endTime = performance.now();
     const timeTaken = (endTime - startTime).toFixed(1);
@@ -93,6 +88,8 @@ export class PerformanceModal extends Modal {
       text: `Total CPU time: ${timeTaken} ms`,
       cls: "window-time",
     });
+
+	new Notice("Performance calculation successfully finished!");
   }
 
   onClose() {

@@ -1,5 +1,6 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
+import { calculateVaultStats } from "./functions/vaultStats";
 
 // import different pp systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";

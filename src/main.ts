@@ -38,6 +38,7 @@ export default class PerformiumPlugin extends Plugin {
       },
     );
   }
+	
   async calculatePerformance(): Promise<number> {
 	if (this.settings.ppSystem === "test") {
 	  return calculatePerformanceTest(this.app);
@@ -45,6 +46,10 @@ export default class PerformiumPlugin extends Plugin {
 	  return calculatePerformance040625(this.app);
 	}
   } 
+
+  async loadSettings() {
+  this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+  }
 }
 
 class PerformanceModal extends Modal {

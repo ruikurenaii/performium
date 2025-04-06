@@ -1,6 +1,6 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "options/base";
-import { calculatePerformance } from "utils/pp/040625.ts";
+import { calculatePerformance } from "utils/pp/040625";
 
 export class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
@@ -8,8 +8,6 @@ export class PerformiumPlugin extends Plugin {
   onload() {
     console.log("Commodity Plugin Loaded");
     
-    this.loadSettings();
-    this.language = this.settings.language || "en";
     this.addSettingTab(new PerformiumSettingsTab(this.app, this));
 
     this.addCommand({
@@ -60,13 +58,13 @@ class PerformanceModal extends Modal {
       cls: "window-header",
     });
 
-    const formatter = new Intl.NumberFormat(this.language, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     
     const fullValue = this.performanceValue.toFixed(25);
     const truncatedValue = Math.trunc(fullValue);
-    var formattedValue: string = formatter.format(truncatedValue);
+    var formattedValue: number = formatter.format(truncatedValue);
 
-    var valueText: string = `${formattedValue}pp`;
+    var valueText: string = `${formattedValue.toString()}pp`;
 
     contentEl.createEl("h1", {
       text: valueText,

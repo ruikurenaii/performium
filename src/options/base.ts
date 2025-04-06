@@ -31,7 +31,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     .setDesc("Select a PP system used for calculaton. Remember: Different PP system means different values!")
     .addDropdown(dropdown => {
       dropdown.addOptions({
-        "040625": "04-06-25"
+        "040625": "04-06-25",
+		"test": "Test System (EXPERIMENTAL)"
       });
 
       dropdown.setValue(this.plugin.settings.ppSystem);

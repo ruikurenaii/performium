@@ -9,7 +9,7 @@ import { App } from "obsidian";
 import { calculateVaultStats } from "../../main";
 
 // the function to calculate the pp values from a single note
-export async function calculatePerformance(app: App): Promise<string> {
+export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 
   // weights
@@ -30,5 +30,5 @@ export async function calculatePerformance(app: App): Promise<string> {
 
   const performanceValue: number = fileValue + overallComplexityValue;
 
-  return performanceValue;
+  return performanceValue ;
 }

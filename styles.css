@@ -1,14 +1,18 @@
+.window-class {
+  text-align: center;
+}
+
 .window-header {
-    font-size: 1.2em;
-    font-weight: bold;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .window-value {
-    font-size: 2em;
-    font-weight: bold;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .window-time {
-    font-size: 1em;
-    color: var(--text-muted);
+  font-size: 1em;
+  color: var(--text-muted);
 }

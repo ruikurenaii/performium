@@ -1,4 +1,84 @@
-import { TFile, TFolder, Vault, App } from "obsidian";
+import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
+import { calculatePerformance } from "utils/pp/040625.ts";
+
+export class default PerformiumPlugin extends Plugin {
+  settings: PerformiumSettings;
+
+  console.log("Commodity Plugin Loaded");
+    
+  await this.loadSettings();
+  this.language = this.settings.language || "en";
+  this.addSettingTab(new PerformiumSettingsTab(this.app, this));
+
+  this.addCommand({
+    id: "calculate-performance",
+		name: "Calculate Performance Points",
+		callback: async () => {
+      const performanceValue = calculatePerformance(this.app);
+			new PerformanceModal(this.app, performanceValue);
+		},
+		hotkeys: [
+      {
+        modifiers: ["Mod", "Shift"],
+        key: "P",
+      },
+		],
+  });
+
+  this.addRibbonIcon(
+    "lucide-chart-line",
+    "Calculate performance points",
+    async () => {
+      const performanceValue = calculatePerformance(this.app);
+			new PerformanceModal(this.app, performanceValue);
+		},
+	);
+}
+
+class PerformanceModal extends Modal {
+	private performanceValue: number;
+
+	constructor(app: App, performanceValue: number) {
+		super(app);
+		this.performanceValue = performanceValue;
+	}
+
+  onOpen() {
+    new Notice("Performance points calculation has started")
+		const startTime = performance.now();
+
+    const { contentEl } = this;
+    contentEl.empty();
+    contentEl.style.textAlign = "center";
+    contentEl.style.fontFamily = "var(--font-interface, var(--default-font))";
+
+		contentEl.createEl("h4", {
+      text: "Calculated Points",
+      cls: "window-header",
+    });
+
+		const formatter = new Intl.NumberFormat(this.language, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    
+    const fullValue = this.performanceValue.toFixed(25);
+    const truncatedValue = Math.trunc(fullValue);
+    var formattedValue: string = formatter.format(truncatedValue);
+
+		var valueText: string = `${formattedValue}pp`;
+
+		contentEl.createEl("h1", {
+			text: valueText,
+			cls: "window-value"
+		});
+
+		const endTime = performance.now();
+    const timeTaken = (endTime - startTime).toFixed(1);
+
+		contentEl.createEl("p", {
+      text: `Total CPU time: ${timeTaken} ms`,
+      cls: "window-time",
+    });
+	}
+}
 
 export async function calculateVaultStats(app: App) {
 	const vault = app.vault;

@@ -18,6 +18,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	let c: number = 1.0488088481;
 	let d: number = 1.4142135623;
 	let e: number = 1.5811388300;
+	let f: number = 1.0606601717;
 	
   // note complexity values for the system
   const fileValue: number = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));
@@ -36,9 +37,10 @@ export async function calculatePerformance(app: App): Promise<number> {
 	sentenceBonus = vaultStats.averageSentencesPerParagraph / vaultStats.averageSentencesPerFile;
   }
 
-  // const readabilityValue: number = 100 - ((vaultStats.averageWordsPerSentence * () / 10);
+  const readabilityMultiplier: number = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence) / 10);
+  const readabilityBonus: number = (sentenceDensityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
 	
-  const overallComplexityValue: number = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus;
+  const overallComplexityValue: number = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
 
   const performanceValue: number = fileValue + overallComplexityValue;
 

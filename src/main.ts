@@ -5,7 +5,7 @@ import { calculatePerformance } from "./utils/pp/040625";
 export class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
 
-  onload() {
+  async onload() {
     console.log("Commodity Plugin Loaded");
     
     this.addSettingTab(new PerformiumSettingsTab(this.app, this));

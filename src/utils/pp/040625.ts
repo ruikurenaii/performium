@@ -6,7 +6,7 @@
 */
 
 import { App } from "obsidian";
-import { calculateVaultStats } from "../../main";
+import { calculateVaultStats } from "../../functions/vaultStats";
 
 // the function to calculate the pp values from a single note
 export async function calculatePerformance(app: App): Promise<number> {

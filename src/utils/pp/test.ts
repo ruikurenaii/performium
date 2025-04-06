@@ -42,7 +42,13 @@ export async function calculatePerformance(app: App): Promise<number> {
 	
   const overallComplexityValue: number = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
 
-  const performanceValue: number = fileValue + overallComplexityValue;
+  const lengthBonus: number = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
+  const sentenceBonus: number = vaultStats.longestSentenceLength / vaultStats.averageSentenceLength;
+  const paragraphBonus: number = vaultStats.longestParagraphLength / vaultStats.averageParagraphLength;
+
+  const totalLengthBonus: number = (sentenceBonus + paragraphBonus) / lengthBonus;
+
+  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus;
 
   return performanceValue;
 } 

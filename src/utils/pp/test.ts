@@ -13,12 +13,12 @@ export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 
   // weights
-	let a: number = 1.3228756555;
-	let b: number = 1.2247448713;
-	let c: number = 1.0488088481;
-	let d: number = 1.4142135623;
-	let e: number = 1.5811388300;
-	let f: number = 1.0606601717;
+	let a: number = 1.7349285739;
+	let b: number = 1.6893741205;
+	let c: number = 1.6228493017;
+	let d: number = 1.3428593012;
+	let e: number = 1.8753012946;
+	let f: number = 1.2109483725;
 	
   // note complexity values for the system
   const fileValue: number = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));

@@ -1,6 +1,9 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
-import { calculatePerformance } from "./utils/pp/040625";
+
+// import different pp systems
+import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";
+import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
 
 export default class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
@@ -14,7 +17,7 @@ export default class PerformiumPlugin extends Plugin {
       id: "calculate-performance",
       name: "Calculate Performance Points",
       callback: async () => {
-        const performanceValue = await calculatePerformance(this.app);
+        const performanceValue = await calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
       },
       hotkeys: [
@@ -29,10 +32,18 @@ export default class PerformiumPlugin extends Plugin {
       "lucide-chart-line",
       "Calculate performance points",
       async () => {
-        const performanceValue = await calculatePerformance(this.app);
+        const performanceValue = await calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
       },
     );
+
+	async calculatePerformance(): Promise<number> {
+	  if (this.settings.ppSystem === "test") {
+		return calculatePerformanceTest(this.app);
+	  } else {
+	    return calculatePerformance040625(this.app);
+	  }
+	}
   }
 }
 

@@ -28,7 +28,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   const wordComplexityValue: number = vaultStats.totalChars / vaultStats.totalWords;
 
   // bonuses and nerfs
-  const sentenceBonus: number = 0;
+  let sentenceBonus: number = 0;
 
   if (vaultStats.averageSentencesPerFile > vaultStats.averageSentencesPerParagraph) {
     sentenceBonus = vaultStats.averageSentencesPerFile / vaultStats.averageSentencesPerParagraph;

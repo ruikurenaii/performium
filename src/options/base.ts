@@ -27,8 +27,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
   containerEl.empty();
 
   new Setting(containerEl)
-    .setName("PP System Version")
-    .setDesc("Select a PP system used for calculaton. Remember: Different PP system means different values!")
+    .setName("Performance points system version")
+    .setDesc("Select a performance points system used for calculaton. Remember: Different PP system means different values!")
     .addDropdown(dropdown => {
       dropdown.addOptions({
         "040625": "04-06-25",

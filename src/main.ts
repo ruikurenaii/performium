@@ -14,7 +14,7 @@ export class PerformiumPlugin extends Plugin {
       id: "calculate-performance",
       name: "Calculate Performance Points",
       callback: async () => {
-        const performanceValue = calculatePerformance(this.app);
+        const performanceValue = await calculatePerformance(this.app);
         new PerformanceModal(this.app, performanceValue);
       },
       hotkeys: [
@@ -29,7 +29,7 @@ export class PerformiumPlugin extends Plugin {
       "lucide-chart-line",
       "Calculate performance points",
       async () => {
-        const performanceValue = calculatePerformance(this.app);
+        const performanceValue = await calculatePerformance(this.app);
         new PerformanceModal(this.app, performanceValue);
       },
     );
@@ -60,8 +60,7 @@ class PerformanceModal extends Modal {
 
     const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     
-    const fullValue = this.performanceValue.toFixed(25);
-    const truncatedValue = Math.trunc(fullValue);
+    const truncatedValue = Math.trunc(this.performanceValue);
     var formattedValue = formatter.format(truncatedValue);
 
     var valueText: string = `${formattedValue}pp`;

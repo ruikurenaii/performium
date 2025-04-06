@@ -52,7 +52,7 @@ export default class PerformiumPlugin extends Plugin {
   }
 }
 
-class PerformanceModal extends Modal {
+export class PerformanceModal extends Modal {
   private performanceValue: number;
 
   constructor(app: App, performanceValue: number) {

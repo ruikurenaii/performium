@@ -102,23 +102,44 @@ export class PerformanceModal extends Modal {
 
 export async function calculateVaultStats(app: App) {
   const vault = app.vault;
+
   let totalFiles = 0;
   let totalFolders = 0;
   let totalWords = 0;
   let totalChars = 0;
   let totalSentences = 0;
 
+  let longestSentenceLength = 0;
+  let longestParagraphLength = 0;
+
   const processFolder = async (folder: TFolder) => {
     totalFolders++;
+
     for (const child of folder.children) {
       if (child instanceof TFolder) {
         await processFolder(child);
       } else if (child instanceof TFile && child.extension === "md") {
         totalFiles++;
         const content = await vault.read(child);
+
         totalChars += content.length;
-        totalWords += content.split(/\s+/).filter(word => word.length > 0).length;
-        totalSentences += content.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0).length;
+        const words = content.split(/\s+/).filter(word => word.length > 0);
+        totalWords += words.length;
+
+        const sentences = content.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
+        totalSentences += sentences.length;
+        for (const sentence of sentences) {
+          if (sentence.length > longestSentenceLength) {
+            longestSentenceLength = sentence.length;
+          }
+        }
+
+        const paragraphs = content.split(/\n{2,}/).map(p => p.trim()).filter(p => p.length > 0);
+        for (const paragraph of paragraphs) {
+          if (paragraph.length > longestParagraphLength) {
+            longestParagraphLength = paragraph.length;
+          }
+        }
       }
     }
   };
@@ -132,6 +153,8 @@ export async function calculateVaultStats(app: App) {
     totalChars,
     totalSentences,
     averageWordsPerFile: totalFiles ? totalWords / totalFiles : 0,
-    averageSentencesPerFile: totalFiles ? totalSentences / totalFiles : 0
+    averageSentencesPerFile: totalFiles ? totalSentences / totalFiles : 0,
+    longestSentenceLength,
+    longestParagraphLength
   };
 }

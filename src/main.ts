@@ -1,7 +1,7 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 
-// import different pp systems
+// import different performance points systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";
 import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
 
@@ -16,7 +16,7 @@ export default class PerformiumPlugin extends Plugin {
 
     this.addCommand({
       id: "calculate-performance",
-      name: "Calculate Performance Points",
+      name: "Calculate performance points",
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue).open();

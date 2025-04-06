@@ -88,6 +88,10 @@ class PerformanceModal extends Modal {
       cls: "window-time",
     });
   }
+
+  onClose() {
+	this.contentEl.empty();
+  }
 }
 
 export async function calculateVaultStats(app: App) {

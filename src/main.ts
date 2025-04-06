@@ -19,6 +19,7 @@ export default class PerformiumPlugin extends Plugin {
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
+	    modal.open();
       },
       hotkeys: [
         {
@@ -34,6 +35,7 @@ export default class PerformiumPlugin extends Plugin {
       async () => {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
+        modal.open();
       },
     );
   }

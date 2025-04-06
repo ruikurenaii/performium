@@ -5,7 +5,7 @@
 */
 
 import { App, PluginSettingTab, Setting } from "obsidian";
-import { PerformiumPlugin } from "../../main";
+import { PerformiumPlugin } from "../main";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;

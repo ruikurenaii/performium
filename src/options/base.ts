@@ -14,7 +14,7 @@ export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "040625";
 };
 
-export class CommoditySettingsTab extends PluginSettingTab {
+export class PerformiumSettingsTab extends PluginSettingTab {
   plugin: any;
 
   constructor(app: App, plugin: any) {

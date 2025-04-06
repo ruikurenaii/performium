@@ -3,7 +3,7 @@ import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from 
 import { calculatePerformance } from "utils/pp/040625.ts";
 
 export class PerformiumPlugin extends Plugin {
-  settings: PerformiumSettings;
+  settings: PerformiumBaseSettings;
 
   onload() {
     console.log("Commodity Plugin Loaded");

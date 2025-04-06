@@ -74,9 +74,9 @@ export class PerformanceModal extends Modal {
     const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     
     const truncatedValue = Math.trunc(this.performanceValue);
-    var formattedValue = formatter.format(truncatedValue);
+    const formattedValue = formatter.format(truncatedValue);
 
-    var valueText: string = `${formattedValue}pp`;
+    let valueText: string = `${formattedValue}pp`;
 
     contentEl.createEl("p", {
       text: valueText,

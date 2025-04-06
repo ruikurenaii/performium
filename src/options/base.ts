@@ -5,6 +5,7 @@
 */
 
 import { App, PluginSettingTab, Setting } from "obsidian";
+import { PerformiumPlugin } from "../../main";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
@@ -15,9 +16,9 @@ export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {
-  plugin: any;
+  plugin: PerformiumPlugin;
 
-  constructor(app: App, plugin: any) {
+  constructor(app: App, plugin: PerformiumPlugin) {
     super(app, plugin);
     this.plugin = plugin;
   }

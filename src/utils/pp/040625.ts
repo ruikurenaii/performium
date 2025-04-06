@@ -12,9 +12,16 @@ import { calculateVaultStats } from "../src/main";
 export async function calculatePerformance(app: App): Promise<string> {
   const vaultStats = await calculateVaultStats(app);
 
-  // some values for the system
-  const fileValue = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));
-  const sentenceComplexityValue;
+  // weights
+	let a: number = 1;
+	const b: number = 1.5;
+	const c: number = 3.1415926535;
+	
+  // note complexity values for the system
+  const fileValue: number = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));
+  const sentenceComplexityValue: number = vaultStats.totalWords / vaultStats.totalSentences;
+  const sentenceDensityValue: number = vaultStats.totalSentences / vaultStats.totalWords;
+  const fileComplexityValue: number = sentenceComplexityValue * averageWordsPerFile;
   const complexityValue;
 
   // const performanceValue: number;

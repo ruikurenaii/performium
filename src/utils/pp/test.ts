@@ -37,7 +37,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	sentenceBonus = vaultStats.averageSentencesPerParagraph / vaultStats.averageSentencesPerFile;
   }
 
-  const readabilityMultiplier: number = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence) / 10);
+  const readabilityMultiplier: number = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence)) / 10);
   const readabilityBonus: number = (sentenceDensityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
 	
   const overallComplexityValue: number = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;

@@ -6,6 +6,7 @@ export async function calculateVaultStats(app: App) {
 	let totalFolders = 0;
 	let totalWords = 0;
 	let totalChars = 0;
+	let totalSentences = 0;
 
 	const processFolder = async (folder: TFolder) => {
 		totalFolders++;
@@ -17,6 +18,7 @@ export async function calculateVaultStats(app: App) {
 				const content = await vault.read(child);
 				totalChars += content.length;
 				totalWords += content.split(/\s+/).filter(word => word.length > 0).length;
+				totalSentences += content.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0).length;
 			}
 		}
 	};
@@ -28,6 +30,8 @@ export async function calculateVaultStats(app: App) {
 		totalFolders,
 		totalWords,
 		totalChars,
-		averageWordsPerFile: totalFiles ? totalWords / totalFiles : 0
+		totalSentences,
+		averageWordsPerFile: totalFiles ? totalWords / totalFiles : 0,
+		averageSentencesPerFile: totalFiles ? totalSentences / totalFiles : 0
 	};
 }

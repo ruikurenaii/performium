@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "performosu",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "Integrates the osu! Performance Points system to Obsidian!",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

@@ -13,6 +13,9 @@ export async function calculateVaultStats(app: App) {
   let longestSentenceLength = 0;
   let longestParagraphLength = 0;
 
+  let totalSentenceChars = 0;
+  let totalParagraphChars = 0;
+
   const processFolder = async (folder: TFolder) => {
     totalFolders++;
 
@@ -31,6 +34,7 @@ export async function calculateVaultStats(app: App) {
         const sentences = content.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
         totalSentences += sentences.length;
         for (const sentence of sentences) {
+          totalSentenceChars += sentence.length;
           if (sentence.length > longestSentenceLength) {
             longestSentenceLength = sentence.length;
           }
@@ -39,6 +43,7 @@ export async function calculateVaultStats(app: App) {
         const paragraphs = content.split(/\n{2,}/).map(p => p.trim()).filter(p => p.length > 0);
         totalParagraphs += paragraphs.length;
         for (const paragraph of paragraphs) {
+          totalParagraphChars += paragraph.length;
           if (paragraph.length > longestParagraphLength) {
             longestParagraphLength = paragraph.length;
           }
@@ -53,7 +58,9 @@ export async function calculateVaultStats(app: App) {
   const averageSentencesPerFile = totalFiles ? totalSentences / totalFiles : 0;
   const averageWordsPerSentence = totalSentences ? totalWords / totalSentences : 0;
   const averageSentencesPerParagraph = totalParagraphs ? totalSentences / totalParagraphs : 0;
-  const averageCharsPerSentence = totalSentences ? totalChars / totalSentences : 0;
+  const averageCharsPerSentence = totalSentences ? totalSentenceChars / totalSentences : 0;
+  const averageParagraphLength = totalParagraphs ? totalParagraphChars / totalParagraphs : 0;
+  const averageSentenceLength = totalSentences ? totalSentenceChars / totalSentences : 0;
 
   return {
     totalFiles,
@@ -67,6 +74,8 @@ export async function calculateVaultStats(app: App) {
     averageWordsPerSentence,
     averageSentencesPerParagraph,
     averageCharsPerSentence,
+    averageParagraphLength,
+    averageSentenceLength,
     longestSentenceLength,
     longestParagraphLength
   };

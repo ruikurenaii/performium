@@ -53,6 +53,7 @@ export async function calculateVaultStats(app: App) {
   const averageSentencesPerFile = totalFiles ? totalSentences / totalFiles : 0;
   const averageWordsPerSentence = totalSentences ? totalWords / totalSentences : 0;
   const averageSentencesPerParagraph = totalParagraphs ? totalSentences / totalParagraphs : 0;
+  const averageCharsPerSentence = totalSentences ? totalChars / totalSentences : 0;
 
   return {
     totalFiles,
@@ -65,6 +66,7 @@ export async function calculateVaultStats(app: App) {
     averageSentencesPerFile,
     averageWordsPerSentence,
     averageSentencesPerParagraph,
+    averageCharsPerSentence,
     longestSentenceLength,
     longestParagraphLength
   };

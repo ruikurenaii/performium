@@ -1,6 +1,6 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
-import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "options/base";
-import { calculatePerformance } from "utils/pp/040625";
+import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
+import { calculatePerformance } from "./utils/pp/040625";
 
 export class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
@@ -62,9 +62,9 @@ class PerformanceModal extends Modal {
     
     const fullValue = this.performanceValue.toFixed(25);
     const truncatedValue = Math.trunc(fullValue);
-    var formattedValue: number = formatter.format(truncatedValue);
+    var formattedValue = formatter.format(truncatedValue);
 
-    var valueText: string = `${formattedValue.toString()}pp`;
+    var valueText: string = `${formattedValue}pp`;
 
     contentEl.createEl("h1", {
       text: valueText,

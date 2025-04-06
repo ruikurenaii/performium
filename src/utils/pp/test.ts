@@ -48,9 +48,11 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const totalLengthBonus: number = (sLengthBonus + paragraphBonus) / lengthBonus;
 
-  const coherenceBonus: number = (vaultStats.averageWordsPerSentence > 0 ? vaultStats.averageSentencesPerParagraph / vaultStats.averageWordsPerSentence : 0) / (vaultStats.longestParagraphLength / 3.1415926535);
+  const coherenceBonus: number = vaultStats.averageWordsPerSentence > 0 ? vaultStats.averageSentencesPerParagraph / vaultStats.averageWordsPerSentence : 0;
+
+  const informativenessValue: number = vaultStats.totalWords * ((vaultStats.totalChars / vaultStats.totalWords) ** 2);
 	  
-  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus;
+  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + informativenessValue;
 
   return performanceValue;
 } 

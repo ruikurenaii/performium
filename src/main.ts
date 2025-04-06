@@ -4,10 +4,10 @@ import { calculatePerformance } from "utils/pp/040625.ts";
 export class default PerformiumPlugin extends Plugin {
   settings: PerformiumSettings;
 
+  onOpen() {
   console.log("Commodity Plugin Loaded");
     
   await this.loadSettings();
-  this.language = this.settings.language || "en";
   this.addSettingTab(new PerformiumSettingsTab(this.app, this));
 
   this.addCommand({
@@ -78,6 +78,7 @@ class PerformanceModal extends Modal {
       cls: "window-time",
     });
 	}
+  }
 }
 
 export async function calculateVaultStats(app: App) {

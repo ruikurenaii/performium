@@ -43,5 +43,5 @@ jobs:
       - name: Export Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: commodity
+          name: performium
           path: release

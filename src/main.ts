@@ -70,7 +70,7 @@ export class PerformanceModal extends Modal {
     contentEl.style.textAlign = "center";
     // contentEl.style.fontFamily = "var(--font-interface, var(--default-font))";
 
-    this.setTitle("Calculated Performance Points");
+    this.setTitle("Calculated performance points:");
 
     const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     

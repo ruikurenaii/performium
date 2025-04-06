@@ -52,7 +52,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const informativenessValue: number = vaultStats.totalWords * ((vaultStats.totalChars / vaultStats.totalWords) ** 2);
 	  
-  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + informativenessValue;
+  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue / sentenceComplexityValue);
 
   return performanceValue;
 } 

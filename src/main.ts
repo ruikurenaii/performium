@@ -36,15 +36,14 @@ export default class PerformiumPlugin extends Plugin {
         new PerformanceModal(this.app, performanceValue);
       },
     );
-
-	async calculatePerformance(): Promise<number> {
-	  if (this.settings.ppSystem === "test") {
-		return calculatePerformanceTest(this.app);
-	  } else {
-	    return calculatePerformance040625(this.app);
-	  }
-	}
   }
+  async calculatePerformance(): Promise<number> {
+	if (this.settings.ppSystem === "test") {
+	  return calculatePerformanceTest(this.app);
+    } else {
+	  return calculatePerformance040625(this.app);
+	}
+  } 
 }
 
 class PerformanceModal extends Modal {

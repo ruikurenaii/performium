@@ -67,9 +67,8 @@ export class PerformanceModal extends Modal {
 
     const { contentEl } = this;
     contentEl.empty();
-    contentEl.style.textAlign = "center";
-    // contentEl.style.fontFamily = "var(--font-interface, var(--default-font))";
-
+	contentEl.addClass("window-class");
+    
     this.setTitle("Calculated performance points:");
 
     const formatter = new Intl.NumberFormat("en-us", { minimumFractionDigits: 0, maximumFractionDigits: 0 });

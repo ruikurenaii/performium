@@ -8,7 +8,7 @@
 import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 
-// the function to calculate the pp values from a single note
+// the function to calculate the pp values from the entire vault
 export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 

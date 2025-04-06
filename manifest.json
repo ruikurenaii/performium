@@ -3,9 +3,9 @@
 	"name": "Performium",
 	"version": "1.0.0",
 	"minAppVersion": "1.8.0",
-	"description": "Integrates the osu! Performance Points system ystem to Obsidian!",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Integrates the osu! Performance Points system to Obsidian!",
+	"author": "Louie Kurenai",
+	"authorUrl": "https://paytouse.github.io/new-webpage",
+	"fundingUrl": "https://ko-fi.com/paytouse1774",
 	"isDesktopOnly": false
 }

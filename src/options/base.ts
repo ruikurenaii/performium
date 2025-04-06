@@ -36,7 +36,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
       dropdown.setValue(this.plugin.settings.ppSystem);
       dropdown.onChange(async (value) => {
-        this.plugin.settings.currency = value;
+        this.plugin.settings.ppSystem = value;
         await this.plugin.saveSettings();
       });
     });

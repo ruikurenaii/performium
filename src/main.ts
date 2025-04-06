@@ -79,7 +79,10 @@ export class PerformanceModal extends Modal {
 
     var valueText: string = `${formattedValue}pp`;
 
-    this.setContent(`${valueText}`);
+    contentEl.createEl("p", {
+      text: valueText,
+	  cls: "window-value"
+	});
 
     const endTime = performance.now();
     const timeTaken = (endTime - startTime).toFixed(1);

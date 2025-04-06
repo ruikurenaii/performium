@@ -17,7 +17,7 @@ export default class PerformiumPlugin extends Plugin {
       id: "calculate-performance",
       name: "Calculate Performance Points",
       callback: async () => {
-        const performanceValue = await calculatePerformance();
+        const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
       },
       hotkeys: [
@@ -32,7 +32,7 @@ export default class PerformiumPlugin extends Plugin {
       "lucide-chart-line",
       "Calculate performance points",
       async () => {
-        const performanceValue = await calculatePerformance();
+        const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue);
       },
     );

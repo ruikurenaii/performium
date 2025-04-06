@@ -2,7 +2,7 @@ import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 import { calculatePerformance } from "./utils/pp/040625";
 
-export class PerformiumPlugin extends Plugin {
+export default class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
 
   async onload() {

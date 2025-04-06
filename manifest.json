@@ -3,7 +3,7 @@
 	"name": "Performium",
 	"version": "1.0.0",
 	"minAppVersion": "1.8.0",
-	"description": "Integrates the osu! Performance Points system to Obsidian!",
+	"description": "Integrates the osu! Performance Points system to gamify your note-taking experience!",
 	"author": "Louie Kurenai",
 	"authorUrl": "https://paytouse.github.io/new-webpage",
 	"fundingUrl": "https://ko-fi.com/paytouse1774",

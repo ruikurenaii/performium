@@ -60,7 +60,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   const readingBonus = readabilityBonus * readingLevel * readabilityMultiplier;
 
   const alternativeReadabilityValue = 0.39 * vaultStats.averageWordsPerSentence + 11.8 * wordComplexityValue;
-  const shortWordsNerf;
+  let shortWordsNerf;
 
   if (alternativeReadabilityValue > 25) {
 	shortWordsNerf = alternativeReadabilityValue * (wordComplexityValue / 5);

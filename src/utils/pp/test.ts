@@ -50,9 +50,9 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const coherenceBonus: number = vaultStats.averageWordsPerSentence > 0 ? vaultStats.averageSentencesPerParagraph / vaultStats.averageWordsPerSentence : 0;
 
-  const informativenessValue: number = vaultStats.totalWords * ((vaultStats.totalChars / vaultStats.totalWords) ** 2);
+  const informativenessValue: number = vaultStats.totalWords * ((vaultStats.totalChars / vaultStats.totalWords) ** 1.75);
 	  
-  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue / sentenceComplexityValue);
+  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue / (sentenceComplexityValue * sentenceDensityValue));
 
   return performanceValue;
 } 

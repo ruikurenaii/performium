@@ -56,7 +56,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const readingBonus = readabilityBonus * readingLevel * readabilityMultiplier;
 	  
-  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + readingBonus;
+  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5);
 
   return performanceValue;
 } 

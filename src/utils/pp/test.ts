@@ -55,8 +55,9 @@ export async function calculatePerformance(app: App): Promise<number> {
   const readingLevel = (0.39 * vaultStats.averageWordsPerSentence + 11.8 * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence) - 15.59) / 5;
 
   const readingBonus = readabilityBonus * readingLevel * readabilityMultiplier;
-	  
-  const performanceValue: number = fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5);
+
+  // gotta prevent inflation :)))))
+  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5)) / 1.7724538509;
 
   return performanceValue;
 } 

@@ -21,13 +21,7 @@ export default class PerformiumPlugin extends Plugin {
         const performanceValue = await this.calculatePerformance();
         new PerformanceModal(this.app, performanceValue).open();
 		new Notice("Performance points calculation has started");
-      },
-      hotkeys: [
-        {
-          modifiers: ["Mod", "Shift"],
-          key: "U",
-        },
-      ],
+      }
     });
 
     this.addRibbonIcon(

@@ -25,7 +25,7 @@ export default class PerformiumPlugin extends Plugin {
       hotkeys: [
         {
           modifiers: ["Mod", "Shift"],
-          key: "P",
+          key: "U",
         },
       ],
     });

@@ -1,4 +1,4 @@
-import { formatTime } from "../utils/values/formatTime";
+import { timeFormat } from "../utils/values/timeFormat";
 import { getTimeSinceCreation } from "../../timeSinceCreation";
 
 // it may not be used or i don't know.

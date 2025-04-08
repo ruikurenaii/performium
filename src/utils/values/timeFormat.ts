@@ -1,4 +1,4 @@
-function timeFormat(time: number): string {
+export function timeFormat(time: number): string {
   const seconds = time / 1000;
   const minutes = seconds / 60;
   const hours = minutes / 60;

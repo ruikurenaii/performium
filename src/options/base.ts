@@ -5,6 +5,7 @@
 */
 
 import { App, PluginSettingTab, Setting } from "obsidian";
+import { generateFact } from "../functions/funFact";
 import PerformiumPlugin from "../main";
 
 export interface PerformiumBaseSettings {
@@ -45,4 +46,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       });
     });
   }
+
+  containerEl.createEl("p", {
+    text: generateFact(),
+		cls: "text-muted"
+	});
 }

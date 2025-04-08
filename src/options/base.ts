@@ -9,10 +9,12 @@ import PerformiumPlugin from "../main";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
+  installTimestamp?: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "040625"
+  ppSystem: "040625",
+	installTimestamp: undefined
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {

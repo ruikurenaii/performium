@@ -5,6 +5,7 @@
 */
 
 import { App, PluginSettingTab, Setting } from "obsidian";
+import{ timeFormat } from "../functions/timeFormat";
 import { generateFact } from "../functions/funFact";
 import PerformiumPlugin from "../main";
 

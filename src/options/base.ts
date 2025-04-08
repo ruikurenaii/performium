@@ -45,8 +45,11 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         });
       });
+
+	  let factText: string = generateFact();
+		
     containerEl.createEl("p", {
-      text: generateFact(),
+      text: factText,
       cls: "text-muted"
     });
   }

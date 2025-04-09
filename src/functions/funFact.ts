@@ -4,7 +4,7 @@ import { getTimeSinceDate } from "./timeSinceDate";
 // it may not be used or i don't know.
 export function generateFact(installTimestamp: number): string {
   const array = [
-    `It has been ${getTimeSinceCreation(installTimestamp)} since the plugin has been installed inside your vault.`,
+    `It has been ${getTimeSinceDate(installTimestamp)} since the plugin has been installed inside your vault.`,
     `Performium is not meant to boost your application\'s performance!`,
     `Performium was first released on April 6, 2025.`,
     `Some updates may take a while and this is mainly because of the performance points system reworks.`,

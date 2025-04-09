@@ -16,7 +16,7 @@ export interface PerformiumBaseSettings {
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "040625",
-  installTimestamp: 0
+  installTimestamp: undefined
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {
@@ -47,8 +47,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
         });
       });
 
-    let factText: string = generateFact(this.plugin.settings.installTimestamp);
-
+    const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
+    let factText: string = generateFact(installTimestamp);
+	  
 	  /*  
     containerEl.createEl("p", {
       text: factText,

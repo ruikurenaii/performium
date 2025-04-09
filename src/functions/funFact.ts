@@ -15,6 +15,6 @@ export function generateFact(): string {
     `Is it just me, or something feels odd around here?`
   ];
 
-	let fact: string = `Fun fact: ${array[Math.floor(Math.random() * array.length)]}`;
+	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;
 }

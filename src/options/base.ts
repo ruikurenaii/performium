@@ -47,11 +47,18 @@ export class PerformiumSettingsTab extends PluginSettingTab {
         });
       });
 
-	  let factText: string = generateFact();
-		
+    let factText: string = generateFact();
+
+	  /*  
     containerEl.createEl("p", {
       text: factText,
       cls: "text-muted"
     });
+	  */
+
+		// for funsies, i guess.
+		new Setting(containerEl)
+		  .setName("Did you know?")
+		  .setDesc(factText)
   }
 }

@@ -1,5 +1,5 @@
 import { timeFormat } from "../utils/values/timeFormat";
-import { getTimeSinceCreation } from "./timeSinceCreation";
+import { getTimeSinceDate } from "./timeSinceDate";
 
 // it may not be used or i don't know.
 export function generateFact(installTimestamp: number): string {

@@ -16,7 +16,7 @@ export interface PerformiumBaseSettings {
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "040625",
-  installTimestamp: undefined
+  installTimestamp: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {

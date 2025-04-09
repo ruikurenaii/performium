@@ -17,7 +17,10 @@ export function generateFact(installTimestamp: number): string {
     `Chicken jockey!!`,
     `The developer is an osu! player that goes under the name of hoshinoTaka01?`,
     `The creation date of Performium was also the same day as it was released!`,
-    `Beta versions of the plugin are avilable in the actions tab, but it requires a GitHub account!`
+    `Beta versions of the plugin are avilable in the actions tab, but it requires a GitHub account!`,
+    `There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${(1 / array.length) * 100}%)!`,
+    `Statistics show that you are ${(Math.random() * 99) + 1}% random!`,
+    `I'm sick of spitting out facts everytime you open the plugin settings...`
   ];
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];

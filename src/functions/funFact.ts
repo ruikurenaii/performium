@@ -16,7 +16,8 @@ export function generateFact(installTimestamp: number): string {
     `Older performance point systems can be put in the settings for future updates!`,
     `Chicken jockey!!`,
     `The developer is an osu! player that goes under the name of hoshinoTaka01?`,
-    `The creation date of Performium was also the same day as it was released!`
+    `The creation date of Performium was also the same day as it was released!`,
+    `Beta versions of the plugin are avilable in the actions tab, but it requires a GitHub account!`
   ];
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];

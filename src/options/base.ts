@@ -47,7 +47,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
         });
       });
 
-    let factText: string = generateFact();
+    let factText: string = generateFact(this.plugin.settings.installTimestamp);
 
 	  /*  
     containerEl.createEl("p", {

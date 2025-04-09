@@ -21,11 +21,16 @@ export function generateFact(installTimestamp: number): string {
     `Statistics show that you are ${(Math.random() * 99) + 1}% random!`,
     `I'm sick of spitting out facts everytime you open the plugin settings...`,
     `There was another plugin from the same developer, but it will never be planned for release because it will take him a long time to optimize and organize the code in order to abide by the plugin guidelines!`,
-    `Do a flip!`
+    `Do a flip!`,
+	  `Performium took inspiration from the old plugin, Commodity!`,
+    `There's nothing else to spit out, so... GET OUT 🗣️🔥`,
+    `Before Performium, the developer relied on ChatGPT about the plugin names, and yet, this name was taken, which was originally thought by the developer himself!`,
+    `If you're not sure what different performance point systems mean, newer versions mean newer components, like having new lines the weren't in the older versions in the source code!`,
+    `There are a variety of facts you can get! Try to get them all, will you?`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped
-	array.push(`There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${(1 / array.length) * 100}%)!`);
+	array.push(`There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${((1 / array.length) * 100).toFixed(2)}%)!`);
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;

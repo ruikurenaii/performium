@@ -18,4 +18,4 @@ If you have a suggestion (like a new pp system, a rework and such), feel free to
 
 ## Feeling generous?
 If you want to support the plugin's development, feel free to leave a donation by this link:
-[![](https://storage.ko-fi.com/cdn/kofi6.png?v=6)](https://ko-fi.com/paytouse1774)
+[![](https://storage.ko-fi.com/cdn/kofi6.png?v=6)](https://ko-fi.com/ruikurenaii)

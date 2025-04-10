@@ -17,16 +17,18 @@ export function generateFact(installTimestamp: number): string {
     `Chicken jockey!!`,
     `The developer is an osu! player that goes under the name of hoshinoTaka01?`,
     `The creation date of Performium was also the same day as it was released!`,
-    `Beta versions of the plugin are avilable in the actions tab, but it requires a GitHub account!`,
+    `The beta versions of the plugin are available in the actions tab, but it requires a GitHub account!`,
     `Statistics show that you are ${(Math.random() * 99) + 1}% random!`,
     `I'm sick of spitting out facts everytime you open the plugin settings...`,
     `There was another plugin from the same developer, but it will never be planned for release because it will take him a long time to optimize and organize the code in order to abide by the plugin guidelines!`,
     `Do a flip!`,
-	  `Performium took inspiration from the old plugin, Commodity!`,
+  	`Performium took inspiration from the old plugin, Commodity!`,
     `There's nothing else to spit out, so... GET OUT 🗣️🔥`,
     `Before Performium, the developer relied on ChatGPT about the plugin names, and yet, this name was taken, which was originally thought by the developer himself!`,
     `If you're not sure what different performance point systems mean, newer versions mean newer components, like having new lines the weren't in the older versions in the source code!`,
-    `There are a variety of facts you can get! Try to get them all, will you?`
+    `There are a variety of facts you can get! Try to get them all, will you?`,
+	  `The first version of Performium's pp system wasn't complex enough, while the test version has more of it, but the values may break!`,
+    `The developer tried to work as hard as they could, but they're still not getting some money! (Leaving a donation would be fine)`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

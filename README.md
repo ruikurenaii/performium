@@ -13,6 +13,9 @@ This plugin adds a ribbon and command of a new function meant to calculate the p
 
 Once the function has been executed, you'll just have to wait for a while (depending on the size of your vault), and a modal will pop up with the calculated amount.
 
+## Any settings?
+There is a setting where you can only get to change the version of the pp system. Remember: Different system versions mean different values!
+
 ## Got any suggestions?
 If you have a suggestion (like a new pp system, a rework and such), feel free to mail me: louiesoulenkurenai@gmail.com
 

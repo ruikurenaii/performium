@@ -15,7 +15,7 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "040625",
+  ppSystem: "041325",
   installTimestamp: undefined
 };
 
@@ -37,6 +37,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25",
+		  "041325": "04-13-25 (Current)",
           "test": "Test System (EXPERIMENTAL)"
         });
         

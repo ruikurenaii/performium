@@ -13,15 +13,15 @@ export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 
   // weights
-  let a = 1.7349285739;
-  let b = 1.6893741205;
-  let c = 1.6228493017;
-  let d = 1.3428593012;
-  let e = 1.8753012946;
-  let f = 1.2109483725;
+  let a = 1.5837436485;
+  let b = 1.1893746023;
+  let c = 1.8547246344;
+  let d = 2.1229384374;
+  let e = 1.4857347224;
+  let f = 2.0729158372;
 
   // factors
-  let penaltyFactor = 9.129727134;
+  let penaltyFactor = 8.8657445948;
 	
   // note complexity values for the system
   const fileValue = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));
@@ -67,9 +67,11 @@ export async function calculatePerformance(app: App): Promise<number> {
   } else if (alternativeReadabilityValue < 25) {
 	shortWordsNerf = alternativeReadabilityValue - penaltyFactor * (wordComplexityValue / 5);
   }
+
+  const originalityBonus = (wordComplexityValue ** 2) * sLengthBonus * paragraphBonus;
 														
-  // gotta prevent inflation :)))))
-  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.7724538509;
+  // remove more stuff
+  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.475) + shortWordsNerf + originalityBonus) / 1.9658337445;
 
   return performanceValue;
 } 

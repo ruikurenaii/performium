@@ -16,6 +16,9 @@ Once the function has been executed, you'll just have to wait for a while (depen
 ## Any settings?
 There is a setting where you can only get to change the version of the pp system. Remember: Different system versions mean different values!
 
+## Any changes to the PP system?
+I had broke down some things for you to understand. The changelog can be found [here](https://ruikurenaii.github.io/performium-pp-changelog).
+
 ## Got any suggestions?
 If you have a suggestion (like a new pp system, a rework and such), feel free to mail me: louiesoulenkurenai@gmail.com
 

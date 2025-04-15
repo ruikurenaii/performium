@@ -73,12 +73,12 @@ export async function calculatePerformance(app: App): Promise<number> {
   const variationFactor = Math.log2(1 + (vaultStats.averageParagraphLength / vaultStats.averageSentenceLength));
 
 
-  const structureQualityBonus = depthFactor * consistencyFactor * variationFactor; 
+  const structureQualityBonus = (depthFactor * consistencyFactor * variationFactor) / 9.85; 
 
   const originalityBonus = (wordComplexityValue ** 2) * sLengthBonus * paragraphBonus;
 														
   // remove more stuff
-  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.475) + shortWordsNerf + originalityBonus + (structureQualityBonus / 9.85)) / 1.9658337445;
+  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.475) + shortWordsNerf + originalityBonus + structureQualityBonus) / 1.9658337445;
 
   return performanceValue;
 } 

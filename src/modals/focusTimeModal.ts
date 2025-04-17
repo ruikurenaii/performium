@@ -1,5 +1,4 @@
 import { App, Modal } from "obsidian";
-import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 import { getUptime } from "../functions/getUptime";
 
 export class focusTimeModal extends Modal {
@@ -15,7 +14,7 @@ export class focusTimeModal extends Modal {
 		contentEl.empty();
 	  contentEl.addClass("window-class");
 
-	  const time: string = getUptime(this.settings.totalFocusTime);
+	  const time: string = getUptime(totalFocusTime);
 
 		this.setTitle("Total focus time");
 

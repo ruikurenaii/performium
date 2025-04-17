@@ -13,28 +13,42 @@ export default class PerformiumPlugin extends Plugin {
     console.log("Performium has been loaded");
 
 	await this.loadSettings();
-    this.addSettingTab(new PerformiumSettingsTab(this.app, this));
+  this.addSettingTab(new PerformiumSettingsTab(this.app, this));
 
-    this.addCommand({
-      id: "calculate-performance",
-      name: "Calculate performance points",
-      callback: async () => {
-        const performanceValue = await this.calculatePerformance();
-        new PerformanceModal(this.app, performanceValue).open();
-		new Notice("Performance points calculation has started");
-      }
-    });
+	let focusStart: number | null = null;
 
-    this.addRibbonIcon(
-      "lucide-chart-line",
-      "Calculate performance points",
-      async () => {
-        const performanceValue = await this.calculatePerformance();
-        new PerformanceModal(this.app, performanceValue).open();
-		new Notice("Performance points calculation has started");
-      },
-    );
+this.app.workspace.on("active-leaf-change", (leaf) => {
+  const now = Date.now();
+
+  if (focusStart !== null) {
+    const duration = now - focusStart;
+    this.settings.totalNoteFocusTime = (this.settings.totalNoteFocusTime ?? 0) + duration;
+    this.saveSettings();
   }
+
+  focusStart = now;
+});
+
+  this.addCommand({
+    id: "calculate-performance",
+    name: "Calculate performance points",
+    callback: async () => {
+      const performanceValue = await this.calculatePerformance();
+      new PerformanceModal(this.app, performanceValue).open();
+		  new Notice("Performance points calculation has started");
+    }
+  });
+
+  this.addRibbonIcon(
+    "lucide-chart-line",
+    "Calculate performance points",
+    async () => {
+      const performanceValue = await this.calculatePerformance();
+      new PerformanceModal(this.app, performanceValue).open();
+		  new Notice("Performance points calculation has started");  
+	  },
+  );
+}
 	
   async calculatePerformance(): Promise<number> {
 	if (this.settings.ppSystem === "test") {

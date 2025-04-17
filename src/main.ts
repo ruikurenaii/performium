@@ -17,18 +17,21 @@ export default class PerformiumPlugin extends Plugin {
 
 	let focusStart: number | null = null;
 
-this.app.workspace.on("active-leaf-change", (leaf) => {
-  const now = Date.now();
+  this.app.workspace.on("active-leaf-change", (leaf) => {
+    const now = Date.now();
 
-  if (focusStart !== null) {
-    const duration = now - focusStart;
-    this.settings.totalFocusTime = (this.settings.totalFocusTime ?? 0) + duration;
-    this.saveSettings();
-  }
+    if (focusStart !== null) {
+      const duration = now - focusStart;
+      this.settings.totalFocusTime = (this.settings.totalFocusTime ?? 0) + duration;
+      this.saveSettings();
+      focusStart = null;
+    }
 
-  focusStart = now;
-});
-
+    if (leaf?.view?.getViewType() === "markdown") {
+      focusStart = now;
+    }
+  });
+	  
   this.addCommand({
     id: "calculate-performance",
     name: "Calculate performance points",

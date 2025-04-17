@@ -11,12 +11,14 @@ import PerformiumPlugin from "../main";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
-  installTimestamp ? : number;
+  installTimestamp?: number;
+	totalFocusTime?: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "041325",
-  installTimestamp: undefined
+  installTimestamp: undefined,
+	totalFocusTime: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {

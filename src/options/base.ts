@@ -7,6 +7,7 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import { timeFormat } from "../utils/values/timeFormat";
 import { generateFact } from "../functions/funFact";
+import focusTimeModal from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
 
 export interface PerformiumBaseSettings {
@@ -39,7 +40,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25",
-		  "041325": "04-13-25 (Current)",
+		      "041325": "04-13-25 (Current)",
           "test": "Test System (EXPERIMENTAL)"
         });
         
@@ -49,6 +50,17 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         });
       });
+
+	  new Setting(containerEl)
+		  .setName("Total focus time")
+		  .setDesc("See how much time you've spent on notes")
+		  .addButton(button, => {
+        .setButtonText("Check")
+			  .onClick(() => {.
+          const modal = new focusTimeModal(this.app, this.plugin.settings.totalFocusTime);
+          modal.open();
+				}
+			}
 
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
     let factText: string = generateFact(installTimestamp);

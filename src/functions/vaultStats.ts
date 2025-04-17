@@ -9,12 +9,15 @@ export async function calculateVaultStats(app: App) {
   let totalChars = 0;
   let totalSentences = 0;
   let totalParagraphs = 0;
+  let totalTags = 0;
 
   let longestSentenceLength = 0;
   let longestParagraphLength = 0;
 
   let totalSentenceChars = 0;
   let totalParagraphChars = 0;
+
+  const tagRegex = /#[\p{L}\p{N}_/-]+/gu;
 
   const processFolder = async (folder: TFolder) => {
     totalFolders++;
@@ -48,6 +51,11 @@ export async function calculateVaultStats(app: App) {
             longestParagraphLength = paragraph.length;
           }
         }
+
+        const tags = content.match(tagRegex);
+        if (tags) {
+          totalTags += tags.length;
+        }
       }
     }
   };
@@ -69,6 +77,7 @@ export async function calculateVaultStats(app: App) {
     totalChars,
     totalSentences,
     totalParagraphs,
+    totalTags,
     averageWordsPerFile,
     averageSentencesPerFile,
     averageWordsPerSentence,

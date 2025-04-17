@@ -55,8 +55,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		  .setName("Total focus time")
 		  .setDesc("See how much time you've spent on notes")
 		  .addButton(button, => {
-        .setButtonText("Check")
-			  .onClick(() => {.
+        button.setButtonText("Check")
+			  button.onClick(() => {
           const modal = new focusTimeModal(this.app, this.plugin.settings.totalFocusTime);
           modal.open();
 				}

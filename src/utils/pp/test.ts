@@ -33,7 +33,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   // bonuses
   const lengthBonus = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
 
-  const performanceValue: number = files + wordsPerFile + tags;
+  const performanceValue: number = files + wordsPerFile + tags + lengthBonus + (1 + (starRating * 0.1));
 
   return performanceValue;
 }

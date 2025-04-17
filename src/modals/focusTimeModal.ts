@@ -15,7 +15,7 @@ export class focusTimeModal extends Modal {
 	  contentEl.addClass("window-class");
 
 	  const uptime = getUptime(this.totalFocusTime);
-	  const timeString: string = ``;
+	  let timeString: string = ``;
 
 	  // if statement
 	  if (uptime.days >= 1) {

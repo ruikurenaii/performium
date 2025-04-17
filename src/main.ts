@@ -13,7 +13,7 @@ export default class PerformiumPlugin extends Plugin {
     console.log("Performium has been loaded");
 
 	await this.loadSettings();
-  this.addSettingTab(new PerformiumSettingsTab(this.app, this));
+    this.addSettingTab(new PerformiumSettingsTab(this.app, this));
 
 	let focusStart: number | null = null;
 
@@ -22,7 +22,7 @@ this.app.workspace.on("active-leaf-change", (leaf) => {
 
   if (focusStart !== null) {
     const duration = now - focusStart;
-    this.settings.totalNoteFocusTime = (this.settings.totalNoteFocusTime ?? 0) + duration;
+    this.settings.totalFocusTime = (this.settings.totalFocusTime ?? 0) + duration;
     this.saveSettings();
   }
 

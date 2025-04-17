@@ -1,7 +1,7 @@
 import { App, Modal } from "obsidian";
 import { getUptime } from "../functions/getUptime";
 
-export class focusTimeModal extends Modal {
+export class FocusTimeModal extends Modal {
   totalFocusTime: number;
 
   constructor(app: App, totalFocusTime: number) {

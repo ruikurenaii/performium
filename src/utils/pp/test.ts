@@ -7,6 +7,7 @@
 
 import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
+import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {
@@ -21,6 +22,8 @@ export async function calculatePerformance(app: App): Promise<number> {
   let paragraphs = vaultStats.totalParagraphs;
   
   let wordsPerFile = vaultStats.averageWordsPerFile;
+
+	let totalFocusTime = this.settings.totalFocusTime;
   
   // for star rating
   const wordsPerSentence = words / sentences;
@@ -29,11 +32,12 @@ export async function calculatePerformance(app: App): Promise<number> {
   const patternDifficulty = vaultStats.longestParagraphLength / (vaultStats.averageParagraphLength + 1);
   
   const starRating: number = Math.min(15, (wordsPerSentence * sentencesPerParagraph * wordComplexity * patternDifficulty) ** 0.25);
-  
+	
   // bonuses
   const lengthBonus = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
+  const timeBonus = totalFocusTime / (totalFocusTime / 1000);
 
-  const performanceValue: number = files + wordsPerFile + tags + lengthBonus + (1 + (starRating * 0.1));
+  const performanceValue: number = files + wordsPerFile + tags + lengthBonus + (1 + (starRating * 0.1)) + timeBonus;
 
   return performanceValue;
 }

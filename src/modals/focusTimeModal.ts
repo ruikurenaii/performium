@@ -14,13 +14,27 @@ export class focusTimeModal extends Modal {
 		contentEl.empty();
 	  contentEl.addClass("window-class");
 
-	  const time = getUptime(this.totalFocusTime);
+	  const uptime = getUptime(this.totalFocusTime);
+	  const timeString: string = ``;
+
+	  // if statement
+	  if (uptime.days >= 1) {
+		  timeString = `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`;
+		} else if (uptime.hours >= 1) {
+			timeString = `${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`;
+		} else if (uptime.minutes >= 1 {
+			timeString = `${uptime.minutes}m ${uptime.seconds}s`;
+		} else if (uptime.seconds >= 1) {
+			timeString = `${uptime.seconds}s`;
+		} else {
+			timeString = `undefined`;
+		}
 
 		this.setTitle("Total focus time");
 
 		// add a temporary css class (will be changed in a few more commits)
 		contentEl.createEl("p", {
-      text: time,
+      text: timeString,
 	    cls: "window-value"
 	  });
   }

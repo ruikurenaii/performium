@@ -35,7 +35,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	
   // bonuses
   const lengthBonus = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
-  const timeBonus = totalFocusTime / (totalFocusTime / 1000);
+  const timeBonus = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
 
   const performanceValue: number = files + wordsPerFile + tags + lengthBonus + (1 + (starRating * 0.1)) + timeBonus;
 

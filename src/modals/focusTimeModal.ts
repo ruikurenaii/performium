@@ -22,7 +22,7 @@ export class focusTimeModal extends Modal {
 		  timeString = `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`;
 		} else if (uptime.hours >= 1) {
 			timeString = `${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`;
-		} else if (uptime.minutes >= 1 {
+		} else if (uptime.minutes >= 1) {
 			timeString = `${uptime.minutes}m ${uptime.seconds}s`;
 		} else if (uptime.seconds >= 1) {
 			timeString = `${uptime.seconds}s`;

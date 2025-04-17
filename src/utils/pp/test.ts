@@ -23,7 +23,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   
   let wordsPerFile = vaultStats.averageWordsPerFile;
 
-  const totalFocusTime = this.settings.totalFocusTime;
+  const totalFocusTime = this.settings.totalFocusTime ?? 0;
   
   // for star rating
   const wordsPerSentence = words / sentences;

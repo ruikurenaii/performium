@@ -7,7 +7,7 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import { timeFormat } from "../utils/values/timeFormat";
 import { generateFact } from "../functions/funFact";
-import focusTimeModal from "../modals/focusTimeModal";
+import { focusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
 
 export interface PerformiumBaseSettings {

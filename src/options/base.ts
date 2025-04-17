@@ -57,7 +57,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		  .addButton(button => {
         button.setButtonText("Check")
 			  button.onClick(() => {
-          const modal = new focusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
+          const modal = new FocusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
           modal.open();
 				});
 			});

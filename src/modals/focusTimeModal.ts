@@ -14,7 +14,7 @@ export class focusTimeModal extends Modal {
 		contentEl.empty();
 	  contentEl.addClass("window-class");
 
-	  const time: string = getUptime(totalFocusTime);
+	  const time = getUptime(this.totalFocusTime);
 
 		this.setTitle("Total focus time");
 

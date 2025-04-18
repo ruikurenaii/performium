@@ -37,7 +37,7 @@ export default class PerformiumPlugin extends Plugin {
     name: "Calculate performance points",
     callback: async () => {
       try {
-        const pp = await calculatePerformance(app, plugin.settings);
+        const pp = await this.calculatePerformance();
         console.log("Calculated pp:", pp);
       } catch (err) {
         new Notice("Error calculating pp:", err);
@@ -52,7 +52,7 @@ export default class PerformiumPlugin extends Plugin {
     "Calculate performance points",
     async () => {
       try {
-        const pp = await calculatePerformance(app, plugin.settings);
+        const pp = await thiscalculatePerformance();
         console.log("Calculated pp:", pp);
       } catch (err) {
         new Notice("Error calculating pp:", err);

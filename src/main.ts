@@ -24,12 +24,9 @@ export default class PerformiumPlugin extends Plugin {
         const duration = now - focusStart;
         this.settings.totalFocusTime = (this.settings.totalFocusTime ?? 0) + duration;
         this.saveSettings();
-        focusStart = null;
       }
       
-      if (leaf?.view?.getViewType() === "markdown") {
-        focusStart = now;
-      }
+      focusStart = now;
     });
     
     this.addCommand({
@@ -120,4 +117,4 @@ export class PerformanceModal extends Modal {
   onClose() {
     this.contentEl.empty();
   }
-}
+} 

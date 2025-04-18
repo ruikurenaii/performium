@@ -11,9 +11,7 @@ import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from 
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {
-	settings: PerformiumBaseSettings;
-	
-  const vaultStats = await calculateVaultStats(app);
+	const vaultStats = await calculateVaultStats(app);
   
   // variables
   let files = vaultStats.totalFiles;
@@ -37,7 +35,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	
   // bonuses
   const lengthBonus = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
-  const timeBonus = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
+  const timeBonus: number = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
 
   const performanceValue: number = files + wordsPerFile + tags + lengthBonus + (1 + (starRating * 0.1)) + (timeBonus / 9.8);
 

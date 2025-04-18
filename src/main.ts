@@ -36,7 +36,12 @@ export default class PerformiumPlugin extends Plugin {
     id: "calculate-performance",
     name: "Calculate performance points",
     callback: async () => {
-      const performanceValue = await this.calculatePerformance();
+      try {
+        const pp = await calculatePerformance(app, plugin.settings);
+        console.log("Calculated pp:", pp);
+      } catch (err) {
+        new Notice("Error calculating pp:", err);
+	    }
       new PerformanceModal(this.app, performanceValue).open();
 		  new Notice("Performance points calculation has started");
     }
@@ -46,7 +51,12 @@ export default class PerformiumPlugin extends Plugin {
     "lucide-chart-line",
     "Calculate performance points",
     async () => {
-      const performanceValue = await this.calculatePerformance();
+      try {
+        const pp = await calculatePerformance(app, plugin.settings);
+        console.log("Calculated pp:", pp);
+      } catch (err) {
+        new Notice("Error calculating pp:", err);
+	    }
       new PerformanceModal(this.app, performanceValue).open();
 		  new Notice("Performance points calculation has started");  
 	  },

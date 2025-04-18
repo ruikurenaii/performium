@@ -38,7 +38,7 @@ export default class PerformiumPlugin extends Plugin {
     callback: async () => {
       try {
         const performanceValue = await this.calculatePerformance();
-        console.log("Calculated pp:", pp);
+        console.log("Calculated pp:", performanceValue);
       } catch (err) {
         new Notice("Error calculating pp:", err);
 	  }
@@ -53,7 +53,7 @@ export default class PerformiumPlugin extends Plugin {
     async () => {
       try {
         const performanceValue = await this.calculatePerformance();
-        console.log("Calculated pp:", pp);
+        console.log("Calculated pp:", performanceValue);
       } catch (err) {
         new Notice("Error calculating pp:", err);
 	  }

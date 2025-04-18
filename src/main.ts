@@ -15,55 +15,26 @@ export default class PerformiumPlugin extends Plugin {
 	await this.loadSettings();
     this.addSettingTab(new PerformiumSettingsTab(this.app, this));
 
-	let focusStart: number | null = null;
-
-  this.app.workspace.on("active-leaf-change", (leaf) => {
-    const now = Date.now();
-
-    if (focusStart !== null) {
-      const duration = now - focusStart;
-      this.settings.totalFocusTime = (this.settings.totalFocusTime ?? 0) + duration;
-      this.saveSettings();
-      focusStart = null;
-    }
-
-    if (leaf?.view?.getViewType() === "markdown") {
-      focusStart = now;
-    }
-  });
-	  
-  this.addCommand({
-    id: "calculate-performance",
-    name: "Calculate performance points",
-    callback: async () => {
-      try {
+    this.addCommand({
+      id: "calculate-performance",
+      name: "Calculate performance points",
+      callback: async () => {
         const performanceValue = await this.calculatePerformance();
-        console.log("Calculated pp:", performanceValue);
-		return performanceValue;
-      } catch (err) {
-        new Notice("Error calculating pp:", err);
-	  }
-      new PerformanceModal(this.app, performanceValue).open();
-	  new Notice("Performance points calculation has started");
-    }
-  });
+        new PerformanceModal(this.app, performanceValue).open();
+		new Notice("Performance points calculation has started");
+      }
+    });
 
-  this.addRibbonIcon(
-    "lucide-chart-line",
-    "Calculate performance points",
-    async () => {
-      try {
+    this.addRibbonIcon(
+      "lucide-chart-line",
+      "Calculate performance points",
+      async () => {
         const performanceValue = await this.calculatePerformance();
-        console.log("Calculated pp:", performanceValue);
-		return performanceValue;
-      } catch (err) {
-        new Notice("Error calculating pp:", err);
-	  }
-      new PerformanceModal(this.app, performanceValue).open();
-	  new Notice("Performance points calculation has started");  
-	  },
-  );
-}
+        new PerformanceModal(this.app, performanceValue).open();
+		new Notice("Performance points calculation has started");
+      },
+    );
+  }
 	
   async calculatePerformance(): Promise<number> {
 	if (this.settings.ppSystem === "test") {

@@ -39,6 +39,7 @@ export default class PerformiumPlugin extends Plugin {
       try {
         const performanceValue = await this.calculatePerformance();
         console.log("Calculated pp:", performanceValue);
+		return performanceValue;
       } catch (err) {
         new Notice("Error calculating pp:", err);
 	  }
@@ -54,6 +55,7 @@ export default class PerformiumPlugin extends Plugin {
       try {
         const performanceValue = await this.calculatePerformance();
         console.log("Calculated pp:", performanceValue);
+		return performanceValue;
       } catch (err) {
         new Notice("Error calculating pp:", err);
 	  }

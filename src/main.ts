@@ -10,8 +10,6 @@ export default class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
   
   async onload() {
-    console.log("Performium has been loaded");
-    
     await this.loadSettings();
     this.addSettingTab(new PerformiumSettingsTab(this.app, this));
     

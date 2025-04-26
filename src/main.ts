@@ -15,7 +15,7 @@ export default class PerformiumPlugin extends Plugin {
     
     let focusStart: number | null = null;
     
-    this.app.workspace.on("active-leaf-change", (leaf) => {
+    this.registerEvent(this.app.workspace.on("active-leaf-change", (leaf) => {
       const now = Date.now();
       
       if (focusStart !== null) {
@@ -25,7 +25,7 @@ export default class PerformiumPlugin extends Plugin {
       }
       
       focusStart = now;
-    });
+    }));
     
     this.addCommand({
       id: "calculate-performance",

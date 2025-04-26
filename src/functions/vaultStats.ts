@@ -27,7 +27,7 @@ export async function calculateVaultStats(app: App) {
         await processFolder(child);
       } else if (child instanceof TFile && child.extension === "md") {
         totalFiles++;
-        const content = await vault.read(child);
+        const content = await vault.cachedRead(child);
 
         totalChars += content.length;
 

@@ -1,5 +1,5 @@
 import { TFile, TFolder, App } from "obsidian";
-import { getAllTags } from "./getAllTags";
+import { getAllUsedTags } from "./getAllTags";
 
 export async function calculateVaultStats(app: App) {
   const vault = app.vault;

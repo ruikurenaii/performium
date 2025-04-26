@@ -1,29 +1,14 @@
 import { App, TFile } from "obsidian";
 
-export function getAllUsedTags(app: App): Set<string> {
-  const tags = new Set<string>();
+export async function getallUsedTags(app: App): number {
+  let tagCount = 0;
   const files = app.vault.getMarkdownFiles();
 
   for (const file of files) {
     const cache = app.metadataCache.getFileCache(file);
     const fileTags = getAllTags(cache);
-
-    for (const tag of fileTags) {
-      tags.add(tag);
-    }
+    tagCount += fileTags.length;
   }
 
-  return tags;
-}
-
-function getAllTags(cache: any): string[] {
-  const tags: string[] = [];
-
-  if (cache?.tags) {
-    for (const tagObj of cache.tags) {
-      if (tagObj.tag) tags.push(tagObj.tag);
-    }
-  }
-
-  return tags;
+  return tagCount;
 }

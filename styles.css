@@ -1,23 +1,23 @@
-.window-class {
+.main-window-class {
   text-align: center;
 }
 
-.window-header {
+.main-window-header {
   font-size: 1.2em;
   font-weight: bold;
 }
 
-.window-value {
+.main-window-value {
   font-size: 2em;
   font-weight: bold;
 }
 
-.window-time {
+.main-window-time {
   font-size: 1em;
   color: var(--text-muted);
 }
 
-.text-muted {
+.muted-text-style {
   /* font-size: var(--font-ui-smaller); */
   color: var(--text-muted);
   font-weight: bold;

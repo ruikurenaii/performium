@@ -12,7 +12,7 @@ export class FocusTimeModal extends Modal {
   onOpen() {
     const { contentEl } = this;
 		contentEl.empty();
-	  contentEl.addClass("window-class");
+	  contentEl.addClass("main-window-class");
 
 	  const uptime = getUptime(this.totalFocusTime);
 	  let timeString: string = ``;
@@ -35,7 +35,7 @@ export class FocusTimeModal extends Modal {
 		// add a temporary css class (will be changed in a few more commits)
 		contentEl.createEl("p", {
       text: timeString,
-	    cls: "window-value"
+	    cls: "main-window-value"
 	  });
   }
 

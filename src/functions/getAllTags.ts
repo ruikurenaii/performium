@@ -1,6 +1,6 @@
 import { App, TFile } from "obsidian";
 
-export async function getallUsedTags(app: App): number {
+export async function getAllUsedTags(app: App): Promise<number> {
   let tagCount = 0;
   const files = app.vault.getMarkdownFiles();
 

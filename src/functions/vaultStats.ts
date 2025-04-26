@@ -1,4 +1,5 @@
 import { TFile, TFolder, App } from "obsidian";
+import { getAllTags } from "./getAllTags";
 
 export async function calculateVaultStats(app: App) {
   const vault = app.vault;
@@ -16,8 +17,6 @@ export async function calculateVaultStats(app: App) {
 
   let totalSentenceChars = 0;
   let totalParagraphChars = 0;
-
-  const tagRegex = /#[\p{L}\p{N}_/-]+/gu;
 
   const processFolder = async (folder: TFolder) => {
     totalFolders++;
@@ -52,9 +51,9 @@ export async function calculateVaultStats(app: App) {
           }
         }
 
-        const tags = content.match(tagRegex);
+        const tags = await getAllTags(this.app);
         if (tags) {
-          totalTags += tags.length;
+          totalTags += tags;
         }
       }
     }

@@ -72,7 +72,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	if (timeBonus >= 241.97) {
 		finalTimeBonus = 241.97 + (timeBonus / 1000);
 	} else {
-		finalTimeBonys = timeBonus;
+		finalTimeBonus = timeBonus;
 	}
 
   if (alternativeReadabilityValue > 25) {

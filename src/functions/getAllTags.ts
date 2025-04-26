@@ -1,6 +1,6 @@
 import { App, TFile } from "obsidian";
 
-export function getAllTags(app: App): Set<string> {
+export function getAllUsedTags(app: App): Set<string> {
   const tags = new Set<string>();
   const files = app.vault.getMarkdownFiles();
 

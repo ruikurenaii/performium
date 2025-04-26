@@ -6,7 +6,9 @@ export async function getAllUsedTags(app: App): Promise<number> {
 
   for (const file of files) {
     const cache = app.metadataCache.getFileCache(file);
+	  if (!cache) continue;
     const fileTags = getAllTags(cache);
+		if (!fileTags) continue;
     tagCount += fileTags.length;
   }
 

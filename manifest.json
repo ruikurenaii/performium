@@ -1,7 +1,7 @@
 {
 	"id": "performosu",
 	"name": "Performium",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"minAppVersion": "1.8.0",
 	"description": "Integrates the osu! Performance Points system to gamify your note-taking experience!",
 	"author": "Louie Kurenai",

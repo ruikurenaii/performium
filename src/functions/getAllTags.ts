@@ -1,6 +1,6 @@
-import { TFile, normalizePath, App } from 'obsidian';
+import { App, TFile } from 'obsidian';
 
-export async function getAllTags(app: App): Promise<Set<string>> {
+async function getAllTags(app: App): Promise<number> {
 	const allTags = new Set<string>();
 	const metadataCache = app.metadataCache;
 	const vault = app.vault;
@@ -17,5 +17,5 @@ export async function getAllTags(app: App): Promise<Set<string>> {
 		}
 	}
 
-	return allTags;
+	return allTags.size;
 }

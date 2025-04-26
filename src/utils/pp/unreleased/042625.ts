@@ -5,8 +5,8 @@
 */
 
 import { App } from "obsidian";
-import { calculateVaultStats } from "../../functions/vaultStats";
-import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "../../options/base";
+import { calculateVaultStats } from "../../../functions/vaultStats";
+import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "../../../options/base";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {

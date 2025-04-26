@@ -1,21 +1,29 @@
-import { App, TFile } from 'obsidian';
+import { App, TFile } from "obsidian";
 
-async function getAllTags(app: App): Promise<number> {
-	const allTags = new Set<string>();
-	const metadataCache = app.metadataCache;
-	const vault = app.vault;
+export function getAllTags(app: App): Set<string> {
+  const tags = new Set<string>();
+  const files = app.vault.getMarkdownFiles();
 
-	const files = vault.getMarkdownFiles();
+  for (const file of files) {
+    const cache = app.metadataCache.getFileCache(file);
+    const fileTags = getAllTags(cache);
 
-	for (const file of files) {
-		const cache = metadataCache.getFileCache(file);
-		if (!cache) continue;
+    for (const tag of fileTags) {
+      tags.add(tag);
+    }
+  }
 
-		const tagsInFile = getAllTags(cache);
-		for (const tag of tagsInFile) {
-			allTags.add(tag);
-		}
-	}
+  return tags;
+}
 
-	return allTags.size;
+function getAllTags(cache: any): string[] {
+  const tags: string[] = [];
+
+  if (cache?.tags) {
+    for (const tagObj of cache.tags) {
+      if (tagObj.tag) tags.push(tagObj.tag);
+    }
+  }
+
+  return tags;
 }

@@ -70,7 +70,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	let finalTimeBonus: number = 0;
 
 	if (timeBonus >= 241.97) {
-		finalTimeBonus = 241.97 + (timeBonus / 1000);
+		finalTimeBonus = 241.97 + ((timeBonus - 241.97) / 1000);
 	} else {
 		finalTimeBonus = timeBonus;
 	}
@@ -82,7 +82,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   }
 														
   // gotta prevent inflation :)))))
-  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + finalTimeBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.7724538509;
+  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + totalLengthBonus + finalTimeBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
 
   return performanceValue;
 }  

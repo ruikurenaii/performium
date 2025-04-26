@@ -53,7 +53,7 @@ export async function calculateVaultStats(app: App) {
 
         const tags = await getAllUsedTags(this.app);
         if (tags) {
-          totalTags += tags;
+          totalTags = tags;
         }
       }
     }

@@ -87,7 +87,7 @@ export class PerformanceModal extends Modal {
     
     const { contentEl } = this;
     contentEl.empty();
-    contentEl.addClass("window-class");
+    contentEl.addClass("main-window-class");
     
     this.setTitle("Calculated performance points:");
     
@@ -100,7 +100,7 @@ export class PerformanceModal extends Modal {
     
     contentEl.createEl("p", {
       text: valueText,
-      cls: "window-value"
+      cls: "main-window-value"
     });
     
     const endTime = performance.now();
@@ -108,7 +108,7 @@ export class PerformanceModal extends Modal {
     
     contentEl.createEl("p", {
       text: `Total CPU time: ${timeTaken} ms`,
-      cls: "window-time",
+      cls: "main-window-time",
     });
     
     new Notice("Performance calculation successfully finished!");

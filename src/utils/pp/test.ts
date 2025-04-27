@@ -64,7 +64,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   const alternativeReadabilityValue = 0.39 * vaultStats.averageWordsPerSentence + 11.8 * wordComplexityValue;
   let shortWordsNerf = 0;
 
-	const totalFocusTime = this.settings.totalFocusTime ?? 0;
+	let totalFocusTime = this.settings.totalFocusTime ?? 0;
 
 	const timeBonus: number = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
 	let finalTimeBonus: number = 0;

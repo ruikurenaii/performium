@@ -10,6 +10,7 @@
 import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
+import { calculateStarRating } from "../valuea/starRating";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {
@@ -74,21 +75,29 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 	let angleBonus = 0;
 
+	const starRating = calculateStarRating(vaultStats.totalParagraphs, angleValue);
+	let starRatingBonus = 0; 
+
   if (angleValue < 180 || angleValue >= 360) {
     // if the angle is more than a reflex angle
 		angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
+		starRatingBonus = (angleValue * starRating) / 1.2;
 	} else if (angleValue < 120 || angleValue > 180) {
 		// if the angle is way obtuse, but not straight
 		angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (angleValue / 15);
+		starRatingBonus = (angleValue * starRating) / 1.5;
 	} else if (angleValue < 90 || angleValue > 120) {
 		// if the angle is obtuse
 		angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (angleValue / 20);
+		starRatingBonus = (angleValue * starRating) / 1.9;
 	} else if (angleValue < 89) {
 		// if the angle is an acute angle (just like in osu!)
 		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
+		starRatingBonus = (angleValue * starRating) / 2.4;
   }
+	
   // i had to prevent inflation and attempt to balance these values.
-  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + angleBonus + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
+  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + angleBonus + starRatingBonus + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
 
   return performanceValue;
 }  

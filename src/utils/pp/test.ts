@@ -86,10 +86,9 @@ export async function calculatePerformance(app: App): Promise<number> {
 	} else if (angleValue < 89) {
 		// if the angle is an acute angle (just like in osu!)
 		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
-	}
-														
+  }
   // i had to prevent inflation and attempt to balance these values.
-  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + angleBonus + totalLengthBonus + finalTimeBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
+  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + angleBonus + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
 
   return performanceValue;
 }  

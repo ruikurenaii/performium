@@ -9,6 +9,7 @@
 
 import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
+import { calculateVaultAngle } from "../values/vaultAngle";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {
@@ -64,25 +65,31 @@ export async function calculatePerformance(app: App): Promise<number> {
   const alternativeReadabilityValue = 0.39 * vaultStats.averageWordsPerSentence + 11.8 * wordComplexityValue;
   let shortWordsNerf = 0;
 
-	let totalFocusTime = this.settings.totalFocusTime ?? 0;
-
-	const timeBonus: number = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
-	let finalTimeBonus: number = 0;
-
-	if (timeBonus >= 241.97) {
-		finalTimeBonus = 241.97 + ((timeBonus - 241.97) / 1000);
-	} else {
-		finalTimeBonus = timeBonus;
-	}
-
   if (alternativeReadabilityValue > 25) {
 	  shortWordsNerf = alternativeReadabilityValue * (wordComplexityValue / 5);
   } else if (alternativeReadabilityValue < 25) {
 	  shortWordsNerf = alternativeReadabilityValue - penaltyFactor * (wordComplexityValue / 5);
   }
+
+	const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
+	let angleBonus;
+
+  if (angleValue < 180 || angleValue >= 360) {
+    // if the angle is more than a reflex angle
+		angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
+	} else if (angleValue < 120 || angleValue > 180) {
+		// if the angle is way obtuse, but not straight
+		angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (angleValue / 15);
+	} else if (angleValue < 90 || angleValue > 120) {
+		// if the angle is obtuse
+		angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (angleValue / 20);
+	} else if (angleValue < 89) {
+		// if the angle is an acute angle (just like in osu!)
+		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
+	}
 														
-  // gotta prevent inflation :)))))
-  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + totalLengthBonus + finalTimeBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
+  // i had to prevent inflation and attempt to balance these values.
+  const performanceValue: number = (fileValue + (overallComplexityValue * 1.07) + angleBonus + totalLengthBonus + finalTimeBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.8275;
 
   return performanceValue;
 }  

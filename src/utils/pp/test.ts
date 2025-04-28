@@ -72,7 +72,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   }
 
 	const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
-	let angleBonus;
+	let angleBonus = 0;
 
   if (angleValue < 180 || angleValue >= 360) {
     // if the angle is more than a reflex angle

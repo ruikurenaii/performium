@@ -10,7 +10,7 @@
 import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
-import { calculateStarRating } from "../valuea/starRating";
+import { calculateStarRating } from "../values/starRating";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {

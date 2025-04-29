@@ -1,9 +1,6 @@
 /*
 
-  test.ts: the test version of the osu! pp system integrated into obsidian.
-  the previous test version didn't get to be released, and due to countless hours of working on the issue why it didn't work, i decided to move it somewhere else.
-  don't worry, it won't be included to the plugin itself, but unless other people want to help me test it once more and tell what the issue was.
-  the pp rewrite didn't seem to go well, so we'll just continue what we're gonna focus on.
+  042925.ts: the "angle and star rating" rework update to the system.
   
 */
 

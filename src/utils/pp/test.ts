@@ -90,7 +90,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	let starRatingBonus = 0; 
 
   if (angleValue < 180 || angleValue >= 360) {
-    // if the angle is more than a reflex angle
+    // if the angle is more than a straight angle, but a reflex angle
 		angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
 		starRatingBonus = (angleValue * starRating) / 1.2;
 	} else if (angleValue < 120 || angleValue > 180) {
@@ -107,7 +107,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 		starRatingBonus = (angleValue * starRating) / 2.4;
   }
 	
-  const performanceValue: number = angleBonus + starRatingBonus + (combinedValue * (starRating / 2));
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 2.1) + (combinedValue * (starRating / 2));
 	  
   return performanceValue;
 }  

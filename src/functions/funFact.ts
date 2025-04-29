@@ -5,7 +5,7 @@ import { getTimeSinceDate } from "./timeSinceDate";
 export function generateFact(installTimestamp: number): string {
   const array = [
     `It has been ${getTimeSinceDate(installTimestamp)} since the plugin has been installed inside your vault!`,
-    `Performium is not meant to boost your application\'s performance!`,
+    `Performium is not meant to boost your application's performance!`,
     `Performium was first released on April 6, 2025!`,
     `Some updates may take a while and this is mainly because of the performance points system reworks!`,
     `The developer himself didn't get to sleep because of staying all night developing this plugin without a coffee, which is why you need to buy one located in the plugin's page!`,
@@ -27,8 +27,14 @@ export function generateFact(installTimestamp: number): string {
     `Before Performium, the developer relied on ChatGPT about the plugin names, and yet, this name was taken, which was originally thought by the developer himself!`,
     `If you're not sure what different performance point systems mean, newer versions mean newer components, like having new lines the weren't in the older versions in the source code!`,
     `There are a variety of facts you can get! Try to get them all, will you?`,
-	  `The first version of Performium's pp system wasn't complex enough, while the test version has more of it, but the values may break!`,
-    `The developer tried to work as hard as they could, but they're still not getting some money! (Leaving a donation would be fine)`
+	`The first version of Performium's pp system wasn't complex enough, while the test version has more of it, but the values may break!`,
+    `The developer tried to work as hard as they could, but they're still not getting some money! (Leaving a donation would be fine)`,
+    `Performium v1.2.0 added another update to the pp system, with some changes similar to osu!`,
+    `I wasn't happy watching the developer suffer making everything including this...`,
+    `The developer only coded this from a mobile phone without any test compiling in it!`,
+    `There's an official discord server in which you can join by copying this link: https://discord.gg/hXTFFQHC2Q`,
+    `The developer tried to add something else, but didn't work at all, so they scrapped the addition!`,
+    `The developer got their phone stolen in April Fools 2024 and never got it back! That's not funny at all!`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

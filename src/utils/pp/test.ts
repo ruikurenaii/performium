@@ -13,61 +13,49 @@ import { calculateStarRating } from "../values/starRating";
 export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 
-  // weights
-  let a = 1.7349285739;
-  let b = 1.6893741205;
-  let c = 1.6228493017;
-  let d = 1.3428593012;
-  let e = 1.8753012946;
-  let f = 1.2109483725;
+	const totalFiles = vaultStats.totalFiles;
+  const totalFolders = vaultStats.totalFolders;
+  const totalWords = vaultStats.totalWords;
+  const totalChars = vaultStats.totalChars;
+  const totalSentences = vaultStats.totalSentences;
+  const totalParagraphs = vaultStats.totalParagraphs;
+  const totalTags = vaultStats.totalTags;
+  const averageWordsPerFile = vaultStats.averageWordsPerFile;
+  const averageSentencesPerFile = vaultStats.averageSentencesPerFile;
+  const averageWordsPerSentence = vaultStats.averageWordsPerSentence;
+  const averageSentencesPerParagraph = vaultStats.averageSentencesPerParagraph;
+  const averageCharsPerSentence = vaultStats.averageCharsPerSentence;
+  const averageParagraphLength = vaultStats.averageParagraphLength;
+  const averageSentenceLength = vaultStats.averageSentenceLength;
+  const longestSentenceLength = vaultStats.longestSentenceLength;
+  const longestParagraphLength = vaultStats.longestParagraphLength;
 
-  // factors
-  let penaltyFactor = 9.129727134;
-	
-  // note complexity values for the system
-  const fileValue = vaultStats.totalFiles * (1 + (vaultStats.totalFolders / 25));
-	
-  const sentenceComplexityValue = vaultStats.totalWords / vaultStats.totalSentences;
-  const sentenceDensityValue = vaultStats.totalSentences / vaultStats.totalWords;
-  const fileComplexityValue = sentenceComplexityValue * vaultStats.averageWordsPerFile;
-  const wordComplexityValue = vaultStats.totalChars / vaultStats.totalWords;
+	const aimRaw = (1 / averageWordsPerSentence + 1 / averageSentenceLength) * 100;
+  const aim = Math.pow(aimRaw, 0.8);
 
-  // bonuses and nerfs
-  let sentenceBonus = 0;
+  const strainRaw = Math.log2(totalWords + 1) * (averageParagraphLength + longestParagraphLength);
+  const strain = Math.pow(strainRaw, 0.6);
 
-  if (vaultStats.averageSentencesPerFile > vaultStats.averageSentencesPerParagraph) {
-    sentenceBonus = vaultStats.averageSentencesPerFile / vaultStats.averageSentencesPerParagraph;
-  } else if (vaultStats.averageSentencesPerFile < vaultStats.averageSentencesPerParagraph) {
-	  sentenceBonus = vaultStats.averageSentencesPerParagraph / vaultStats.averageSentencesPerFile;
-  }
+  const speedRaw = totalFiles * Math.log2(averageWordsPerFile + 1);
+  const speed = Math.pow(speedRaw, 0.5);
 
-  const readabilityMultiplier = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence)) / 10);
-  const readabilityBonus = (sentenceDensityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
-	
-  const overallComplexityValue = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
+  const sliderRaw = (totalParagraphs * averageSentencesPerParagraph * Math.log2(averageParagraphLength + 2));
+  const slider = Math.pow(sliderRaw, 0.6);
 
-  const lengthBonus = vaultStats.longestParagraphLength / vaultStats.longestSentenceLength;
-  const sLengthBonus = vaultStats.longestSentenceLength / vaultStats.averageSentenceLength;
-  const paragraphBonus = vaultStats.longestParagraphLength / vaultStats.averageParagraphLength;
+  const tagSentenceRatio = totalTags / Math.max(totalSentences, 1);
+  const charPerSentencePenalty = averageCharsPerSentence / 100;
+  const accuracyRaw = (tagSentenceRatio * 100) / charPerSentencePenalty;
+  const accuracy = Math.pow(accuracyRaw, 0.7);
 
-  const totalLengthBonus = (sLengthBonus + paragraphBonus) / lengthBonus;
+  const scale = (v, max) => Math.min(100, (v / max) * 100);
 
-  const coherenceBonus = vaultStats.averageWordsPerSentence > 0 ? vaultStats.averageSentencesPerParagraph / vaultStats.averageWordsPerSentence : 0;
+  const aimValue = scale(aim, 80.2374918532);
+  const strainValue = scale(strain, 149.6821400294);
+  const speedValue = scale(speed, 200.3149785217);
+  const sliderValue = scale(slider, 100.8703294731);
+  const accuracyValue = scale(accuracy, 120.1038649715);
 
-  const informativenessValue = vaultStats.totalWords * (vaultStats.totalChars / vaultStats.totalWords);
-
-  const readingLevel = (0.39 * vaultStats.averageWordsPerSentence + 11.8 * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence) - 15.59) / 5;
-
-  const readingBonus = readabilityBonus * readingLevel * readabilityMultiplier;
-
-  const alternativeReadabilityValue = 0.39 * vaultStats.averageWordsPerSentence + 11.8 * wordComplexityValue;
-  let shortWordsNerf = 0;
-
-  if (alternativeReadabilityValue > 25) {
-	  shortWordsNerf = alternativeReadabilityValue * (wordComplexityValue / 5);
-  } else if (alternativeReadabilityValue < 25) {
-	  shortWordsNerf = alternativeReadabilityValue - penaltyFactor * (wordComplexityValue / 5);
-  }
+  const combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
 	const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 	let angleBonus = 0;
@@ -93,8 +81,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 		starRatingBonus = (angleValue * starRating) / 2.4;
   }
 	
-  // i had to prevent inflation and attempt to balance these values.
-  const performanceValue: number = ((fileValue / 1.11) + (overallComplexityValue * 1.14) + ((angleBonus + starRatingBonus) / (a ** 2)) + (totalLengthBonus / 0.96) + (coherenceBonus / 0.76) + (informativenessValue ** 0.3425) + (readingBonus ** 0.45) + (shortWordsNerf / -1)) / 1.9775;
-
+  const performanceValue: number = angleBonus + starRatingBonus + (combinedValue * (starRating / 2));
+	  
   return performanceValue;
 }  

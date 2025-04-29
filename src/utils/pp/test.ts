@@ -94,7 +94,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   }
 	
   // i had to prevent inflation and attempt to balance these values.
-  const performanceValue: number = ((fileValue / 1.12) + (overallComplexityValue * 1.07) + ((angleBonus + starRatingBonus) / (a ** 2)) + (totalLengthBonus / 1.3) + (coherenceBonus * 1.01) + (informativenessValue ** 0.3725) + (readingBonus ** 0.49) + shortWordsNerf) / 1.975;
+  const performanceValue: number = ((fileValue / 1.11) + (overallComplexityValue * 1.14) + ((angleBonus + starRatingBonus) / (a ** 2)) + (totalLengthBonus / 0.96) + (coherenceBonus / 0.76) + (informativenessValue ** 0.3425) + (readingBonus ** 0.45) + (shortWordsNerf / -1)) / 1.9775;
 
   return performanceValue;
 }  

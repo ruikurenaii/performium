@@ -75,11 +75,11 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const scale = (v: number, max: number) => Math.min(100, (v / max) * 100);
 
-  const aimValue = scale(aim, 80.2374918532);
+  const aimValue = scale(aim, 79.2374918532);
   const strainValue = scale(strain, 149.6821400294);
-  const speedValue = scale(speed, 200.3149785217);
-  const sliderValue = scale(slider, 100.8703294731);
-  const accuracyValue = scale(accuracy, 120.1038649715);
+  const speedValue = scale(speed, 199.3149785217);
+  const sliderValue = scale(slider, 99.8703294731);
+  const accuracyValue = scale(accuracy, 119.1038649715);
 
   const combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
@@ -107,7 +107,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 		starRatingBonus = (angleValue * starRating) / 2.4;
   }
 	
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 2.1) + (combinedValue * (starRating / 2));
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2));
 	  
   return performanceValue;
 }  

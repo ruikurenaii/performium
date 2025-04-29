@@ -13,7 +13,7 @@ import { calculateStarRating } from "../values/starRating";
 export async function calculatePerformance(app: App): Promise<number> {
   const vaultStats = await calculateVaultStats(app);
 
-	const totalFiles = vaultStats.totalFiles;
+  const totalFiles = vaultStats.totalFiles;
   const totalFolders = vaultStats.totalFolders;
   const totalWords = vaultStats.totalWords;
   const totalChars = vaultStats.totalChars;
@@ -30,7 +30,33 @@ export async function calculatePerformance(app: App): Promise<number> {
   const longestSentenceLength = vaultStats.longestSentenceLength;
   const longestParagraphLength = vaultStats.longestParagraphLength;
 
-	const aimRaw = (1 / averageWordsPerSentence + 1 / averageSentenceLength) * 100;
+  let a = 1.7349285739;
+  let b = 1.6893741205;
+  let c = 1.6228493017;
+  let d = 1.3428593012;
+  let e = 1.8753012946;
+  let f = 1.2109483725;
+
+  const sentenceComplexityValue = vaultStats.totalWords / vaultStats.totalSentences;
+  const sentenceDensityValue = vaultStats.totalSentences / vaultStats.totalWords;
+  const fileComplexityValue = sentenceComplexityValue * vaultStats.averageWordsPerFile;
+  const wordComplexityValue = vaultStats.totalChars / vaultStats.totalWords;
+
+  let sentenceBonus = 0;
+
+  if (vaultStats.averageSentencesPerFile > vaultStats.averageSentencesPerParagraph) {
+    sentenceBonus = vaultStats.averageSentencesPerFile / vaultStats.averageSentencesPerParagraph;
+  } else if (vaultStats.averageSentencesPerFile < vaultStats.averageSentencesPerParagraph) {
+	  sentenceBonus = vaultStats.averageSentencesPerParagraph / vaultStats.averageSentencesPerFile;
+  }
+
+  const readabilityMultiplier = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence)) / 10);
+  const readabilityBonus = (sentenceDensityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
+	
+  const overallComplexityValue = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
+
+
+  const aimRaw = (1 / averageWordsPerSentence + 1 / averageSentenceLength) * 100;
   const aim = Math.pow(aimRaw, 0.8);
 
   const strainRaw = Math.log2(totalWords + 1) * (averageParagraphLength + longestParagraphLength);
@@ -47,7 +73,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   const accuracyRaw = (tagSentenceRatio * 100) / charPerSentencePenalty;
   const accuracy = Math.pow(accuracyRaw, 0.7);
 
-  const scale = (v, max) => Math.min(100, (v / max) * 100);
+  const scale = (v: number, max: number) => Math.min(100, (v / max) * 100);
 
   const aimValue = scale(aim, 80.2374918532);
   const strainValue = scale(strain, 149.6821400294);

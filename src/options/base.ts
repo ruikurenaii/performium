@@ -13,7 +13,7 @@ import PerformiumPlugin from "../main";
 export interface PerformiumBaseSettings {
   ppSystem: string;
   installTimestamp?: number;
-	totalFocusTime?: number;
+  totalFocusTime?: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
@@ -40,7 +40,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25",
-		      "041325": "04-13-25 (Current)",
+		  "041325": "04-13-25",
+		  "042925": "04-29-25 (Current)",
           "test": "Test System (EXPERIMENTAL)"
         });
         

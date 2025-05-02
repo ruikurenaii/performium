@@ -110,7 +110,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const averageToLongestSentenceRatio = longestSentenceLength / averageSentenceLength;
 	const averageToLongestParagraphRatio = longestParagraphLength / averageParagraphLength;
 	
-	const roughnessPenalty = (((sentenceComplexityValue / sentenceDensityValue) * (sentenceDensityValue / sentenceCComplexityValue)) * scale(combinedValue / 6.9420, averageToLongestSentenceRatio)) / -1;
+	const roughnessPenalty = (((sentenceComplexityValue / sentenceDensityValue) * (sentenceDensityValue / sentenceComplexityValue)) * scale(combinedValue / 6.9420, averageToLongestSentenceRatio)) / -1;
 	
   const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535);
 	  

@@ -8,7 +8,7 @@ import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
 import { calculateStarRating } from "../values/starRating";
-import { calculateVaultDifficultyFactors } from "../../functions/vaultDifficulttFactors";
+import { calculateVaultDifficultyFactors } from "../../functions/vaultDifficultyFactors";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {

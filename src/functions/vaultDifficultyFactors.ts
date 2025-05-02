@@ -1,4 +1,4 @@
-function calculateVaultDifficultyFactors(stats: {
+export async function calculateVaultDifficultyFactors(stats: {
   totalFiles: number,
   totalFolders: number,
   totalWords: number,

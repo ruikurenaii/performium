@@ -34,11 +34,18 @@ export function generateFact(installTimestamp: number): string {
     `The developer only coded this from a mobile phone without any test compiling in it!`,
     `There's an official discord server in which you can join by copying this link: https://discord.gg/hXTFFQHC2Q`,
     `The developer tried to add something else, but didn't work at all, so they scrapped the addition!`,
-    `The developer got their phone stolen in April Fools 2024 and never got it back! That's not funny at all!`
+    `The developer got their phone stolen in April Fools 2024 and never got it back! That's not funny at all!`,
+    `Every rework changes the values? Latest changes made are also available in beta versions!`,
+    `This might feel like having either the splash texts from minecraft and terraria...`,
+    `Never gonna give you up, never gonna let you down, never gonna run around and desert you!`,
+    `Some changes to the pp values might be the rebalance changes...`,
+    `If you are reading this, then I would like to congratulate you! You are now officially reading the longest line you have ever saw possible in this \"Fun Fact\" section! Have you know how long it took you to get this one? I mean, I had no clue about this either, so don't ask me, haha!`,
+    `Who said things aren't going well right now?`,
+    `YAP YAP YAPPATRON, I HAD ENOUGH YAPPING FOR TODAY 🗣️🔥`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped
-	array.push(`There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${((1 / array.length) * 100).toFixed(2)}%)!`);
+	array.push(`There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${((1 / (array.length + 1)) * 100).toFixed(2)}%)!`);
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;

@@ -51,7 +51,7 @@ export async function calculatePerformance(app: App): Promise<number> {
   }
 
   const readabilityMultiplier = 100 - ((vaultStats.averageWordsPerSentence * (vaultStats.averageCharsPerSentence / vaultStats.averageWordsPerSentence)) / 10);
-  const readabilityBonus = (sentenceDensityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
+  const readabilityBonus = (sentenceComplexityValue / sentenceDensityValue) * (readabilityMultiplier / 10);
 	
   const overallComplexityValue = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
 
@@ -106,8 +106,13 @@ export async function calculatePerformance(app: App): Promise<number> {
 		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
 		starRatingBonus = (angleValue * starRating) / 2.4;
   }
+
+	const averageToLongestSentenceRatio = longestSentenceLength / averageSentenceLength;
+	const averageToLongestParagraphRatio = longestParagraphLength / averageParagraphLength;
 	
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2));
+	const roughnessPenalty = (((sentenceComplexityValue / sentenceDensityValue) * (sentenceDensityValue / sentenceCComplexityValue)) * scale(combinedValue / 6.9420, averageToLongestSentenceRatio)) / -1;
+	
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535);
 	  
   return performanceValue;
 }  

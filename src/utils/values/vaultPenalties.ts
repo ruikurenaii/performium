@@ -1,4 +1,4 @@
-export async function calculateVaultPenaltiesComplex({
+export async function calculateVaultPenalties({
   totalFiles,
   totalFolders,
   totalWords,

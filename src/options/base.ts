@@ -39,10 +39,10 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .setDesc("Select a performance points system used for calculaton. Remember: Different PP system means different values!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
-          "040625": "04-06-25",
-		  "041325": "04-13-25",
-		  "042925": "04-29-25 (Current)",
-          "test": "Test System (EXPERIMENTAL)"
+          "040625": "04-06-25 (v1.0.0)",
+		  "041325": "04-13-25 (v1.1.0)",
+		  "042925": "04-29-25 (v1.2.0, Current)",
+          "test": "Test System (v1.3.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);

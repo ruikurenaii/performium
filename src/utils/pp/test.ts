@@ -38,7 +38,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	totalFolders: totalFolders,
 	totalWords: totalWords,
 	totalParagraphs: totalParagraphs
-  };
+  });
 
   let a = 1.7349285739;
   let b = 1.6893741205;

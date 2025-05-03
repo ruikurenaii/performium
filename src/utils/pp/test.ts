@@ -129,7 +129,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 
   const overallPenalty = vaultPenalties.shit + Math.pow(vaultPenalties.meh, 0.6666666667) + Math.pow(vaultPenalties.okay, 0.3333333333);
 	
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + (factorBonus / 2.7182818284) + (overallPenalty / f);
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + (factorBonus / (2.7182818284 ** 2.5)) + (overallPenalty / -1);
 	  
   return performanceValue;
 }  

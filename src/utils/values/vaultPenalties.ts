@@ -27,13 +27,13 @@ export async function calculateVaultPenalties({
   if (wordsPerParagraph < 8) fifties += Math.pow((8 - wordsPerParagraph) / 8, 1.8) * totalParagraphs * 0.9;
   if (wordsPerFile < 3) fifties += Math.pow((3 - wordsPerFile) / 3, 2) * totalFiles * 0.8;
 
-  shit = Math.floor(misses);
-  okay = Math.floor(hundreds);
-  meh = Math.floor(fifties);
+  misses = Math.floor(misses);
+  hundreds = Math.floor(hundreds);
+  fifties = Math.floor(fifties);
 
   return {
-    shit,
-    okay,
-    meh
+    shit = misses,
+    okay = hundreds,
+    meh = fifties
   };
 }

@@ -8,7 +8,8 @@ import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
 import { calculateStarRating } from "../values/starRating";
-import { calculateVaultDifficultyFactors } from "../../functions/vaultDifficultyFactors";
+import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactors";
+import { calculateVaultPenalties } from "../values/vaultPenalties"
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(app: App): Promise<number> {
@@ -31,6 +32,13 @@ export async function calculatePerformance(app: App): Promise<number> {
   const averageSentenceLength = vaultStats.averageSentenceLength;
   const longestSentenceLength = vaultStats.longestSentenceLength;
   const longestParagraphLength = vaultStats.longestParagraphLength;
+
+  const vaultPenalties = await calculateVaultPenalties({
+    totalFiles: totalFiles,
+	totalFolders: totalFolders,
+	totalWords: totalWords,
+	totalParagraphs: totalParagraphs
+  };
 
   let a = 1.7349285739;
   let b = 1.6893741205;
@@ -118,8 +126,10 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const OdBonus = combinedValue * (difficultyFactors.OD * (difficultyFactors.AR / 10));
 
 	const factorBonus = Math.pow(ArBonus, 0.6) + Math.pow(OdBonus, 0.8);
+
+  const overallPenalty = vaultPenalties.shit + Math.pow(vaultPenalties.meh, 0.6666666667) + Math.pow(vaultPenalties.okay, 0.3333333333);
 	
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + (factorBonus / 2.7182818284);
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + (factorBonus / 2.7182818284) + (overallPenalty / f);
 	  
   return performanceValue;
 }  

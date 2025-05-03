@@ -125,7 +125,7 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const ArBonus = (combinedValue * 0.1) * (1 + (difficultyFactors.AR / 10));
 	const OdBonus = combinedValue * (difficultyFactors.OD * (difficultyFactors.AR / 10));
 
-	const factorBonus = Math.pow(ArBonus, 0.6) + Math.pow(OdBonus, 0.8);
+	const factorBonus = Math.pow(ArBonus, 0.45) + Math.pow(OdBonus, 0.575);
 
   const overallPenalty = vaultPenalties.shit + Math.pow(vaultPenalties.meh, 0.6666666667) + Math.pow(vaultPenalties.okay, 0.3333333333);
 	

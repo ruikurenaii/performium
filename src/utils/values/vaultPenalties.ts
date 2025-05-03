@@ -32,8 +32,8 @@ export async function calculateVaultPenalties({
   fifties = Math.floor(fifties);
 
   return {
-    shit = misses,
-    okay = hundreds,
-    meh = fifties
+    shit: misses,
+    okay: hundreds,
+    meh: fifties
   };
 }

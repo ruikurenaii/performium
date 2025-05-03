@@ -117,9 +117,9 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const ArBonus = (combinedValue * 0.1) * (1 + (difficultyFactors.AR / 10));
 	const OdBonus = combinedValue * (difficultyFactors.OD * (difficultyFactors.AR / 10));
 
-	const factorBonus = ArBonus + OdBonus;
+	const factorBonus = Math.pow(ArBonus, 0.6) + Math.pow(OdBonus, 0.8);
 	
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + factorBonus;
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty / 3.1415926535) + (factorBonus / 2.7182818284);
 	  
   return performanceValue;
 }  

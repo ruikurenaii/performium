@@ -114,8 +114,8 @@ export async function calculatePerformance(app: App): Promise<number> {
 	
 	const roughnessPenalty = (((sentenceComplexityValue / sentenceDensityValue) * (sentenceDensityValue / sentenceComplexityValue)) * scale(combinedValue / 6.9420, averageToLongestSentenceRatio)) / -1;
 
-	const ArBonus = (combinedValue * 0.1) * (1 + (difficultyFacotrs.AR / 10));
-	const OdBonus = combinedValue * (difficulyFactors.OD * (difficultyFactors.AR / 10));
+	const ArBonus = (combinedValue * 0.1) * (1 + (difficultyFactors.AR / 10));
+	const OdBonus = combinedValue * (difficultyFactors.OD * (difficultyFactors.AR / 10));
 
 	const factorBonus = ArBonus + OdBonus;
 	

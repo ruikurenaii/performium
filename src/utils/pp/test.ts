@@ -134,8 +134,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
   
   const timeBonus: number = Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
+
+	const bonusValue = (417 / (1 / 3)) * (1 - (0.995 ** Math.min(1000, totalFiles)));
   
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 1.85) + (combinedValue * (starRating / 2)) + (roughnessPenalty * (3.1415926535 / 0.85)) + (factorBonus / 2.7182818284) + (overallPenalty / -1) + (timeBonus / 9.8);
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue;
   
   return performanceValue;
 }

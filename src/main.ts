@@ -51,7 +51,7 @@ export default class PerformiumPlugin extends Plugin {
   
   async calculatePerformance(): Promise < number > {
     if (this.settings.ppSystem === "test") {
-      return calculatePerformanceTest();
+      return calculatePerformanceTest(this);
     } else if (this.settings.ppSystem === "042925") {
       return calculatePerformance042925(this.app);
 	} else if (this.settings.ppSystem === "041325") {

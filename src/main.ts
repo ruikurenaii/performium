@@ -4,6 +4,7 @@ import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from 
 // import different performance points systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";
 import { calculatePerformance as calculatePerformance041325 } from "./utils/pp/041325";
+import { calculatePerformance as calculatePerformance042625 } from "./utils/pp/unreleased/042625";
 import { calculatePerformance as calculatePerformance042925 } from "./utils/pp/042925";
 import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
 
@@ -54,6 +55,8 @@ export default class PerformiumPlugin extends Plugin {
       return calculatePerformanceTest(this.app);
     } else if (this.settings.ppSystem === "042925") {
       return calculatePerformance042925(this.app);
+	} else if (this.settings.ppSystem === "042625") {
+      return calculatePerformance042625(this.app);
 	} else if (this.settings.ppSystem === "041325") {
       return calculatePerformance041325(this.app);
     } else {

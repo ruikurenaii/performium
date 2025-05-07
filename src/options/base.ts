@@ -41,6 +41,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
 		  "041325": "04-13-25 (v1.1.0)",
+		  "042625": "04-26-25 (v1.2.0b, Unreleased)",
 		  "042925": "04-29-25 (v1.2.0, Current)",
           "test": "Test System (v1.3.0b, EXPERIMENTAL)"
         });

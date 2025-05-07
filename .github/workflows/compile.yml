@@ -4,9 +4,9 @@ on:
   push:
     tags:
       - "v*"
-    branches: [ main ]
+    branches: [ timebonus-debug ]
   pull_request:
-    branches: [ main ]
+    branches: [ timebonus-debug ]
 
 jobs:
   build:
@@ -43,5 +43,5 @@ jobs:
       - name: Export Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: performium
+          name: performium-timebonus-debug
           path: release

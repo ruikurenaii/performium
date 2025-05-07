@@ -4,7 +4,8 @@
   
 */
 
-import { App, Plugin } from "obsidian";
+import { App } from "obsidian";
+import { PerformiumPlugin } from "../../main";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
 import { calculateStarRating } from "../values/starRating";

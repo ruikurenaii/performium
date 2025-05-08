@@ -109,8 +109,12 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 1000));
 
   sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 1000);
+
+  accuracyValue *= 1 + (difficultyFactors.OD / 10);
   
   const combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
+
+  combinedValue *= 1 + ((10.33 - difficultyFactors.AR) / 10);
   
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
   let angleBonus = 0;

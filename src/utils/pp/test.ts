@@ -46,7 +46,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const vaultObjects = await calculateVaultObjects({
     totalFiles: totalFiles,
-    totalFolders: totalFolders,
+    totalWord: totalWords,
     averageParagraphLength: averageParagraphLength,
     averageSentencesPerParagraph: averageSentencesPerParagraph,
 	averageWordsPerSentence: averageWordsPerSentence,

@@ -29,9 +29,9 @@ export async function calculateVaultObjects({
 
   const scale = (value: number, max: number) => Math.min(100, (value / max) * 100);
 
-  const finalCircles: number = scale(circleObjects, circleFactor / 2.5);
-  const finalSliders: number = scale(sliderObjects, sliderFactor / 2.5);
-  const finalSpinners: number = scale(spinnerObjects, spinnerFactor / 2.5);
+  const finalCircles: number = scale(circleObjects, circleFactor * (1 + (3.1415926535 / 6.6)));
+  const finalSliders: number = scale(sliderObjects, sliderFactor * (1 + (3.1415926535 / 10)));
+  const finalSpinners: number = scale(spinnerObjects, spinnerFactor * (1 / 17));
 
   return {
     circles: Math.trunc(finalCircles),

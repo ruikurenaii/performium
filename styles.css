@@ -1,0 +1,24 @@
+.main-window-class {
+  text-align: center;
+}
+
+.main-window-header {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.main-window-value {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.main-window-time {
+  font-size: 1em;
+  color: var(--text-muted);
+}
+
+.muted-text-style {
+  /* font-size: var(--font-ui-smaller); */
+  color: var(--text-muted);
+  font-weight: bold;
+} 

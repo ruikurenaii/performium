@@ -112,7 +112,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   accuracyValue *= 1 + (difficultyFactors.OD / 10);
   
-  const combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
+  let combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
   combinedValue *= 1 + ((10.33 - difficultyFactors.AR) / 10);
   

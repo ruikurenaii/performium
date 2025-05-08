@@ -11,6 +11,7 @@ import { calculateVaultAngle } from "../values/vaultAngle";
 import { calculateStarRating } from "../values/starRating";
 import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactors";
 import { calculateVaultPenalties } from "../values/vaultPenalties"
+import { calculateVaultObjects } from "../values/vaultObjects";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -41,6 +42,18 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalFolders: totalFolders,
     totalWords: totalWords,
     totalParagraphs: totalParagraphs
+  });
+
+  const vaulObjects = await calculateVaultObjects({
+    totalFiles: totalFiles,
+    totalFolders: totalFolders,
+    averageParagraphLength: averageParagraphLength,
+    averageSentencesPerParagraph: averageSentencesPerParagraph,
+	averageWordsPerSentence: averageWordsPerSentence,
+	longestSentenceLength: longestSentenceLength,
+	longestParagraphLength: longestParagraphLength,
+	averageWordsPerFile: averageWordsPerFile,
+	totalSentences: totalSentences
   });
   
   let a = 1.7349285739;
@@ -92,6 +105,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const speedValue = scale(speed, 199.3149785217);
   const sliderValue = scale(slider, 99.8703294731);
   const accuracyValue = scale(accuracy, 119.1038649715);
+
+  aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 1000);
+
+  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 1000);
   
   const combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
   

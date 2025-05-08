@@ -100,11 +100,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   
   const scale = (v: number, max: number) => Math.min(100, (v / max) * 100);
   
-  const aimValue = scale(aim, 79.2374918532);
-  const strainValue = scale(strain, 149.6821400294);
-  const speedValue = scale(speed, 199.3149785217);
-  const sliderValue = scale(slider, 99.8703294731);
-  const accuracyValue = scale(accuracy, 119.1038649715);
+  let aimValue = scale(aim, 79.2374918532);
+  let strainValue = scale(strain, 149.6821400294);
+  let speedValue = scale(speed, 199.3149785217);
+  let sliderValue = scale(slider, 99.8703294731);
+  let accuracyValue = scale(accuracy, 119.1038649715);
 
   aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 1000));
 

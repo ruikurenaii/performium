@@ -19,9 +19,9 @@ export async function calculateVaultObjects({
   averageWordsPerFile: number,
   totalSentences: number
 }) {
-  circleFactor = totalFiles / (totalWords + 1);
-  sliderFactor = (averageParagraphLength * averageSentencesPerParagraph) / (averageWordsPerSentence + 1);
-  spinnerFactor = Math.log2(longestParagraphLength + longestSentenceLength + 1);
+  const circleFactor = totalFiles / (totalWords + 1);
+  const sliderFactor = (averageParagraphLength * averageSentencesPerParagraph) / (averageWordsPerSentence + 1);
+  const spinnerFactor = Math.log2(longestParagraphLength + longestSentenceLength + 1);
 
   const circleObjects = Math.pow(circleFactor, 0.75) * (1 - Math.min(0.5, Math.log2(averageWordsPerFile + 1) / 10));
   const sliderObjects = Math.pow(sliderFactor, 0.9) * (1 - Math.min(0.3, 1 / (averageParagraphLength + 1)));

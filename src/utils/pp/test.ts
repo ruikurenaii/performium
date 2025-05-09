@@ -64,6 +64,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 	  totalSentences: totalSentences
   });
   
+  // this piece of code was taken from an older pp system
   let a = 1.7349285739;
   let b = 1.6893741205;
   let c = 1.6228493017;
@@ -89,6 +90,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   
   const overallComplexityValue = a * sentenceComplexityValue + b * sentenceDensityValue + c * (vaultStats.totalWords / vaultStats.totalFiles) + d * wordComplexityValue + e * sentenceBonus + f * readabilityBonus;
   
+  // raw pp calculation
   const aimRaw = (1 / averageWordsPerSentence + 1 / averageSentenceLength) * 100;
   const aim = Math.pow(aimRaw, 0.8);
   
@@ -124,6 +126,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   combinedValue *= 1 + ((10.33 - difficultyFactors.AR) / 10);
   
+  // vault angle calculation
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
   let angleBonus = 0;
   
@@ -131,19 +134,19 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let starRatingBonus = 0;
   
   if (angleValue < 180 || angleValue >= 360) {
-    // if the angle is more than a straight angle, but a reflex angle
+    // if the angle is more than a straight angle, but a reflex angle (determines that the vault is cleaner)
     angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
     starRatingBonus = (angleValue * starRating) / 1.2;
   } else if (angleValue < 120 || angleValue > 180) {
-    // if the angle is way obtuse, but not straight
+    // if the angle is way obtuse, but not straight (defines that the vault is clean)
     angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (angleValue / 15);
     starRatingBonus = (angleValue * starRating) / 1.5;
   } else if (angleValue < 90 || angleValue > 120) {
-    // if the angle is obtuse
+    // if the angle is obtuse (also determines that the vault is a bit dirty)
     angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (angleValue / 20);
     starRatingBonus = (angleValue * starRating) / 1.9;
   } else if (angleValue < 89) {
-    // if the angle is an acute angle (just like in osu!)
+    // if the angle is an acute angle (just like in osu!) (it als odetermines that the vault is horrendous)
     angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
     starRatingBonus = (angleValue * starRating) / 2.4;
   }
@@ -175,6 +178,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     if (averageSentencesPerParagraph >= averageSentencesPerFile) {
       lengthBonus *= 1 + (averageSentencesPerFile / 15);
     }
+  }
+
+  // add a bit of value with star rating
+  combinedValue *= 1 + (starRating / 10.1);
+
+  // is the star rating is more than 5*
+  if (starRating > 5) {
+    combinedValue *= 1 + ((starRating - 5) / 8.9);
   }
 
   const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + lengthBonus + burstScore;

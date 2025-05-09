@@ -13,7 +13,7 @@ export async function calculateBurstScore({
   const burstPrecision = 1 / (averageWordsPerSentence + 1);
   const burstFrequency = totalParagraphs / totalFiles;
 
-  const burstScore = Math.pow(burstDensity * burstFrequency * burstPrecision, 0.32);
+  const burstScore = Math.pow(burstDensity * burstFrequency * burstPrecision, 0.32) / 5;
 
   return burstScore;
 }

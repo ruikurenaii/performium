@@ -15,7 +15,7 @@ export function calculateStarRating(totalParagraphs: number, vaultAngle: number)
 
   finalRating = finalRating + Math.log(finalRating + 1) * 0.2;
 
-  const contentSrBonus = (Math.pow(finalRating, 0.8) / 4.7) + (Math.pow(totalParagraphs, 0.05) / 5);
+  const contentSrBonus = (Math.pow(finalRating, 0.8) / 4.7) + (Math.pow(totalParagraphs, 0.05) / 13.65);
 
   finalRating += contentSrBonus;
 

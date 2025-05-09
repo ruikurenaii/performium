@@ -57,11 +57,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalWords: totalWords,
     averageParagraphLength: averageParagraphLength,
     averageSentencesPerParagraph: averageSentencesPerParagraph,
-	averageWordsPerSentence: averageWordsPerSentence,
-	longestSentenceLength: longestSentenceLength,
-	longestParagraphLength: longestParagraphLength,
-	averageWordsPerFile: averageWordsPerFile,
-	totalSentences: totalSentences
+	  averageWordsPerSentence: averageWordsPerSentence,
+	  longestSentenceLength: longestSentenceLength,
+	  longestParagraphLength: longestParagraphLength,
+	  averageWordsPerFile: averageWordsPerFile,
+	  totalSentences: totalSentences
   });
   
   let a = 1.7349285739;

@@ -1,4 +1,9 @@
 export async function calculateBurstScore({
+  totalFiles,
+  totalParagraphs,
+  averageSentencesPerParagraph,
+  averageWordsPerSentence
+}: {
   totalFiles: number,
   totalParagraphs: number,
   averageSentencesPerParagraph: number,

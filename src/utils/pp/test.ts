@@ -167,6 +167,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // const bonusValue = (417 - (1 / 3)) * (1 - (0.995 ** Math.min(1000, totalFiles)));
   const bonusValue = (417 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
 
+  let lengthBonus: number = 0;
+
   // this meant by the content of the entire vault
   if (averageSentencesPerFile >= 35) {
     lengthBonus = averageSentencesPerFile - 35;

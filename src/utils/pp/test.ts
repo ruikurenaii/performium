@@ -185,10 +185,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // is the star rating is more than 5*
   if (starRating > 5) {
-    combinedValue *= 1 + ((starRating - 5) / 8.9);
+    combinedValue *= 1 + ((starRating - 5) / 8.92);
   }
 
-  const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + lengthBonus + burstScore;
+  const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + lengthBonus + (burstScore / 3.57);
   
   return performanceValue;
 }

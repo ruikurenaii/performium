@@ -158,6 +158,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // const bonusValue = (417 - (1 / 3)) * (1 - (0.995 ** Math.min(1000, totalFiles)));
   const bonusValue = (417 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
+
+  if (averageSentencesPerFile >= 35) {
+    lengthBonus = averageSentencesPerFile - 35:
+    if (averageSentencesPerParagraph >= averageSentencesPerFile) {
+      lengthBonus *= 1 = (averageSentencesPerFile / 15);
+    }
+  }
   
   const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue;
   

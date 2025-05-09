@@ -147,7 +147,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     starRatingBonus = (angleValue * starRating) / 1.9;
   } else if (angleValue < 89) {
     // if the angle is an acute angle (just like in osu!) (it als odetermines that the vault is horrendous)
-    angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
+    angleBonus = ((overallComplexityValue / (1.8275 ** 4)) + (angleValue / 10)) * -1;
     starRatingBonus = (angleValue * starRating) / 2.4;
   }
   

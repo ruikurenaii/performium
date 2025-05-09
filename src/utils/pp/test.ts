@@ -173,7 +173,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   if (averageSentencesPerFile >= 35) {
     lengthBonus = averageSentencesPerFile - 35;
     if (averageSentencesPerParagraph >= averageSentencesPerFile) {
-      lengthBonus *= 1 = (averageSentencesPerFile / 15);
+      lengthBonus *= 1 + (averageSentencesPerFile / 15);
     }
   }
 

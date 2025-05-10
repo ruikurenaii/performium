@@ -12,7 +12,7 @@ export class comparePerformanceModal extends Modal {
 
   onOpen() {
     const { contentEl } = this;
-    const difference = secondaryPpValue - this.ppValue;
+    const difference = this.secondaryPpValue - this.ppValue;
 
     let differenceText: string = "";
 

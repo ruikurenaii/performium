@@ -25,7 +25,7 @@ export class comparePerformanceModal extends Modal {
     // let contentText = `Compared values:\n\nCurrent performance value:\n${this.ppValue.toFixed(0)}pp\n\nCompared performance value:\n${this.secondaryPpValue.toFixed(0)}pp\n\nDifference:\n${differenceText}`;
 
 		contentEl.empty();
-	  contentEl.addClass("main-window-class");
+	  contentEl.addClass("comparison-window-class");
 
     this.setTitle("Performance values comparison");
 

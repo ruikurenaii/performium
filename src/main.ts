@@ -1,5 +1,6 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
+import { comparePerformanceModal } from "./modals/comparePerformanceModal";
 
 // import different performance points systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";
@@ -48,6 +49,28 @@ export default class PerformiumPlugin extends Plugin {
         new Notice("Performance points calculation has started");
       },
     );
+
+    this.addCommand({
+      id: "compare-performance",
+      name: "Compare performance points",
+      callback: async () => {
+        const performanceValue = await this.calculatePerformance();
+        const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
+        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
+        new Notice("Performance points comparison has started");
+      }
+    });
+    
+    this.addRibbonIcon(
+      "lucide-align-horizontal-justify-center",
+      "Compare performance points",
+      async () => {
+        const performanceValue = await this.calculatePerformance();
+        const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
+        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
+        new Notice("Performance points comparison has started");
+      },
+    );
   }
   
   async calculatePerformance(): Promise < number > {
@@ -55,9 +78,23 @@ export default class PerformiumPlugin extends Plugin {
       return calculatePerformanceTest(this);
     } else if (this.settings.ppSystem === "050725") {
       return calculatePerformance050725(this);
-	} else if (this.settings.ppSystem === "042925") {
+	  } else if (this.settings.ppSystem === "042925") {
       return calculatePerformance042925(this.app);
-	} else if (this.settings.ppSystem === "041325") {
+	  } else if (this.settings.ppSystem === "041325") {
+      return calculatePerformance041325(this.app);
+    } else {
+      return calculatePerformance040625(this.app);
+    }
+  }
+
+  async calculateSecondaryPerformance(): Promise < number > {
+    if (this.settings.secondaryPpSystem === "test") {
+      return calculatePerformanceTest(this);
+    } else if (this.settings.secondaryPpSystem === "050725") {
+      return calculatePerformance050725(this);
+	  } else if (this.settings.secondaryPpSystem === "042925") {
+      return calculatePerformance042925(this.app);
+	  } else if (this.settings.secondaryPpSystem === "041325") {
       return calculatePerformance041325(this.app);
     } else {
       return calculatePerformance040625(this.app);

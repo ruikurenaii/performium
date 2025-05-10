@@ -22,18 +22,47 @@ export class comparePerformanceModal extends Modal {
       differenceText = `+${difference.toFixed(0)}pp`;
     }
 
-    let contentText = `Compared values:\n\nCurrent performance value:\n${this.ppValue.toFixed(0)}pp\n\nCompared performance value:\n${this.secondaryPpValue.toFixed(0)}pp<br><br>Difference:\n${differenceText}`;
+    // let contentText = `Compared values:\n\nCurrent performance value:\n${this.ppValue.toFixed(0)}pp\n\nCompared performance value:\n${this.secondaryPpValue.toFixed(0)}pp\n\nDifference:\n${differenceText}`;
 
 		contentEl.empty();
 	  contentEl.addClass("main-window-class");
 
     this.setTitle("Performance values comparison");
 
-    const lines = contentText.split('\n');
+    contentEl.createEl('p', {
+      text: "Compared values:"
+    });
 
-    for (const line of lines) {
-      const element = contentEl.createEl('p', { text: line });
-    }
+    contentEl.createEl('p', {
+      text: "Current performance value:"
+    });
+
+    contentEl.createEl('p', {
+      text: "Compared values:"
+    });
+
+    contentEl.createEl('p', {
+      text: `${this.ppValue.toFixed(0)}`,
+      cls: "semi-header-text-style"
+    });
+
+    contentEl.createEl('p', {
+      text: "Compared performance value:"
+    });
+
+    contentEl.createEl('p', {
+      text: `${this.secondaryPpValue.toFixed(0)}`,
+      cls: "semi-header-text-style"
+    });
+
+    contentEl.createEl('p', {
+      text: "Difference:"
+    });
+
+    contentEl.createEl('p', {
+      text: `${differenceText}`,
+      cls: "semi-header-text-style"
+    });
   }
 
   onClose() {

@@ -12,21 +12,32 @@ export class comparePerformanceModal extends Modal {
 
   onOpen() {
     const { contentEl } = this;
-		contentEl.empty();
-	  contentEl.addClass("main-window-class");
-
     const difference = this.ppValue - this.secondaryPpValue;
 
     let differenceText: string = "";
 
     if (difference < 0) {
-      differenceText = `${difference}pp`;
+      differenceText = `${difference.toFixed(0)}pp`;
     } else {
-      differenceText = `+${difference}pp`;
+      differenceText = `+${difference.toFixed(0)}pp`;
     }
+
+    let contentText = `Compared values:\n\nCurrent performance value:\n${this.ppValue.toFixed(0)}pp\n\nCompared performance value:\n${this.secondaryPpValue.toFixed(0)}pp<br><br>Difference:\n${differenceText}`;
+
+		contentEl.empty();
+	  contentEl.addClass("main-window-class");
 
     this.setTitle("Performance values comparison");
 
-    this.setContent(`Compared values:\n\nCurrent performance value:\n${this.ppValue}pp\n\nCompared performance value:\n${this.secondaryPpValue}pp\n\nDifference:\n`);
+    const lines = contentText.split('\n');
+
+    for (const line of lines) {
+      const element = contentEl.createEl('p', { text: line });
+    }
+  }
+
+  onClose() {
+    const { contentEl } = this;
+    contentEl.empty();
   }
 }

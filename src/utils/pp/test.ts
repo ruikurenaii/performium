@@ -118,9 +118,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 4800));
 
-  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 4200);
+  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 6300);
 
-  accuracyValue *= 1 + (difficultyFactors.OD / 143.45);
+  accuracyValue *= 1 + (difficultyFactors.OD / 400);
   
   let combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
@@ -133,7 +133,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const starRating = calculateStarRating(vaultStats.totalParagraphs, angleValue);
   let starRatingBonus = 0;
 
-  combinedValue *= 1 + (starRating / 206);
+  combinedValue *= 1 + (starRating * 0.00125);
   
   if (angleValue < 180 || angleValue >= 360) {
     // if the angle is more than a straight angle, but a reflex angle (determines that the vault is cleaner)

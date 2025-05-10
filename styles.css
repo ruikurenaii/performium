@@ -31,3 +31,11 @@
   font-weight: bolder;
   font-size: 1em;
 }
+
+.comparison-window-class {
+  text-align: center;
+}
+
+.comparison-window-class p {
+  margin: 0.5em 0 0.5em 0;
+}

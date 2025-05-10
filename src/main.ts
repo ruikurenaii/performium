@@ -87,7 +87,8 @@ export class PerformanceModal extends Modal {
   }
   
   onOpen() {
-    const startTime = performance.now();
+    const startTime = new Date();
+    let st = startTime.getTime();
     
     const { contentEl } = this;
     contentEl.empty();
@@ -107,11 +108,22 @@ export class PerformanceModal extends Modal {
       cls: "main-window-value"
     });
     
-    const endTime = performance.now();
-    const timeTaken = (endTime - startTime).toFixed(1);
+    const endTime = new Date();
+    let et = endTime.getTime();
+
+    const timeTaken = et - st;
+    const timeTakenSeconds = timeTaken / 1000;
+    let timeTakenText: string = "";
+
+    // if timeTaken is a second or longer
+    if (timeTaken > 1000) {
+      timeTakenText = (timeTakenSeconds.toFixed(2)).toString() + " s";
+    } else {
+      timeTakenText = timeTaken.toFixed(2) + " ms";
+    }
     
     contentEl.createEl("p", {
-      text: `Total CPU time: ${timeTaken} ms`,
+      text: `Total CPU time: ${timeTakenText}`,
       cls: "main-window-time",
     });
     

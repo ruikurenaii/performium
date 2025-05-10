@@ -190,7 +190,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     combinedValue *= 1 + ((starRating - 5) / 8.92);
   }
 
-  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (1 + (starRating / 2.3))) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.25) + Math.pow(burstScore, 0.25);
+  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (1 + (starRating / 15))) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.25) + Math.pow(burstScore, 0.25);
   
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

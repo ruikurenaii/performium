@@ -120,11 +120,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 4200);
 
-  accuracyValue *= 1 + (difficultyFactors.OD / 61.23);
+  accuracyValue *= 1 + (difficultyFactors.OD / 143.45);
   
   let combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
   combinedValue *= 1 + ((10.33 - difficultyFactors.AR) * 0.0175);
+
+  combinedValue *= 1 + (starRating / 206);
   
   // vault angle calculation
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
@@ -190,5 +192,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.41) + (burstScore / 1.026);
   
+  // if the pp is below 0 and is a negative number
+  if (performanceValue < 0) {
+    performanceValue = 0;
+  }
+
   return performanceValue;
 }

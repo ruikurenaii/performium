@@ -78,9 +78,9 @@ export default class PerformiumPlugin extends Plugin {
       return calculatePerformanceTest(this);
     } else if (this.settings.ppSystem === "050725") {
       return calculatePerformance050725(this);
-	} else if (this.settings.ppSystem === "042925") {
+	  } else if (this.settings.ppSystem === "042925") {
       return calculatePerformance042925(this.app);
-	} else if (this.settings.ppSystem === "041325") {
+	  } else if (this.settings.ppSystem === "041325") {
       return calculatePerformance041325(this.app);
     } else {
       return calculatePerformance040625(this.app);
@@ -88,13 +88,13 @@ export default class PerformiumPlugin extends Plugin {
   }
 
   async calculateSecondaryPerformance(): Promise < number > {
-    if (this.settings.ppSystem === "test") {
+    if (this.settings.secondaryPpSystem === "test") {
       return calculatePerformanceTest(this);
-    } else if (this.settings.ppSystem === "050725") {
+    } else if (this.settings.secondaryPpSystem === "050725") {
       return calculatePerformance050725(this);
-	} else if (this.settings.ppSystem === "042925") {
+	  } else if (this.settings.secondaryPpSystem === "042925") {
       return calculatePerformance042925(this.app);
-	} else if (this.settings.ppSystem === "041325") {
+	  } else if (this.settings.secondaryPpSystem === "041325") {
       return calculatePerformance041325(this.app);
     } else {
       return calculatePerformance040625(this.app);

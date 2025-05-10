@@ -30,20 +30,16 @@ export class comparePerformanceModal extends Modal {
     this.setTitle("Performance values comparison");
 
     contentEl.createEl('p', {
-      text: "Compared values:"
-    });
-
-    contentEl.createEl('p', {
       text: "Current performance value:"
     });
 
     contentEl.createEl('p', {
-      text: "Compared values:"
+      text: `${this.ppValue.toFixed(0)}pp`,
+      cls: "semi-header-text-style"
     });
 
-    contentEl.createEl('p', {
-      text: `${this.ppValue.toFixed(0)}`,
-      cls: "semi-header-text-style"
+	contentEl.createEl('p', {
+      text: ""
     });
 
     contentEl.createEl('p', {
@@ -51,8 +47,12 @@ export class comparePerformanceModal extends Modal {
     });
 
     contentEl.createEl('p', {
-      text: `${this.secondaryPpValue.toFixed(0)}`,
+      text: `${this.secondaryPpValue.toFixed(0)}pp`,
       cls: "semi-header-text-style"
+    });
+
+	contentEl.createEl('p', {
+      text: ""
     });
 
     contentEl.createEl('p', {

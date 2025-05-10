@@ -12,7 +12,7 @@ export class comparePerformanceModal extends Modal {
 
   onOpen() {
     const { contentEl } = this;
-    const difference = this.ppValue - this.secondaryPpValue;
+    const difference = secondaryPpValue - this.ppValue;
 
     let differenceText: string = "";
 
@@ -39,7 +39,8 @@ export class comparePerformanceModal extends Modal {
     });
 
 	contentEl.createEl('p', {
-      text: ""
+      text: "",
+	  cls: "margin-element"
     });
 
     contentEl.createEl('p', {
@@ -52,7 +53,8 @@ export class comparePerformanceModal extends Modal {
     });
 
 	contentEl.createEl('p', {
-      text: ""
+      text: "",
+	  cls: "margin-element"
     });
 
     contentEl.createEl('p', {

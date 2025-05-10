@@ -68,7 +68,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           "test": "Test System (v1.4.0b, EXPERIMENTAL)"
         });
         
-        dropdown.setValue(this.plugin.settings.ppSystem);
+        dropdown.setValue(this.plugin.settings.secondaryPpSystem);
         dropdown.onChange(async (value) => {
           this.plugin.settings.secondaryPpSystem = value;
           await this.plugin.saveSettings();

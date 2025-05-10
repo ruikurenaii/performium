@@ -133,7 +133,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const starRating = calculateStarRating(vaultStats.totalParagraphs, angleValue);
   let starRatingBonus = 0;
 
-  combinedValue *= 1 + (starRating * 0.00125);
+  combinedValue *= 1 + (starRating / 1250);
   
   if (angleValue < 180 || angleValue >= 360) {
     // if the angle is more than a straight angle, but a reflex angle (determines that the vault is cleaner)
@@ -190,7 +190,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     combinedValue *= 1 + ((starRating - 5) / 8.92);
   }
 
-  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.41) + (burstScore / 1.026);
+  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.41) + Math.pow(burstScore, 0.6);
   
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

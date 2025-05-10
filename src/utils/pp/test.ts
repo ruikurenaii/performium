@@ -116,15 +116,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let sliderValue = scale(slider, 99.8703294731);
   let accuracyValue = scale(accuracy, 119.1038649715);
 
-  aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 4800));
+  aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 2400));
 
-  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 6300);
+  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 2100)
 
   accuracyValue *= 1 + (difficultyFactors.OD / 400);
   
   let combinedValue: number = aimValue + strainValue + speedValue + sliderValue + accuracyValue;
 
-  combinedValue *= 1 + ((10.33 - difficultyFactors.AR) * 0.0175);
+  combinedValue *= 1 + ((10.33 - difficultyFactors.AR) / 375);
   
   // vault angle calculation
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);

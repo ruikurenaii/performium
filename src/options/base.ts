@@ -9,17 +9,20 @@ import { timeFormat } from "../utils/values/timeFormat";
 import { generateFact } from "../functions/funFact";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
+import { StringifyOptions } from "querystring";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
   installTimestamp?: number;
   totalFocusTime?: number;
+  secondaryPpSystem: string;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "041325",
+  ppSystem: "050725",
   installTimestamp: undefined,
-	totalFocusTime: 0
+	totalFocusTime: 0,
+  secondaryPpSystem: "040625"
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {
@@ -40,15 +43,34 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
-		  "041325": "04-13-25 (v1.1.0)",
-		  "042925": "04-29-25 (v1.2.0)",
-		  "050725": "05-07-25 (v1.3.0, Current)",
+		      "041325": "04-13-25 (v1.1.0)",
+		      "042925": "04-29-25 (v1.2.0)",
+		      "050725": "05-07-25 (v1.3.0, Current)",
           "test": "Test System (v1.4.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);
         dropdown.onChange(async (value) => {
           this.plugin.settings.ppSystem = value;
+          await this.plugin.saveSettings();
+        });
+      });
+
+    new Setting(containerEl)
+      .setName("Secondary performance points system version")
+      .setDesc("Select a secondary performance points system used for calculaton and comparison of pp. Remember: Read what's on the first setting!")
+      .addDropdown(dropdown => {
+        dropdown.addOptions({
+          "040625": "04-06-25 (v1.0.0)",
+		      "041325": "04-13-25 (v1.1.0)",
+		      "042925": "04-29-25 (v1.2.0)",
+		      "050725": "05-07-25 (v1.3.0, Current)",
+          "test": "Test System (v1.4.0b, EXPERIMENTAL)"
+        });
+        
+        dropdown.setValue(this.plugin.settings.secondaryPpSystem);
+        dropdown.onChange(async (value) => {
+          this.plugin.settings.secondaryPpSystem = value;
           await this.plugin.saveSettings();
         });
       });

@@ -21,4 +21,25 @@
   /* font-size: var(--font-ui-smaller); */
   color: var(--text-muted);
   font-weight: bold;
-} 
+}
+
+.bold-text-style {
+  font-weight: bolder;
+}
+
+.semi-header-text-style {
+  font-weight: bolder;
+  font-size: 1.25em;
+}
+
+.comparison-window-class {
+  text-align: center;
+}
+
+.comparison-window-class p {
+  margin: 0.15em 0 0.15em 0;
+}
+
+.margin-element {
+  margin: 0.65em 0 0.65em 0;
+}

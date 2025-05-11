@@ -39,7 +39,7 @@ export class comparePerformanceModal extends Modal {
     });
 
 	contentEl.createEl('p', {
-      text: "",
+      text: " ",
 	  cls: "margin-element"
     });
 
@@ -53,7 +53,7 @@ export class comparePerformanceModal extends Modal {
     });
 
 	contentEl.createEl('p', {
-      text: "",
+      text: " ",
 	  cls: "margin-element"
     });
 

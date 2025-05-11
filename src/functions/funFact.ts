@@ -41,7 +41,12 @@ export function generateFact(installTimestamp: number): string {
     `Some changes to the pp values might be the rebalance changes...`,
     `If you are reading this, then I would like to congratulate you! You are now officially reading the longest line you have ever saw possible in this \"Fun Fact\" section! Have you know how long it took you to get this one? I mean, I had no clue about this either, so don't ask me, haha!`,
     `Who said things aren't going well right now?`,
-    `YAP YAP YAPPATRON, I HAD ENOUGH YAPPING FOR TODAY 🗣️🔥`
+    `YAP YAP YAPPATRON, I HAD ENOUGH YAPPING FOR TODAY 🗣️🔥`,
+    `In the 11th of May, 2025, the developer\'s phone storage had more than 100 beta builds of performium for mobile testing!`,
+    `After Performium v1.3.0 has been released, the developer switched to developing this plugin on a laptop!`,
+    `Almost every commit before releasing Performium v1.4.0 are all pp rebalances and parity with osu! minor and major pp reworks!`,
+    `Who said making this plugin wasn\'t possible at all?`,
+    `No one had ever thought of integrating the osu! pp system into the app until the 6th of April, 2025!`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

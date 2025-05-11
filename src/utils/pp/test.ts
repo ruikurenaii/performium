@@ -118,7 +118,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   aimValue *= 1 + ((vaultObjects.circles + (vaultObjects.sliders * 2) + (vaultObjects.spinners / 2) / 2400));
 
-  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 2100)
+  // despite the fact that there are tons of circles, we'll put thet bonus into speed pp
+  speedValue *= 1.05 + (vaultObjects.circles * 0.00125);
+
+  sliderValue *= 1 + ((vaultObjects.sliders * 2.25) / 2100);
 
   accuracyValue *= 1 + (difficultyFactors.OD / 400);
   

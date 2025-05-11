@@ -34,7 +34,7 @@ export class comparePerformanceModal extends Modal {
     });
 
     contentEl.createEl('p', {
-      text: `${this.ppValue.toFixed(0)}pp`,
+      text: `${new Intl.NumberFormat().format(Math.trunc(this.ppValue))}pp`,
       cls: "semi-header-text-style"
     });
 
@@ -48,7 +48,7 @@ export class comparePerformanceModal extends Modal {
     });
 
     contentEl.createEl('p', {
-      text: `${this.secondaryPpValue.toFixed(0)}pp`,
+      text: `${new Intl.NumberFormat().format(Math.trunc(this.secondaryPpValue))}pp`,
       cls: "semi-header-text-style"
     });
 
@@ -62,7 +62,7 @@ export class comparePerformanceModal extends Modal {
     });
 
     contentEl.createEl('p', {
-      text: `${differenceText}`,
+      text: `${new Intl.NumberFormat().format(Math.trunc(differenceText))}`,
       cls: "semi-header-text-style"
     });
   }

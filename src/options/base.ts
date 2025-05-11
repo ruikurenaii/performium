@@ -5,11 +5,9 @@
 */
 
 import { App, PluginSettingTab, Setting } from "obsidian";
-import { timeFormat } from "../utils/values/timeFormat";
 import { generateFact } from "../functions/funFact";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
-import { StringifyOptions } from "querystring";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
@@ -39,7 +37,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     
     new Setting(containerEl)
       .setName("Performance points system version")
-      .setDesc("Select a performance points system used for calculaton. Remember: Different PP system means different values!")
+      .setDesc("Select a performance points system used for calculaton and comparison. Remember: Changing the pp system gives of different values!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
@@ -58,7 +56,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Secondary performance points system version")
-      .setDesc("Select a secondary performance points system used for calculaton and comparison of pp. Remember: Read what's on the first setting!")
+      .setDesc("Select a secondary performance points system used for comparison of pp. Remember: Kindly read what's on the first setting!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",

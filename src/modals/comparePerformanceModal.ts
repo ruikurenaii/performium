@@ -17,9 +17,9 @@ export class comparePerformanceModal extends Modal {
     let differenceText: string = "";
 
     if (difference < 0) {
-      differenceText = `${difference.toFixed(0)}pp`;
+      differenceText = `${new Intl.NumberFormat().format(Math.trunc(difference))}pp`;
     } else {
-      differenceText = `+${difference.toFixed(0)}pp`;
+      differenceText = `+${new Intl.NumberFormat().format(Math.trunc(difference))}pp`;
     }
 
     // let contentText = `Compared values:\n\nCurrent performance value:\n${this.ppValue.toFixed(0)}pp\n\nCompared performance value:\n${this.secondaryPpValue.toFixed(0)}pp\n\nDifference:\n${differenceText}`;
@@ -62,7 +62,7 @@ export class comparePerformanceModal extends Modal {
     });
 
     contentEl.createEl('p', {
-      text: `${new Intl.NumberFormat().format(Math.trunc(differenceText))}`,
+      text: `${differenceText}`,
       cls: "semi-header-text-style"
     });
   }

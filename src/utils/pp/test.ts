@@ -105,7 +105,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   }
 
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
-  const totalPluginTime = Date.now() - this.settings.installTimestamp;
+  const totalPluginTime = Date.now() - plugin.settings.installTimestamp;
 
   const focusedTime = Math.trunc(totalFocusTime % (1000 * 60 * 60)) / (1000 * 60);
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);

@@ -109,7 +109,7 @@ export default class PerformiumPlugin extends Plugin {
   async loadSettings() {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     
-    if (!this.settings.installTimestamp) {
+    if (!this.settings.installTimestamp || this.settings.installTimestamp === 0) {
       this.settings.installTimestamp = Date.now();
       await this.saveData(this.settings);
     }

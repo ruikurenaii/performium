@@ -18,7 +18,7 @@ export interface PerformiumBaseSettings {
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "050725",
-  installTimestamp: undefined,
+  installTimestamp: 0,
 	totalFocusTime: 0,
   secondaryPpSystem: "040625"
 };

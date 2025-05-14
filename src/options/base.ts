@@ -4,7 +4,7 @@
 
 */
 
-import { App, PluginSettingTab, Setting } from "obsidian";
+import { App, PluginSettingTab, Setting, Plugin } from "obsidian";
 import { generateFact } from "../functions/funFact";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
@@ -14,13 +14,15 @@ export interface PerformiumBaseSettings {
   installTimestamp?: number;
   totalFocusTime?: number;
   secondaryPpSystem: string;
+  totalPluginTime: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "050725",
   installTimestamp: undefined,
 	totalFocusTime: 0,
-  secondaryPpSystem: "040625"
+  secondaryPpSystem: "040625",
+  totalPluginTime: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {
@@ -89,6 +91,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
     let factText: string = generateFact(installTimestamp);
 	  
+    const totalTime = installTimestamp - Date.now();
+
 	  /*  
     containerEl.createEl("p", {
       text: factText,

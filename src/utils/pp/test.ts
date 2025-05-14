@@ -13,7 +13,6 @@ import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactor
 import { calculateVaultPenalties } from "../values/vaultPenalties"
 import { calculateVaultObjects } from "../values/vaultObjects";
 import { calculateBurstScore } from "../values/burstScore";
-import { getDaysSinceLastEdit } from "src/functions/getDaysSinceLastEdit";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -21,8 +20,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   
   const vaultStats = await calculateVaultStats(app);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
-
-  const lastEdit = getDaysSinceLastEdit()
   
   const totalFiles = vaultStats.totalFiles;
   const totalFolders = vaultStats.totalFolders;
@@ -114,23 +111,24 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const accuracyValue = Math.min(100, (focusedTime / overallTime) * 100);
   let speedValue = totalWords / overallTime;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
-  let flashlightValue = (daysSinceLastEdit)
+  const importance = totalWords + totalLinks * 10;
+  let flashlightValue = (totalWords / 100) * Math.log2(importance + 1); // log to prevent inflation
 
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
   const finalAccuracyValue = (accuracyValue * 0.75) + (((angleValue / 360) * 100) * 0.25);
-
-  const combinedValue = (
-    Math.pow(aimValue, 1.1) +
-    Math.pow(speedValue, 1.1) +
-    Math.pow(strainValue, 1.1)
-  ) * (finalAccuracyValue / 100);
 
   // scale aim value with accuracy value
   aimValue *= finalAccuracyValue;
 
   // scale aim value with approach rate
   aimValue *= 1 + 0.04 * (12 - approachRate);
+
+  const combinedValue = (
+    Math.pow(aimValue, 1.1) +
+    Math.pow(speedValue, 1.1) +
+    Math.pow(strainValue, 1.1) + flashlightValue
+  ) * (finalAccuracyValue / 100);
 
   let performanceValue: number = combinedValue;
 

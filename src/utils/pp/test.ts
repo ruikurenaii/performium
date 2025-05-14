@@ -122,6 +122,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const finalAccuracyValue = (accuracyValue * 0.75) + (((angleValue / 360) * 100) * 0.25);
 
+  let starRating = calculateStarRating(totalParagraphs, angleValue);
+
   // add the wide angle bonus
   const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, angleValue));
   const finalAngleValue = Math.pow(Math.sin((3 / 4) * (clampedAngleBonus - pi / 6)), 2);
@@ -133,7 +135,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= 1 + 0.04 * (12 - approachRate);
 
   // scale aim pp with the wide angle bonus
-  aimValue *= 1 + 0.25 * finalAngleValue;
+  aimValue *= 1 + 0.25 * (finalAngleValue / 150);
 
   if (averageSentencesPerFile > 12) {
     flashlightValue *= 1 + 0.15 * (12 - averageSentencesPerFile);
@@ -152,6 +154,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add time bonus to the overall pp value
   combinedValue += Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
+
+  // due to a large amount of pp in this case, it'll be divided until it's rebalanced.
+  combinedValue /= 133.5;
 
   let performanceValue: number = combinedValue;
 

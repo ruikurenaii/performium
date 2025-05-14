@@ -7,6 +7,7 @@ import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/0
 import { calculatePerformance as calculatePerformance041325 } from "./utils/pp/041325";
 import { calculatePerformance as calculatePerformance042925 } from "./utils/pp/042925";
 import { calculatePerformance as calculatePerformance050725 } from "./utils/pp/050725";
+import { calculatePerformance as calculatePerformance051425 } from "./utils/pp/051425";
 import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
 
 export default class PerformiumPlugin extends Plugin {
@@ -76,7 +77,9 @@ export default class PerformiumPlugin extends Plugin {
   async calculatePerformance(): Promise < number > {
     if (this.settings.ppSystem === "test") {
       return calculatePerformanceTest(this);
-    } else if (this.settings.ppSystem === "050725") {
+    } else if (this.settings.ppSystem === "051425") {
+      return calculatePerformance051425(this);
+	  } else if (this.settings.ppSystem === "050725") {
       return calculatePerformance050725(this);
 	  } else if (this.settings.ppSystem === "042925") {
       return calculatePerformance042925(this.app);
@@ -90,7 +93,9 @@ export default class PerformiumPlugin extends Plugin {
   async calculateSecondaryPerformance(): Promise < number > {
     if (this.settings.secondaryPpSystem === "test") {
       return calculatePerformanceTest(this);
-    } else if (this.settings.secondaryPpSystem === "050725") {
+    } else if (this.settings.secondaryPpSystem === "051425") {
+      return calculatePerformance051425(this);
+	  } else if (this.settings.secondaryPpSystem === "050725") {
       return calculatePerformance050725(this);
 	  } else if (this.settings.secondaryPpSystem === "042925") {
       return calculatePerformance042925(this.app);

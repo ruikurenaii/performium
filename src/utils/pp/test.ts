@@ -64,6 +64,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 	  totalSentences: totalSentences
   });
 
+  // pi, obviously
+  const pi = Math.PI;
+
   // ppv3 rewrite when? lmao
   let approachRate = difficultyFactors.AR;
   let overallDifficulty = difficultyFactors.OD;
@@ -102,7 +105,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   }
 
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
-  const totalPluginTime = plugin.settings.totalPluginTime ?? 0;
+  const totalPluginTime = Date.now() - this.settings.installTimestamp;
 
   const focusedTime = Math.trunc(totalFocusTime % (1000 * 60 * 60)) / (1000 * 60);
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
@@ -118,17 +121,36 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const finalAccuracyValue = (accuracyValue * 0.75) + (((angleValue / 360) * 100) * 0.25);
 
+  // add the wide angle bonus
+  const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, angleValue));
+  const finalAngleValue = Math.pow(Math.sin((3 / 4) * (clampedAngleBonus - pi / 6)), 2);
+
   // scale aim value with accuracy value
   aimValue *= finalAccuracyValue;
 
   // scale aim value with approach rate
   aimValue *= 1 + 0.04 * (12 - approachRate);
 
-  const combinedValue = (
+  // scale aim pp with the wide angle bonus
+  aimValue *= 1 + 0.25 * finalAngleValue;
+
+  if (averageSentencesPerFile > 12) {
+    flashlightValue *= 1 + 0.15 * (12 - averageSentencesPerFile);
+  } else {
+    flashlightValue *= 1 + 0.075 * (averageSentencesPerFile - 12);
+  }
+
+  // add file count bonus to strain pp
+  strainValue += (100 - (1 / 3)) * (1 - (0.994 ** totalFiles));
+
+  let combinedValue = (
     Math.pow(aimValue, 1.1) +
     Math.pow(speedValue, 1.1) +
     Math.pow(strainValue, 1.1) + flashlightValue
   ) * (finalAccuracyValue / 100);
+
+  // add time bonus to the overall pp value
+  combinedValue += Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
 
   let performanceValue: number = combinedValue;
 

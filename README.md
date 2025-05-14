@@ -11,6 +11,10 @@ This plugin adds a ribbon and command of a new function meant to calculate the p
 - Complexity
 - Information
 
+## Preview
+- ![image](https://github.com/user-attachments/assets/149e6167-c5e0-4c99-b050-4540dbeee7e0)
+
+
 Once the function has been executed, you'll just have to wait for a while (depending on the size of your vault), and a modal will pop up with the calculated amount.
 
 ## Any settings?

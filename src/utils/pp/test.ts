@@ -191,7 +191,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // scale aim and speed pp with high ar bonus
   aimValue *= 1 + 0.
 
-  let performanceValue: number = Math.sqrt(combinedValue) * 4.75;
+  let performanceValue: number = Math.sqrt(combinedValue) * 4.45;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

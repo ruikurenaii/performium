@@ -12,6 +12,7 @@ import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactor
 import { calculateVaultPenalties } from "../values/vaultPenalties"
 import { calculateVaultObjects } from "../values/vaultObjects";
 import { calculateBurstScore } from "../values/burstScore";
+import { calculateVaultBpm } from "../values/vaultBpm";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -103,6 +104,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalTasks += tasks ? tasks.length : 0;
   }
 
+  const vaultBpm = await calculateVaultBpm(app, totalTags, totalWords, totalFiles);
+
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
   const installTimestamp = plugin.settings.installTimestamp ?? Date.now();
   const totalPluginTime = Date.now() - installTimestamp;
@@ -111,7 +114,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
 
   let aimValue = Math.sqrt(totalLinks);
-  const accuracyValue = Math.min(100, (focusedTime / overallTime) * 100);
+  let accuracyValue = Math.min(100, (focusedTime / overallTime) * 100);
   let speedValue = totalWords / overallTime;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
@@ -149,6 +152,22 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add file count bonus to strain pp
   strainValue += (100 - (1 / 3)) * (1 - (0.994 ** totalFiles));
 
+  // for the speed pp bonus (ranging from 200 to 330bpm)
+  let minSpeedBpmBonus = 75;
+  let maxSpeedBpmBonus = 45;
+  const speedBpmBalancingFactor = 40;
+
+  const bpmStreamClicks = (vaultBpm / 60) * 4;
+  let deltaTime: number = 1000 / bpmStreamClicks;
+
+  let deltaClampedValue = Math.max(maxSpeedBpmBonus, deltaTime);
+
+  if (deltaClampedValue < minSpeedBpmBonus) {
+    speedValue += 1 + Math.pow((maxSpeedBpmBonus = deltaClampedValue) / speedBpmBalancingFactor, 2);
+  } else {
+    speedValue += 1;
+  }
+
   let combinedValue = (
     Math.pow(aimValue, 1.1) +
     Math.pow(speedValue, 1.1) +
@@ -156,7 +175,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   ) * (finalAccuracyValue / 100);
 
   // add time bonus to the overall pp value
-  combinedValue += Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
+  combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
+
+  // scale aim and accuracy pp (no mod support at the moment...)
+  aimValue *= 1.08;
+  accuracyValue *= 1.08;
+
+  // scale aim and speed pp with high ar bonus
+  aimValue *= 1 + 0.
 
   let performanceValue: number = Math.sqrt(combinedValue) * 3.25;
 

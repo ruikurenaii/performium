@@ -180,7 +180,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   accuracyValue *= 1.08;
 
   // scale aim and speed pp with high ar bonus
-  aimValue *= 1 + 0.04 * (ApproachRate - 12); 
+  aimValue *= 1 + 0.04 * (approachRate - 12); 
 
   let combinedValue = (
     Math.pow(aimValue, 1.1) +
@@ -188,10 +188,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     Math.pow(strainValue, 1.1) + flashlightValue
   ) * (finalAccuracyValue / 100);
 
+  // scale the combined pp with star rating
+  combinedValue += 1 + (starRating / 100);
+
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
-  let performanceValue: number = Math.sqrt(combinedValue) * 4.5;
+  let performanceValue: number = Math.sqrt(combinedValue) * 3.25;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

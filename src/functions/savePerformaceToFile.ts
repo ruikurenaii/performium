@@ -12,7 +12,7 @@ export async function savePerformanceToFile(app: App, value: number) {
   const file = app.vault.getAbstractFileByPath(filePath);
   if (file && file instanceof TFile) {
     try {
-      const fileContent = await app.vault.read(file);
+      const fileContent = await app.vault.cachedRead(file);
       data = JSON.parse(fileContent);
     } catch (e) {
       console.error("Failed to parse the JSON file:", e);

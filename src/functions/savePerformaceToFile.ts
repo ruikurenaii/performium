@@ -1,6 +1,6 @@
-import { TFile } from "obsidian";
+import { App, TFile } from "obsidian";
 
-export async function savePerformanceToFile(value: number) {
+export async function savePerformanceToFile(app: App, value: number) {
   const filePath = `.obsidian/pp-entries.json`;
 
   const now = new Date();
@@ -9,13 +9,13 @@ export async function savePerformanceToFile(value: number) {
 
   let data: Record<string, Record<string, number[]>> = {};
 
-  const file = this.app.vault.getAbstractFileByPath(filePath);
+  const file = app.vault.getAbstractFileByPath(filePath);
   if (file && file instanceof TFile) {
-    const fileContent = await this.app.vault.read(file);
     try {
+      const fileContent = await app.vault.read(file);
       data = JSON.parse(fileContent);
     } catch (e) {
-      console.error("Failed to parse pp-entries.json:", e);
+      console.error("Failed to parse the JSON file:", e);
       data = {};
     }
   }
@@ -28,11 +28,8 @@ export async function savePerformanceToFile(value: number) {
   const newContent = JSON.stringify(data, null, 2);
 
   if (file && file instanceof TFile) {
-    await this.app.vault.modify(file, newContent);
+    await app.vault.modify(file, newContent);
   } else {
-    await this.app.vault.create(filePath, newContent);
+    await app.vault.create(filePath, newContent);
   }
-
-  // this log is unnecessary
-  // new Notice(`Performance saved to ${filePath}`);
 }

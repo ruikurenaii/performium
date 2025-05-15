@@ -39,7 +39,7 @@ export default class PerformiumPlugin extends Plugin {
       name: "Calculate performance points",
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
-        await savePerformanceToFile(performanceValue);
+        await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
       }
@@ -50,7 +50,7 @@ export default class PerformiumPlugin extends Plugin {
       "Calculate performance points",
       async () => {
         const performanceValue = await this.calculatePerformance();
-        await savePerformanceToFile(performanceValue);
+        await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
       },
@@ -62,8 +62,8 @@ export default class PerformiumPlugin extends Plugin {
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
-        await savePerformanceToFile(performanceValue);
-        await savePerformanceToFile(secondaryPerformanceValue);
+        await savePerformanceToFile(this.app, performanceValue);
+        await savePerformanceToFile(this.app, secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
       }
@@ -75,8 +75,8 @@ export default class PerformiumPlugin extends Plugin {
       async () => {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
-        await savePerformanceToFile(performanceValue);
-        await savePerformanceToFile(secondaryPerformanceValue); 
+        await savePerformanceToFile(this.app, performanceValue);
+        await savePerformanceToFile(this.app, secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
       },

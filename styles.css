@@ -47,3 +47,15 @@
 .highest-performance-window-class {
   text-align: center;
 }
+
+.pp-rank {
+  font-weight: normal;
+}
+
+.pp-value {
+  font-weight: bolder;
+}
+
+.pp-date {
+  font-weight: 100;
+}

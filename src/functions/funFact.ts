@@ -50,7 +50,9 @@ export function generateFact(installTimestamp: number): string {
     `At May 15, 2025, at 1:46 AM (GMT +7), the plugin has been approved!`,
     `More features of the plugin are coming soon!`,
     `Reworks take longer than expected, unless it minorly impacts the performance points system!`,
-    `The bigger your vault, the longer it would take the performance calculation to finish!`
+    `The bigger your vault, the longer it would take the performance calculation to finish!`,
+    `This plugin's integration is not official, and may differ from the official osu! performance points system`,
+	`I- Shucks... I forgot what I have to say again, this is quite annoying though...`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

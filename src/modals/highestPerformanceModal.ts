@@ -39,13 +39,8 @@ export class HighestPerformanceModal extends Modal {
     });
 
     if (this.entries.length === 0) {
-      contentEl.createEl("p", {
-        text: "Shucks, looks there are no calculated performance entries...",
-        cls: "pp-empty"
-      });
+      this.setContent("Shucks, looks there are no calculated performance entries...");
     }
-
-    new Notice("")
   }
 
   onClose() {

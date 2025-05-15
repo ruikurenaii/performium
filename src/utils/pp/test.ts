@@ -175,6 +175,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     speedValue += 1;
   }
 
+  // scale aim and accuracy pp (no game modifiers support at the moment...)
+  aimValue *= 1.08;
+  accuracyValue *= 1.08;
+
+  // scale aim and speed pp with high ar bonus
+  aimValue *= 1 + 0.04 * (ApproachRate - 12); 
+
   let combinedValue = (
     Math.pow(aimValue, 1.1) +
     Math.pow(speedValue, 1.1) +
@@ -184,14 +191,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
-  // scale aim and accuracy pp (no mod support at the moment...)
-  aimValue *= 1.08;
-  accuracyValue *= 1.08;
-
-  // scale aim and speed pp with high ar bonus
-  aimValue *= 1 + 0.
-
-  let performanceValue: number = Math.sqrt(combinedValue) * 4.625;
+  let performanceValue: number = Math.sqrt(combinedValue) * 4.5;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

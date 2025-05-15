@@ -27,9 +27,13 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   const newContent = JSON.stringify(data, null, 2);
 
-  if (file && file instanceof TFile) {
+  if (file instanceof TFile) {
     await app.vault.modify(file, newContent);
   } else {
-    await app.vault.create(filePath, newContent);
+    try {
+      await app.vault.create(filePath, newContent);
+    } catch (e) {
+      console.error(`Failed to create ${filePath}:`, e);
+    }
   }
 }

@@ -46,7 +46,11 @@ export function generateFact(installTimestamp: number): string {
     `After Performium v1.3.0 has been released, the developer switched to developing this plugin on a laptop!`,
     `Almost every commit before releasing Performium v1.4.0 are all pp rebalances and parity with osu! minor and major pp reworks!`,
     `Who said making this plugin wasn\'t possible at all?`,
-    `No one had ever thought of integrating the osu! pp system into the app until the 6th of April, 2025!`
+    `No one had ever thought of integrating the osu! pp system into the app until the 6th of April, 2025!`,
+    `At May 15, 2025, at 1:46 AM (GMT +7), the plugin has been approved!`,
+    `More features of the plugin are coming soon!`,
+    `Reworks take longer than expected, unless it minorly impacts the performance points system!`,
+    `The bigger your vault, the longer it would take the performance calculation to finish!`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

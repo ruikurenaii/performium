@@ -1,6 +1,9 @@
 import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 import { comparePerformanceModal } from "./modals/comparePerformanceModal";
+import { HighestPerformanceModal } from "./modals/highestPerformanceModal";
+import { getTopPerformanceEntries } from "./functions/getTopPerformanceEntries";
+import { savePerformanceToFile } from "./functions/savePerformaceToFile";
 
 // import different performance points systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";
@@ -36,6 +39,7 @@ export default class PerformiumPlugin extends Plugin {
       name: "Calculate performance points",
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
+        await savePerformanceToFile(performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
       }
@@ -46,6 +50,7 @@ export default class PerformiumPlugin extends Plugin {
       "Calculate performance points",
       async () => {
         const performanceValue = await this.calculatePerformance();
+        await savePerformanceToFile(performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
       },
@@ -57,6 +62,8 @@ export default class PerformiumPlugin extends Plugin {
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
+        await savePerformanceToFile(performanceValue);
+        await savePerformanceToFile(secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
       }
@@ -68,8 +75,28 @@ export default class PerformiumPlugin extends Plugin {
       async () => {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
+        await savePerformanceToFile(performanceValue);
+        await savePerformanceToFile(secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
+      },
+    );
+
+    this.addCommand({
+      id: "display-top-entries",
+      name: "Display top performance entries",
+      callback: async () => {
+        const topEntries = await getTopPerformanceEntries(5);
+        new HighestPerformanceModal(this.app, topEntries).open();
+      }
+    })
+
+    this.addRibbonIcon(
+      "lucide-trophy",
+      "Display top performance entries",
+      async () => {
+        const topEntries = await getTopPerformanceEntries(5);
+        new HighestPerformanceModal(this.app, topEntries).open();
       },
     );
   }

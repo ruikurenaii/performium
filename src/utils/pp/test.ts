@@ -4,7 +4,6 @@
   
 */
 
-import { TFile } from "obsidian";
 import PerformiumPlugin from "../../main";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
@@ -115,8 +114,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const accuracyValue = Math.min(100, (focusedTime / overallTime) * 100);
   let speedValue = totalWords / overallTime;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
+
   const importance = totalWords + totalLinks * 10;
-  let flashlightValue = (totalWords / 100) * Math.log2(importance + 1); // log to prevent inflation
+  let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);
 
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
@@ -132,10 +132,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= finalAccuracyValue;
 
   // scale aim value with approach rate
-  aimValue *= 1 + 0.04 * (12 - approachRate);
+  aimValue *= 1 + 0.04 * ((12 - approachRate) / 2);
 
   // scale aim pp with the wide angle bonus
   aimValue *= 1 + 0.25 * (finalAngleValue / 150);
+
+  // add tag bonus to speed pp
+  speedValue += Math.log10(totalTags);
 
   if (averageSentencesPerFile > 12) {
     flashlightValue *= 1 + 0.15 * (12 - averageSentencesPerFile);
@@ -155,13 +158,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)));
 
-  // due to a large amount of pp in this case, it'll be divided until it's rebalanced.
-  combinedValue /= 133.5;
-
-  let performanceValue: number = combinedValue;
+  let performanceValue: number = Math.sqrt(combinedValue) * 3.25;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {
+    console.log("The value is 0pp or negative... Setting it to 0pp...");
     performanceValue = 0;
   }
 

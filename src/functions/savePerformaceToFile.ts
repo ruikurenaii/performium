@@ -2,6 +2,7 @@ import { App, TFile } from "obsidian";
 
 export async function savePerformanceToFile(app: App, value: number) {
   const filePath = `.obsidian/pp-entries.json`;
+  const adapter = this.app.vault.adapter;
 
   const now = new Date();
   const year = now.getFullYear().toString();
@@ -27,13 +28,11 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   const newContent = JSON.stringify(data, null, 2);
 
-  if (file instanceof TFile) {
-    await app.vault.modify(file, newContent);
+  const exists = await adapter.exists(filePath);
+
+  if (!exists) {
+	await adapter.write(filePath, newContent);
   } else {
-    try {
-      await app.vault.create(filePath, newContent);
-    } catch (e) {
-      console.error(`Failed to create ${filePath}:`, e);
-    }
+	console.error("Failed to make JSON file");
   }
 }

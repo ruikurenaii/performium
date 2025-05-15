@@ -143,6 +143,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add tag bonus to speed pp
   speedValue += Math.log10(totalTags);
 
+  // scale flashlight pp with length bonus
+  if (lengthBonus >= 125) {
+	flashlightValue += 125 + ((lengthBonus - 125) / 2);
+  } else {
+	flashlightValue += lengthBonus;
+  }
+
   if (averageSentencesPerFile > 12) {
     flashlightValue *= 1 + 0.15 * (12 - averageSentencesPerFile);
   } else {
@@ -184,7 +191,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // scale aim and speed pp with high ar bonus
   aimValue *= 1 + 0.
 
-  let performanceValue: number = Math.sqrt(combinedValue) * 3.25;
+  let performanceValue: number = Math.sqrt(combinedValue) * 4.75;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

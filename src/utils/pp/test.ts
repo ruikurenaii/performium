@@ -113,15 +113,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const focusedTime = Math.trunc(totalFocusTime % (1000 * 60 * 60)) / (1000 * 60);
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
 
+  const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
+
   let aimValue = Math.sqrt(totalLinks);
-  let accuracyValue = (vaultAngle / 360) * 100;
+  let accuracyValue = (angleValue / 360) * 100;
   let speedValue = totalWords / overallTime;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
   const importance = totalWords + totalLinks * 10;
   let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);
-
-  const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 	
   let starRating = calculateStarRating(totalParagraphs, angleValue);
 

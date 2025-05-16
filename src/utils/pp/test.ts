@@ -123,7 +123,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
-  const finalAccuracyValue = (accuracyValue * 0.75) + (((angleValue / 360) * 100) * 0.25);
+  const finalAccuracyValue = (accuracyValue * 0.05) + (((angleValue / 360) * 100) * 0.95);
 
   let starRating = calculateStarRating(totalParagraphs, angleValue);
 

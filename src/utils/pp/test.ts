@@ -114,7 +114,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
 
   let aimValue = Math.sqrt(totalLinks);
-  let accuracyValue = Math.min(100, (focusedTime / overallTime) * 100);
+  let accuracyValue = (vaultAngle / 360) * 100;
   let speedValue = totalWords / overallTime;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
@@ -122,9 +122,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);
 
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
-
-  const finalAccuracyValue = (accuracyValue * 0.05) + (((angleValue / 360) * 100) * 0.95);
-
+	
   let starRating = calculateStarRating(totalParagraphs, angleValue);
 
   // add the wide angle bonus
@@ -132,7 +130,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const finalAngleValue = Math.pow(Math.sin((3 / 4) * (clampedAngleBonus - pi / 6)), 2);
 
   // scale aim value with accuracy value
-  aimValue *= finalAccuracyValue;
+  aimValue *= accuracyValue;
 
   // scale aim value with approach rate
   aimValue *= 1 + 0.04 * ((12 - approachRate) / 2);
@@ -186,7 +184,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     Math.pow(aimValue, 1.1) +
     Math.pow(speedValue, 1.1) +
     Math.pow(strainValue, 1.1) + flashlightValue
-  ) * (finalAccuracyValue / 100);
+  ) * (accuracyValue / 100);
 
   // scale the combined pp with star rating
   combinedValue += 1 + (starRating / 100);

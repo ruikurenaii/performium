@@ -192,7 +192,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
-  let performanceValue: number = combinedValue;
+  let performanceValue: number = Math.pow(combinedValue, 0.5995);
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

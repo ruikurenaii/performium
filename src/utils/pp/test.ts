@@ -192,12 +192,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
-  let performanceValue: number = Math.pow(combinedValue, 0.5995);
+  // add a file count bonus, which should stop at around 27,608 files
+  const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** fileCount));
+
+  let performanceValue: number = Math.pow(combinedValue, 0.55) + ((Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10) + fileCountBonus;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {
-    console.log("The value is 0pp or negative... Setting it to 0pp...");
-    performanceValue = 0;
+    console.log("The value is 0pp or negative... Setting it to 0pp...")
+	performanceValue = 0;
   }
 
   return performanceValue;

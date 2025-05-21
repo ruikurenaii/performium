@@ -193,7 +193,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
   // add a file count bonus, which should stop at around 27,608 files
-  const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** fileCount));
+  const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
 
   let performanceValue: number = Math.pow(combinedValue, 0.55) + ((Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10) + fileCountBonus;
 

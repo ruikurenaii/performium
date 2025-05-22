@@ -52,7 +52,9 @@ export function generateFact(installTimestamp: number): string {
     `Reworks take longer than expected, unless it minorly impacts the performance points system!`,
     `The bigger your vault, the longer it would take the performance calculation to finish!`,
     `This plugin's integration is not official, and may differ from the official osu! performance points system`,
-	`I- Shucks... I forgot what I have to say again, this is quite annoying though...`
+	`I- Shucks... I forgot what I have to say again, this is quite annoying though...`,
+    `Before releasing a new update to the plugin, reworks to the performance points system can take a while to be done. To test these reworks being done for the next update, beta builds are available in the GitHub repository!`,
+    `The developer can't have more ideas to put in this tab, so while they're thinking of some new stuff, join the discord server and suggest some facts!`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

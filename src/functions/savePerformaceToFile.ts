@@ -30,9 +30,9 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   const exists = await adapter.exists(filePath);
 
-  if (!exists) {
+  try {
 	await adapter.write(filePath, newContent);
-  } else {
-	console.error("Failed to make JSON file");
+  } catch (err) {
+	console.log(`Failed to save the performance value to JSON: ${err}`);
   }
 }

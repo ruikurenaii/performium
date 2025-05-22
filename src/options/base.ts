@@ -1,6 +1,8 @@
 /*
 
-  base.ts: the first tab of the options section
+  base.ts: the first tab of the options sectio
+  I've been planning to add some stuff, such as adding different languages supported by obsidian.md, but i quite don't know how would i want it to be like...
+  unlike the localization code from my previous plugin (not published), commodity, i'll have to do a bit of research and attempt to add it.
 
 */
 
@@ -37,7 +39,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     
     new Setting(containerEl)
       .setName("Performance points system version")
-      .setDesc("Select a performance points system used for calculaton and comparison. Remember: Changing the pp system gives of different values!")
+      .setDesc("Select a performance points system used for calculaton and comparison. Remember: Changing the pp system can change the way performance points are calculated, giving off different values!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",

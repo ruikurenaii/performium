@@ -5,6 +5,7 @@
 */
 
 import PerformiumPlugin from "../../main";
+import { App } from "obsidian";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateVaultAngle } from "../values/vaultAngle";
 import { calculateStarRating } from "../values/starRating";
@@ -26,7 +27,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const wordDifficultyPercentage = await calculateDifficultWordStats(app, commonWordSet);
   
-  const vaultStats = await calculateVaultStats(app);
+  const vaultStats = await calculateVaultStats(this.App);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
   
   const totalFiles = vaultStats.totalFiles;

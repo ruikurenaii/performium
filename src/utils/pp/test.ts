@@ -20,12 +20,7 @@ import { calculateDifficultWordStats } from "../values/wordDifficultyPercentage"
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
   const app = plugin.app;
 
-  // load the common word list
-  const rawCommonWords = await this.loadResource("./json/common-words.json");
-  const commonWords: string[] = JSON.parse(rawCommonWords);
-  const commonWordSet = new Set<string>(commonWords.map(w => w.toLowerCase()));
-
-  const wordDifficultyPercentage = await calculateDifficultWordStats(app, commonWordSet);
+  const wordComplexityStatistics = await calculateWordComplexityStats(this.App);
   
   const vaultStats = await calculateVaultStats(this.App);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
@@ -182,8 +177,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     speedValue += 1;
   }
 
+  const wordComplexityBonus: number = wordComplexityStatistics.averageWordComplexity * (1 + (wordComplexityStatistics.wordDifficultyPercentage / 200));
+
   // scale strain with the percentage of difficult words
-  strainValue *= 1 + (wordDifficultyPercentage.percentage / 200);
+  strainValue *= 1 + (Math.sqrt(wordComplexityBonus) / 150);
 
   // scale aim and accuracy pp (no game modifiers support at the moment...)
   aimValue *= 1.08;

@@ -14,7 +14,7 @@ import { calculateVaultPenalties } from "../values/vaultPenalties"
 import { calculateVaultObjects } from "../values/vaultObjects";
 import { calculateBurstScore } from "../values/burstScore";
 import { calculateVaultBpm } from "../values/vaultBpm";
-import { calculateDifficultWordStats } from "../values/wordDifficultyPercentage";
+import { calculateWordComplexityStats } from "../values/wordComplexityStatistics";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {

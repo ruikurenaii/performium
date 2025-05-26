@@ -21,7 +21,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const app = plugin.app;
 
   // load the common word list
-  const rawCommonWords = await this.loadResource("./json/common-word.json");
+  const rawCommonWords = await this.loadResource("./json/common-words.json");
   const commonWords: string[] = JSON.parse(rawCommonWords);
   const commonWordSet = new Set<string>(commonWords.map(w => w.toLowerCase()));
 

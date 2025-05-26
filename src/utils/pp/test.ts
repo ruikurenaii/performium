@@ -24,7 +24,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const commonWords: string[] = JSON.parse(rawCommonWords);
   const commonWordSet = new Set<string>(commonWords.map(w => w.toLowerCase()));
 
-  const wordDifficultyPercentage = calculateDifficultWordStats(app, commonWordSet);
+  const wordDifficultyPercentage = await calculateDifficultWordStats(app, commonWordSet);
   
   const vaultStats = await calculateVaultStats(app);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);

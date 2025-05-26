@@ -13,10 +13,18 @@ import { calculateVaultPenalties } from "../values/vaultPenalties"
 import { calculateVaultObjects } from "../values/vaultObjects";
 import { calculateBurstScore } from "../values/burstScore";
 import { calculateVaultBpm } from "../values/vaultBpm";
+import { calculateDifficultWordStats } from "../values/wordDifficultyPercentage";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
   const app = plugin.app;
+
+  // load the common word list
+  const rawCommonWords = await this.loadResource("./json/common-word.json");
+  const commonWords: string[] = JSON.parse(rawCommonWords);
+  const commonWordSet = new Set<string>(commonWords.map(w => w.toLowerCase()));
+
+  const wordDifficultyPercentage = calculateDifficultWordStats(app, commonWordSet);
   
   const vaultStats = await calculateVaultStats(app);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
@@ -173,6 +181,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     speedValue += 1;
   }
 
+  // scale strain with the percentage of difficult words
+  strainValue *= 1 + (wordDifficultyPercentage.percentage / 200);
+
   // scale aim and accuracy pp (no game modifiers support at the moment...)
   aimValue *= 1.08;
   accuracyValue *= 1.08;
@@ -204,4 +215,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   }
 
   return performanceValue;
+}
+
+
+private async loadResource(path: string) {
+  const fullPath = `${rhis.manifest.dir}/${path}`;
+  return await this.app.vault.adapter.read(fullPath);
 }

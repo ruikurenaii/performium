@@ -219,6 +219,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
 
 async function loadResource(path: string) {
-  const fullPath = `${rhis.manifest.dir}/${path}`;
+  const fullPath = `${this.manifest.dir}/${path}`;
   return await this.app.vault.adapter.read(fullPath);
 }

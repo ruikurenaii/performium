@@ -1,13 +1,13 @@
-import { TFile } from "obsidian";
+import { App, TFile } from "obsidian";
 
-export async function getTopPerformanceEntries(limit: number = 5): Promise<{ value: number, date: string }[]> {
+export async function getTopPerformanceEntries(app: App): Promise<{ value: number, date: string }[]> {
   const filePath = `.obsidian/pp-entries.json`;
-  const file = this.app.vault.getAbstractFileByPath(filePath);
+  const file = app.vault.getAbstractFileByPath(filePath);
 
   if (!file || !(file instanceof TFile)) return [];
 
   try {
-    const content = await this.app.vault.read(file);
+    const content = await app.vault.read(file);
     const data: Record<string, Record<string, number[]>> = JSON.parse(content);
 
     const allEntries: { value: number, date: string }[] = [];
@@ -21,11 +21,9 @@ export async function getTopPerformanceEntries(limit: number = 5): Promise<{ val
       }
     }
 
-    return allEntries
-      .sort((a, b) => b.value - a.value)
-      .slice(0, limit);
+    return allEntries.sort((a, b) => b.value - a.value);
   } catch (e) {
-    console.error("Failed to read or parse the JSON file:", e);
+    console.error("There's something wrong while parsing or reading the JSON file:", e);
     return [];
   }
 }

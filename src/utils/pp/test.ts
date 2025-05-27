@@ -200,6 +200,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
+  // add bonus pp based on how many total characters a user's vault contains
+  combinedValue += totalChars / 1125;
+
   // add a file count pp bonus, which should stop at around 27,608 files
   const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
 

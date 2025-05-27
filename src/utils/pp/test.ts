@@ -185,11 +185,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= 1.08;
   accuracyValue *= 1.08;
 
-  // add a multiplier to certain pp values based on the complexity of all sliders
-  const sliderComplexityMultiplier = 1 + ((0.2 * Math.log2(1 + averageWordsPerSentence) + 0.2 * Math.log2(1 + averageSentenceLength) + 0.15 * Math.log2(1 + longestSentenceLength) + 0.15 * Math.log2(1 + longestParagraphLength) + 0.1 * Math.log2(1 + totalTags) + 0.2 * Math.log2(1 + vaultObjects.sliders)) / 9.1);
-  aimValue *= sliderComplexityMultiplier / 1.53;
-  accuracyValue *= sliderComplexityMultiplier / 1.1;
-	
   // scale aim and speed pp with high ar bonus
   aimValue *= 1 + 0.04 * (approachRate - 12); 
 
@@ -203,7 +198,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   combinedValue += 1 + (starRating / 100);
 
   // add time bonus to the overall pp value
-  combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
+  combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 7.5;
 
   // add bonus pp based on how many total characters a user's vault contains
   combinedValue += totalChars / 1125;

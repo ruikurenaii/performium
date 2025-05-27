@@ -33,13 +33,13 @@ export class HighestPerformanceModal extends Modal {
         cls: "pp-value"
       });
       item.createEl("span", {
-        text: `on ${entry.date}`,
+        text: `Set on: ${entry.date}`,
         cls: "pp-date"
       });
     });
 
     if (this.entries.length === 0) {
-      this.setContent("Shucks, looks there are no calculated performance entries...");
+      this.setContent("Shucks, it seems like there are no recorded performance entries at the moment...");
     }
   }
 

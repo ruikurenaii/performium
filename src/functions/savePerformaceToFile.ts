@@ -1,8 +1,8 @@
-import { App, TFile } from "obsidian";
+import { App } from "obsidian";
 
 export async function savePerformanceToFile(app: App, value: number) {
   const filePath = `.obsidian/pp-entries.json`;
-  const adapter = this.app.vault.adapter;
+  const adapter = app.vault.adapter;
 
   const now = new Date();
   const year = now.getFullYear().toString();
@@ -10,14 +10,12 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   let data: Record<string, Record<string, number[]>> = {};
 
-  const file = app.vault.getAbstractFileByPath(filePath);
-  if (file && file instanceof TFile) {
+  if (await adapter.exists(filePath)) {
     try {
-      const fileContent = await app.vault.cachedRead(file);
+      const fileContent = await adapter.read(filePath);
       data = JSON.parse(fileContent);
     } catch (e) {
-      console.error("Failed to parse the JSON file:", e);
-      data = {};
+      console.error("Error reading/parsing pp-entries.json:", e);
     }
   }
 
@@ -26,13 +24,5 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   data[year][monthDay].push(value);
 
-  const newContent = JSON.stringify(data, null, 2);
-
-  const exists = await adapter.exists(filePath);
-
-  try {
-	await adapter.write(filePath, newContent);
-  } catch (err) {
-	console.log(`Failed to save the performance value to JSON: ${err}`);
-  }
+  await adapter.write(filePath, JSON.stringify(data, null, 2));
 }

@@ -3,6 +3,7 @@ import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from 
 import { comparePerformanceModal } from "./modals/comparePerformanceModal";
 import { HighestPerformanceModal } from "./modals/highestPerformanceModal";
 import { getTopPerformanceEntries } from "./functions/getTopPerformanceEntries";
+import { showAllPerformanceEntries } from "./functions/showPerformanceEntries";
 import { savePerformanceToFile } from "./functions/savePerformaceToFile";
 
 // import different performance points systems
@@ -86,7 +87,7 @@ export default class PerformiumPlugin extends Plugin {
       id: "display-top-entries",
       name: "Display top performance entries",
       callback: async () => {
-        const topEntries = await getTopPerformanceEntries(5);
+        const topEntries = await getTopPerformanceEntries(this.app);
         new HighestPerformanceModal(this.app, topEntries).open();
       }
     })
@@ -95,7 +96,7 @@ export default class PerformiumPlugin extends Plugin {
       "lucide-trophy",
       "Display top performance entries",
       async () => {
-        const topEntries = await getTopPerformanceEntries(5);
+        const topEntries = await getTopPerformanceEntries(this.app);
         new HighestPerformanceModal(this.app, topEntries).open();
       },
     );

@@ -186,7 +186,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   accuracyValue *= 1.08;
 
   // add a multiplier to certain pp values based on the complexity of all sliders
-  const sliderComplexityMultiplier = 1 + ((0.2 * Math.log2(1 + averageWordsPerSentence) + 0.2 * Math.log2(1 + averageSentenceLength) + 0.15 * Math.log2(1 + longestSentenceLength) + 0.15 * Math.log2(1 + longestParagraphLength) + 0.1 * Math.log2(1 + totalTags) + 0.2 * Math.log2(1 + vaultObjects.sliders)) / 4.5);
+  const sliderComplexityMultiplier = 1 + ((0.2 * Math.log2(1 + averageWordsPerSentence) + 0.2 * Math.log2(1 + averageSentenceLength) + 0.15 * Math.log2(1 + longestSentenceLength) + 0.15 * Math.log2(1 + longestParagraphLength) + 0.1 * Math.log2(1 + totalTags) + 0.2 * Math.log2(1 + vaultObjects.sliders)) / 9.1);
   aimValue *= sliderComplexityMultiplier / 1.53;
   accuracyValue *= sliderComplexityMultiplier / 1.1;
 	

@@ -19,9 +19,9 @@ import { calculateWordComplexityStats } from "../values/wordComplexityStatistics
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
   const app = plugin.app;
 
-  const wordComplexityStatistics = await calculateWordComplexityStats(this.App);
+  const wordComplexityStatistics = await calculateWordComplexityStats(app);
   
-  const vaultStats = await calculateVaultStats(this.App);
+  const vaultStats = await calculateVaultStats(app);
   const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
   
   const totalFiles = vaultStats.totalFiles;
@@ -200,10 +200,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add time bonus to the overall pp value
   combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10;
 
-  // add a file count bonus, which should stop at around 27,608 files
+  // add a file count pp bonus, which should stop at around 27,608 files
   const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
 
-  let performanceValue: number = Math.pow(combinedValue, 0.565) + ((Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 10) + fileCountBonus;
+  let performanceValue: number = Math.pow(combinedValue, 0.565) + fileCountBonus;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

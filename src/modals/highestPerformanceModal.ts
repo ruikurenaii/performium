@@ -20,27 +20,26 @@ export class HighestPerformanceModal extends Modal {
 
     this.setTitle("Highest performance entries");
 
-  const grouped = new Map<string, number[]>();
+    const listEl = contentEl.createEl("ol", { cls: "pp-leaderboard-list" });
 
-  this.entries.forEach(({ value, date }) => {
-    if (!grouped.has(date)) grouped.set(date, []);
-    grouped.get(date)!.push(value);
-  });
-
-  for (const [date, values] of grouped.entries()) {
-    const section = contentEl.createEl("div", { cls: "pp-date-group" });
-    section.createEl("h3", { text: date });
-
-    const list = section.createEl("ol", { cls: "pp-leaderboard-list" });
-
-    values.sort((a, b) => b - a).forEach((value, index) => {
-      const item = list.createEl("li", { cls: "pp-leaderboard-entry" });
-      item.setText(`#${index + 1}: ${value}pp`);
+    this.entries.forEach((entry, index) => {
+      const item = listEl.createEl("li", { cls: "pp-leaderboard-entry" });
+      item.createEl("span", {
+        text: `${index + 1}.`,
+        cls: "pp-rank"
+      });
+      item.createEl("span", {
+        text: `${entry.value}pp`,
+        cls: "pp-value"
+      });
+      item.createEl("span", {
+        text: `on ${entry.date}`,
+        cls: "pp-date"
+      });
     });
-  }
 
     if (this.entries.length === 0) {
-      this.setContent("Shucks, seems like there are no recorded performance entries...");
+      this.setContent("Shucks, looks there are no calculated performance entries...");
     }
   }
 

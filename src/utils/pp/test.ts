@@ -204,10 +204,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add bonus pp based on how many total characters a user's vault contains
   // multiply it depending on how clean the user's vault is (using the vault angle, with 360 degrees describing the cleanest vault)
-  const charAngleBonus = (totalChars / 850) * (1 + (0.45 * (angleValue / 360)));
+  const charAngleBonus: number = (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
 	
   // add bonus pp based on how many times the performance points calculation has been executed.
-  const executionBonus = (417 - (1 / 3)) * (1 - Math.pow(0.994, totalExecutionCount));
+  const executionBonus: number = (417 - (1 / 3)) * (1 - Math.pow(0.9975, totalExecutionCount));
 
   // add a file count pp bonus, which should stop at around 27,608 files
   const fileCountBonus: number = (417 - (1 / 3)) * (1 - Math.pow(0.9996, totalFiles));

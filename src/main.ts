@@ -43,6 +43,8 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
+        this.settings.totalExecutionCount++;
+		this.saveSettings();
       }
     });
     
@@ -54,6 +56,8 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
+		this.settings.totalExecutionCount++;
+        this.saveSettings();
       },
     );
 
@@ -67,6 +71,8 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
+        this.settings.totalExecutionCount += 2;
+		this.saveSettings();
       }
     });
     
@@ -80,6 +86,8 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
+        this.settings.totalExecutionCount += 2;
+		this.saveSettings();
       },
     );
 

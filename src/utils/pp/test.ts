@@ -196,7 +196,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     Math.pow(strainValue, 1.1) + flashlightValue
   ) * (accuracyValue / 100);
 
-  // scale the combined pp with star rating
+  // scale the total pp with star rating
   combinedValue += 1 + (starRating / 100);
 
   // add time bonus to the overall pp value
@@ -204,10 +204,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add bonus pp based on how many total characters a user's vault contains
   // multiply it depending on how clean the user's vault is (using the vault angle, with 360 degrees describing the cleanest vault)
-  combinedValue += (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
+  combinedValue += (totalChars / 850) * (1 + (0.45 * (angleValue / 360)));
 
   // add bonus pp based on how many times the performance points calculation has been executed.
-  combinedValue += ((417 - (1 / 3)) / 2) * (1 - Math.pow(0.994, totalExecutionCount));
+  combinedValue += (417 - (1 / 3)) * (1 - Math.pow(0.994, totalExecutionCount));
 
   // add a file count pp bonus, which should stop at around 27,608 files
   const fileCountBonus: number = (417 - (1 / 3)) * (1 - Math.pow(0.9996, totalFiles));

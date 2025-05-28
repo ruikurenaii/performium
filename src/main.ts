@@ -87,17 +87,14 @@ export default class PerformiumPlugin extends Plugin {
       id: "display-top-entries",
       name: "Display top performance entries",
       callback: async () => {
-        const topEntries = await getTopPerformanceEntries(this.app);
-        new HighestPerformanceModal(this.app, topEntries).open();
-      }
+        const topEntries = await showAllPerformanceEntries(this.app);
     })
 
     this.addRibbonIcon(
       "lucide-trophy",
       "Display top performance entries",
       async () => {
-        const topEntries = await getTopPerformanceEntries(this.app);
-        new HighestPerformanceModal(this.app, topEntries).open();
+        const topEntries = await showAllPerformanceEntries(this.app);
       },
     );
   }

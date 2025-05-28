@@ -207,7 +207,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const charAngleBonus: number = (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
 	
   // add bonus pp based on how many times the performance points calculation has been executed.
-  const executionBonus: number = (417 - (1 / 3)) * (1 - Math.pow(0.9975, totalExecutionCount));
+  const executionBonus: number = ((417 - (1 / 3)) / 2) * (1 - Math.pow(0.9975, totalExecutionCount));
 
   // add a file count pp bonus, which should stop at around 27,608 files
   const fileCountBonus: number = (417 - (1 / 3)) * (1 - Math.pow(0.9996, totalFiles));

@@ -16,13 +16,15 @@ export interface PerformiumBaseSettings {
   installTimestamp?: number;
   totalFocusTime?: number;
   secondaryPpSystem: string;
+  totalExecutionCount: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   ppSystem: "050725",
   installTimestamp: 0,
-	totalFocusTime: 0,
-  secondaryPpSystem: "040625"
+  totalFocusTime: 0,
+  secondaryPpSystem: "040625",
+  totalExecutionCount: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {

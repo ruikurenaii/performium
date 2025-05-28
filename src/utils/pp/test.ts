@@ -113,6 +113,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const installTimestamp = plugin.settings.installTimestamp ?? Date.now();
   const totalPluginTime = Date.now() - installTimestamp;
 
+  const totalExecutionCount = plugin.settings.totalExecutionCount;
+
   const focusedTime = Math.trunc(totalFocusTime % (1000 * 60 * 60)) / (1000 * 60);
   const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
 
@@ -202,10 +204,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add bonus pp based on how many total characters a user's vault contains
   // multiply it depending on how clean the user's vault is (using the vault angle, with 360 degrees describing the cleanest vault)
-  combinedValue += (totalChars / 968.75) * (1 + (0.45 * (vaultAngle / 360)));
+  combinedValue += (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
+
+  // add bonus pp based on how many times the performance points calculation has been executed.
+  combinedValue += ((417 - (1 / 3)) / 2) * (1 - (0.994 ** totalExecutionCount));
 
   // add a file count pp bonus, which should stop at around 27,608 files
-  const fileCountBonus: number = (416 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
+  const fileCountBonus: number = (417 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
 
   let performanceValue: number = Math.pow(combinedValue, 0.565) + fileCountBonus;
 

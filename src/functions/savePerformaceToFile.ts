@@ -22,7 +22,7 @@ export async function savePerformanceToFile(app: App, value: number) {
   if (!data[year]) data[year] = {};
   if (!data[year][monthDay]) data[year][monthDay] = [];
 
-  data[year][monthDay].push(value);
+  data[year][monthDay].push(value.toFixed(2));
 
   await adapter.write(filePath, JSON.stringify(data, null, 2));
 }

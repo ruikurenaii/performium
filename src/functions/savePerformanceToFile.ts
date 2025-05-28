@@ -22,7 +22,7 @@ export async function savePerformanceToFile(app: App, value: number) {
   if (!data[year]) data[year] = {};
   if (!data[year][monthDay]) data[year][monthDay] = [];
 
-  const fixedValue: number = value.toFixed(2);
+  const fixedValue: number = parseFloat(value.toFixed(2));
 
   data[year][monthDay].push(fixedValue);
 

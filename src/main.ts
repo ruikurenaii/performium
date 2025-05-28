@@ -4,7 +4,7 @@ import { comparePerformanceModal } from "./modals/comparePerformanceModal";
 import { HighestPerformanceModal } from "./modals/highestPerformanceModal";
 import { getTopPerformanceEntries } from "./functions/getTopPerformanceEntries";
 import { showAllPerformanceEntries } from "./functions/showPerformanceEntries";
-import { savePerformanceToFile } from "./functions/savePerformaceToFile";
+import { savePerformanceToFile } from "./functions/savePerformanceToFile";
 
 // import different performance points systems
 import { calculatePerformance as calculatePerformance040625 } from "./utils/pp/040625";

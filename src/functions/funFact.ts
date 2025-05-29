@@ -73,7 +73,7 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
 	if ((Date.now() / 1000) >= 2147483647) {
       array.push(`It has been ${new Intl.NumberFormat().format(Math.trunc((Date.now() / 1000) - 2147483647))} seconds since the 2K38 problem! So long, 32-bit computers, you will forever be missed!`);
 	} else {
-      array.push(`There are ${new Intl.NumberFormat().format(Math.trunc((Date.now() / 1000) - 2147483647))} seconds before the 2K38 problem! I guess the end of 32-bit computers are near!`);
+      array.push(`There are ${new Intl.NumberFormat().format(Math.trunc(2147483647 - (Date.now() / 1000)))} seconds before the 2K38 problem! I guess the end of 32-bit computers are near!`);
 	}
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];

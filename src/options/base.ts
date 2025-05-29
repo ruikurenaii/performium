@@ -10,6 +10,7 @@ import { App, PluginSettingTab, Setting, Plugin } from "obsidian";
 import { generateFact } from "../functions/funFact";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
+import { getTopPerformanceEntries } from "./getTopPerformanceEntries";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
@@ -91,7 +92,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 			});
 
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
-    let factText: string = generateFact(installTimestamp);
+
+	const entries = await getTopPerformanceEntries(this.app);
+    let factText: string = generateFact(installTimestamp, entries);
 	  
     const totalTime = installTimestamp - Date.now();
 

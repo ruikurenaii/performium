@@ -36,7 +36,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     this.plugin = plugin;
   }
   
-  display(): void {
+  async display(): Promise<void> {
     const { containerEl } = this;
     containerEl.empty();
 
@@ -95,7 +95,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
-	let factText: string = generateFact(installTimestamp, this.entries);
+	let factText: string = generateFact(installTimestamp, entries);
 	  
     const totalTime = installTimestamp - Date.now();
 

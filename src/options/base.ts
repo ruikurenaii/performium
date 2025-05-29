@@ -35,12 +35,12 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     super(app, plugin);
     this.plugin = plugin;
   }
-
-  const entries = await getTopPerformanceEntries(this.app);
   
   display(): void {
     const { containerEl } = this;
     containerEl.empty();
+
+	const entries = await getTopPerformanceEntries(this.app);
     
     new Setting(containerEl)
       .setName("Performance points system version")
@@ -95,7 +95,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
-	let factText: string = generateFact(installTimestamp, entries);
+	let factText: string = generateFact(installTimestamp, this.entries);
 	  
     const totalTime = installTimestamp - Date.now();
 

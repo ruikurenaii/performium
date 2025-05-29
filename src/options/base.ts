@@ -10,7 +10,7 @@ import { App, PluginSettingTab, Setting, Plugin } from "obsidian";
 import { generateFact } from "../functions/funFact";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
-import { getTopPerformanceEntries } from "./getTopPerformanceEntries";
+import { getTopPerformanceEntries } from "../functions/getTopPerformanceEntries";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;

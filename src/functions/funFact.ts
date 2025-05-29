@@ -1,8 +1,10 @@
 import { timeFormat } from "../utils/values/timeFormat";
 import { getTimeSinceDate } from "./timeSinceDate";
+import { PerformanceEntry } from "../interfaces/performanceEntry";
+import { getTopPerformanceEntries } from "./getTopPerformanceEntries";
 
 // it may not be used or i don't know.
-export function generateFact(installTimestamp: number): string {
+export function generateFact(installTimestamp: number, entries: PerformanceEntry[]): string {
   const array = [
     `It has been ${getTimeSinceDate(installTimestamp)} since the plugin has been installed inside your vault!`,
     `Performium is not meant to boost your application's performance!`,
@@ -54,11 +56,25 @@ export function generateFact(installTimestamp: number): string {
     `This plugin's integration is not official, and may differ from the official osu! performance points system`,
 	`I- Shucks... I forgot what I have to say again, this is quite annoying though...`,
     `Before releasing a new update to the plugin, reworks to the performance points system can take a while to be done. To test these reworks being done for the next update, beta builds are available in the GitHub repository!`,
-    `The developer can't have more ideas to put in this tab, so while they're thinking of some new stuff, join the discord server and suggest some facts!`
+    `The developer can't have more ideas to put in this tab, so while they're thinking of some new stuff, join the discord server and suggest some facts!`,
+    `Performium 1.5.0 might be the longest update to ever release in this plugin's history!`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped
 	array.push(`There is a 1 in ${array.length + 1} chance that you get this pointless fun fact (${((1 / (array.length + 1)) * 100).toFixed(2)}%)!`);
+
+    // adding another fact, weighing the total performance points of the user
+	const sortedValue = entries.map(e => e.value).sort((a, b) => b - a);
+	const weightedValue = sortedValue.reduce((acc, value, index) => acc + value * Math.pow(0.95, index), 0);
+
+	array.push(`Crunching all of the performance values you have calculated will give you ${new Intl.NumberFormat().format(Math.trunc(weightedValue))}pp!`);
+
+    // add another fact regarding the 2k38 problem
+	if ((Date.now() / 1000) >= 2147483647) {
+      array.push(`It has been ${new Intl.NumberFormat().format(Math.trunc((Date.now() / 1000) - 2147483647))} seconds since the 2K38 problem! So long, 32-bit computers, you will forever be missed!`);
+	} else {
+      array.push(`There are ${new Intl.NumberFormat().format(Math.trunc((Date.now() / 1000) - 2147483647))} seconds before the 2K38 problem! I guess the end of 32-bit computers are near!`);
+	}
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;

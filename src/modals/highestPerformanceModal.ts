@@ -1,9 +1,5 @@
 import { App, Modal, Notice } from "obsidian";
-
-interface PerformanceEntry {
-  value: number;
-  date: string;
-}
+import { PerformanceEntry } from "../interfaces/performanceEntry";
 
 export class HighestPerformanceModal extends Modal {
   entries: PerformanceEntry[];

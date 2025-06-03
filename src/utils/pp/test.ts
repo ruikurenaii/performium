@@ -222,6 +222,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add bonuses for the final pp
   performanceValue += charAngleBonus + executionBonus;
 
+  // add a bit more pp to the final value
+  performanceValue *= 1.015;
+
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {
     console.log("The value is 0pp or negative... Setting it to 0pp...")

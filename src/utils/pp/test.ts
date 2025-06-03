@@ -189,7 +189,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // scale the strain pp with high precision (if cs > 5.5)
   let objectRadius = 54.4 - 4.48 * circleSize;
-  let smallCircleSizeBonus: number = Math.Max(1.0, 1.0 + (30 - objectRadius) / 40);
+  let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
   strainValue *= smallCircleSizeBonus;
 
   // scale aim and speed pp with high ar bonus

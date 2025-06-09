@@ -12,7 +12,7 @@ import { calculatePerformance as calculatePerformance041325 } from "./utils/pp/0
 import { calculatePerformance as calculatePerformance042925 } from "./utils/pp/042925";
 import { calculatePerformance as calculatePerformance050725 } from "./utils/pp/050725";
 import { calculatePerformance as calculatePerformance051425 } from "./utils/pp/051425";
-import { calculatePerformance as calculatePerformance060925 } from "./utils/pp/0060925";
+import { calculatePerformance as calculatePerformance060925 } from "./utils/pp/060925";
 import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
 
 export default class PerformiumPlugin extends Plugin {

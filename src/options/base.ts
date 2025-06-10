@@ -69,11 +69,12 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
-		      "041325": "04-13-25 (v1.1.0)",
-		      "042925": "04-29-25 (v1.2.0)",
-		      "050725": "05-07-25 (v1.3.0)",
-          "051425": "05-14-25 (v1.4.0, Current)",
-          "test": "Test System (v1.5.0b, EXPERIMENTAL)"
+		  "041325": "04-13-25 (v1.1.0)",
+		  "042925": "04-29-25 (v1.2.0)",
+		  "050725": "05-07-25 (v1.3.0)",
+          "051425": "05-14-25 (v1.4.0)",
+		  "060925": "06-09-25 (v1.5.0, Current)",
+          "test": "Test System (v1.6.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.secondaryPpSystem);

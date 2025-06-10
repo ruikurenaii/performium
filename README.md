@@ -12,6 +12,9 @@ Performance points, known shortly as *pp*, is the main metric for the plugin, an
 
 For more information, you might want to [check this out](https://osu.ppy.sh/wiki/en/Performance_points)!
 
+## Is there a support server?
+There's a support server, but it's currently a work in progress server!
+
 ## What does it add?
 This plugin adds a ribbon and command of a new function meant to calculate the performance points. The performance points are based from a few factors:
 - Readability

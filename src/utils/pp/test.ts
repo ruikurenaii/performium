@@ -203,10 +203,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // scale the total pp with star rating
   combinedValue += 1 + (starRating / 100);
-
-  // add time bonus to the overall pp value
-  combinedValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / totalFocusTime)))) / 7.5;
-
+	
   // add bonus pp based on how many total characters a user's vault contains
   // multiply it depending on how clean the user's vault is (using the vault angle, with 360 degrees describing the cleanest vault)
   const charAngleBonus: number = (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
@@ -224,6 +221,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add a bit more pp to the final value
   performanceValue *= 1.015;
+
+  // add the time bonus pp to the final value
+  performanceValue += Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / (totalFocusTime * 0.00025)))) ** 1.05;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

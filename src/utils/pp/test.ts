@@ -141,8 +141,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= accuracyValue;
 
   // punish aim and speed pp with slow vault bpm
-  aimValue /= 1 + ((vaultBPM - 200) / 100);
-  speedValue /= 1 + ((vaultBPM - 200) / 100) * 0.975; 
+  aimValue /= 1 + ((vaultBpm - 200) / 100);
+  speedValue /= 1 + ((vaultBpm - 200) / 100) * 0.975; 
 
   // scale aim value with approach rate
   aimValue *= 1 + 0.04 * ((12 - approachRate) / 2);

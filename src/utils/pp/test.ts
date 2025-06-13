@@ -141,7 +141,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= 1 + 0.04 * ((12 - approachRate) / 2);
 
   // scale aim pp with the wide angle bonus
-  aimValue *= 1 + 0.25 * (finalAngleValue / 150);
+  aimValue *= 1 + 0.25 * (finalAngleValue / 152.5);
 
   // add tag bonus to speed pp
   speedValue += Math.log10(totalTags);
@@ -192,8 +192,18 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
   strainValue *= smallCircleSizeBonus;
 
+  // add note rhythm to the system
+  const rawRhythm = (averageSentencesPerParagraph * averageWordsPerSentence) / averageSentenceLength;
+  const rhythmScore = Math.min(10, Math.max(0, rawRhythm * 1.8));
+  const noteRhythmMultiplier = 1.0;
+
+  // apply this rhythm to aim and speed values
+  aimValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 1.1);
+  speedValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 0.975);
+  accuracyValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 0.95);
+
   // scale aim and speed pp with high ar bonus
-  aimValue *= 1 + 0.04 * (approachRate - 12); 
+  aimValue *= 1 + 0.04 * (approachRate - 12);
 
   let combinedValue = (
     Math.pow(aimValue, 1.1) +
@@ -220,7 +230,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   performanceValue += charAngleBonus + executionBonus;
 
   // add a bit more pp to the final value
-  performanceValue *= 1.015;
+  performanceValue *= 1.006;
 
   // add the time bonus pp to the final value
   performanceValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / (totalFocusTime * 0.00025)))) ** 1.05) / 4;

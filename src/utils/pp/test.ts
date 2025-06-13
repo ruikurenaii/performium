@@ -120,9 +120,12 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
+  const strainCount = (averageSentenceLength * averageSentencesPerParagraph) + (longestSentenceLength * 0.25) + (longestParagraphLength * 0.1);
+
+  // declare these separate, initial values
   let aimValue = Math.sqrt(totalLinks);
   let accuracyValue = (angleValue / 360) * 100;
-  let speedValue = totalWords / ((overallTime / 8) / focusedTime);
+  let speedValue = totalWords / (strainCount * 1.25);
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
   const importance = totalWords + totalLinks * 10;

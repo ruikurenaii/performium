@@ -213,9 +213,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   aimValue *= 1 + 0.04 * (approachRate - 12);
 
   // add a bonus for slider complexity
-  const sliderBonus = 1 + 0.2 * Math.log2(1 + averageWordsPerSentence) + 0.2 * Math.log2(1 + averageSentenceLength) + 0.15 * Math.log2(1 + longestSentenceLength) + 0.15 * Math.log2(1 + longestParagraphLength) + 0.1 * Math.log2(1 + totalTags) + 0.2 * Math.log2(1 + sliderCount);
-  const sliderDensity = sliderCount / (totalWords || 1);
-  const sliderBonusPenalty = sliderDensity > 0.1 ? 0.25 : sliderCount === 0 ? 0.15 : 0;
+  const sliderBonus = 1 + 0.2 * Math.log2(1 + averageWordsPerSentence) + 0.2 * Math.log2(1 + averageSentenceLength) + 0.15 * Math.log2(1 + longestSentenceLength) + 0.15 * Math.log2(1 + longestParagraphLength) + 0.1 * Math.log2(1 + totalTags) + 0.2 * Math.log2(1 + vaultObjects.sliders);
+  const sliderDensity = vaultObjects.sliders / (totalWords || 1);
+  const sliderBonusPenalty = sliderDensity > 0.1 ? 0.25 : vaultObjects.sliders === 0 ? 0.15 : 0;
   const sliderComplexityMultiplier = sliderBonus * (1 - sliderBonusPenalty);
 
   aimValue *= sliderComplexityMultiplier / 1.05;

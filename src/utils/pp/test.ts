@@ -218,8 +218,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const sliderBonusPenalty = sliderDensity > 0.1 ? 0.25 : vaultObjects.sliders === 0 ? 0.15 : 0;
   const sliderComplexityMultiplier = sliderBonus * (1 - sliderBonusPenalty);
 
-  aimValue *= sliderComplexityMultiplier / 1.05;
-  strainValue *= sliderComplexityMultiplier / 1.01;
+  aimValue *= sliderComplexityMultiplier / 1.2;
+  strainValue *= sliderComplexityMultiplier / 1.1;
 	
   let combinedValue = (
     Math.pow(aimValue, 1.1) +

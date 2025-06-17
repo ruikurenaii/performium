@@ -123,8 +123,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const strainCount = (averageSentenceLength * averageSentencesPerParagraph) + (longestSentenceLength * 0.25) + (longestParagraphLength * 0.1);
 
   // declare these separate, initial values
-  let aimValue = Math.sqrt(totalLinks);
-  let accuracyValue = (angleValue / 360) * 100;
+  let aimValue = Math.sqrt(totalLinks) + Math.sqrt(totalHeaders / 4);
+  let accuracyValue = (angleValue / 360) * 100 + (1 / (angleValue / 360));
   let speedValue = totalWords / (strainCount * 1.25);
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 

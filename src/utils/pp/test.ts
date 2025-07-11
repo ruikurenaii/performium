@@ -67,6 +67,12 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 	  totalSentences: totalSentences
   });
 
+  // multipliers!!!
+  const AIM_MULTIPLIER = 1.02;
+  const SPEED_MULTIPLIER = 1.01;
+  const STRAIN_MULTIPLIER = 1.01;
+  const ACCURACY_MULTIPLIER = 1.02;
+
   // pi, obviously
   const pi = Math.PI;
 
@@ -123,10 +129,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const strainCount = (averageSentenceLength * averageSentencesPerParagraph) + (longestSentenceLength * 0.25) + (longestParagraphLength * 0.1);
 
   // declare these separate, initial values
-  let aimValue = Math.sqrt(totalLinks) + Math.sqrt(totalHeaders / 4);
-  let accuracyValue = (angleValue / 360) * 100 + (1 / (angleValue / 360));
-  let speedValue = totalWords / (strainCount * 1.25);
-  let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
+  let aimValue = (Math.sqrt(totalLinks) + Math.sqrt(totalHeaders / 4)) * AIM_MULTIPLIER;
+  let accuracyValue = ((angleValue / 360) * 100 + (1 / (angleValue / 360))) * ACCURACY_MULTIPLIER;
+  let speedValue = (totalWords / (strainCount * 1.25)) * SPEED_MULTIPLIER;
+  let strainValue = (totalWords + totalHeaders * 2 + totalTasks * 3) * STRAIN_MULTIPLIER;
 
   const importance = totalWords + totalLinks * 10;
   let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);

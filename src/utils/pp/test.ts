@@ -9,6 +9,7 @@ import PerformiumPlugin from "../../main";
 import { getVaultAge } from "../values/newEvaluators/vaultAge";
 import { calculateVaultStats } from "../../functions/vaultStats";
 import { calculateWPM } from "../values/newEvaluators/wordsPerMinute";
+import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactors";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -17,6 +18,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const vaultStats = await calculateVaultStats(app);
 
   const vaultAge = getVaultAge(app);
+
+  const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
+
+  const totalFocusTime = plugin.settings.totalFocusTime || 0;
   
   const totalFiles = vaultStats.totalFiles;
   const totalFolders = vaultStats.totalFolders;
@@ -46,6 +51,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const OVERALL_MULTIPLIER = 1.05;
 
+  const circleSize = difficultyFactors.CS;
+
   async function calculateAim() {
     let aimValue = 0;
 
@@ -70,7 +77,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     speedValue += wpm;
 
-    const averageNotesPerDay = totalFiles / vaultAge;
+    const averageNotesPerDay = totalFiles / vaultAge.daysSinceCreation;
 
     speedValue += averageNotesPerDay;
 
@@ -96,11 +103,26 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   async function calculateAccuracy() {
     let accuracyValue = 0;
+
+    const totalNotes = this.app.vault.getMarkdownFiles().length;
+
+    accuracyValue += totalNotes * (1 + (circleSize / 10));
+
     return accuracyValue * ACCURACY_MULTIPLIER;
   }
 
   async function calculateFlashlight() {
     let flashValue = 0;
+
+    const vaultTime = vaultAge.millisecondsSinceCreation;
+    const focusTime = totalFocusTime;
+
+    if (focusTime > 0) {
+      flashValue = vaultTime / focusTime;
+    } else {
+      flashValue = 1; // Default value if no focus time is set
+    }
+
     return flashValue * FLASHLIGHT_MULTIPLIER;
   }
 
@@ -119,7 +141,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {
     console.log("The value is 0pp or negative... Setting it to 0pp...")
-	performanceValue = 0;
+	  performanceValue = 0;
+  } else if (Number.isNaN(performanceValue)) {
+    // otherwise, if the value is not a number
+    console.log("The value is not a number... Setting it to 0pp...");
+    performanceValue = 0;
   }
 
   return performanceValue;

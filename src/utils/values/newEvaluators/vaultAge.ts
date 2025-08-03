@@ -1,6 +1,6 @@
 import { App } from "obsidian";
 
-export function getVaultAge(app: App): number {
+export function getVaultAge(app: App): { daysSinceCreation: number; millisecondsSinceCreation: number } {
 	const allNotes = app.vault.getMarkdownFiles();
 
 	let earliestTimestamp = Date.now();
@@ -13,8 +13,8 @@ export function getVaultAge(app: App): number {
 	}
 
 	const now = Date.now();
-	const millisecondsSinceCreation = now - earliestTimestamp;
-	const daysSinceCreation = Math.floor(millisecondsSinceCreation / (1000 * 60 * 60 * 24));
+	const millisecondsSinceCreation: number = now - earliestTimestamp;
+	const daysSinceCreation: number = Math.floor(millisecondsSinceCreation / (1000 * 60 * 60 * 24));
 
-	return daysSinceCreation;
+	return { daysSinceCreation, millisecondsSinceCreation };
 }

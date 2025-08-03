@@ -5,14 +5,18 @@
 */
 
 import PerformiumPlugin from "../../main";
-import { calculateVaultStats } from "../../functions/vaultStats";
 
+import { getVaultAge } from "../values/newEvaluators/vaultAge";
+import { calculateVaultStats } from "../../functions/vaultStats";
+import { calculateWPM } from "../values/newEvaluators/wordsPerMinute";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
   const app = plugin.app;
   
   const vaultStats = await calculateVaultStats(app);
+
+  const vaultAge = getVaultAge(app);
   
   const totalFiles = vaultStats.totalFiles;
   const totalFolders = vaultStats.totalFolders;
@@ -42,42 +46,75 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const OVERALL_MULTIPLIER = 1.05;
 
-  function calculateAim() {
+  async function calculateAim() {
     let aimValue = 0;
-    return aimValue * AIM_MULTIPLIER;
+
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const content = await this.app.vault.cachedRead(file);
+
+      const wikiLinks = content.match(/\[\[.*?\]\]/g);
+      const mdLinks = content.match(/\[.*?\]\(.*?\)/g);
+
+      const totalLinks = wikiLinks + mdLinks;
+
+      aimValue += totalLinks;
+
+      return aimValue * AIM_MULTIPLIER;
+    }
   }
 
-  function calculateSpeed() {
+  async function calculateSpeed() {
     let speedValue = 0;
+
+    const wpm = await calculateWPM(plugin);
+
+    speedValue += wpm;
+
+    const averageNotesPerDay = totalFiles / vaultAge;
+
+    speedValue += averageNotesPerDay;
+
     return speedValue * SPEED_MULTIPLIER;
   }
 
-  function calculateStrain() {
+  async function calculateStrain() {
     let strainValue = 0;
-    return strainValue * STRAIN_MULTIPLIER;
+
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const content = await this.app.vault.cachedRead(file);
+
+      const wikiLinks = content.match(/\[\[.*?\]\]/g);
+      const mdLinks = content.match(/\[.*?\]\(.*?\)/g);
+
+      const totalLinks = wikiLinks + mdLinks;
+
+      strainValue += totalWords * (totalLinks + 1);
+
+      return strainValue * STRAIN_MULTIPLIER;
+    }
   }
 
-  function calculateAccuracy() {
+  async function calculateAccuracy() {
     let accuracyValue = 0;
     return accuracyValue * ACCURACY_MULTIPLIER;
   }
 
-  function calculateFlashlight() {
+  async function calculateFlashlight() {
     let flashValue = 0;
     return flashValue * FLASHLIGHT_MULTIPLIER;
   }
 
-  function calculateCombinedPerformance() {
-    const aim = calculateAim();
-    const speed = calculateSpeed();
-    const strain = calculateStrain();
-    const accuracy = calculateAccuracy();
-    const flashlight = calculateFlashlight();
+  async function calculateCombinedPerformance() {
+    const aim = await calculateAim() ?? 0;
+    const speed = await calculateSpeed() ?? 0;
+    const strain = await calculateStrain() ?? 0;
+    const accuracy = await calculateAccuracy() ?? 0;
+    const flashlight = await calculateFlashlight() ?? 0;
 
-    return (aim + speed + strain + accuracy + flashlight) * OVERALL_MULTIPLIER;
+    return Math.pow((aim + speed + strain + accuracy + flashlight) * OVERALL_MULTIPLIER, 1 + (pi / 150));
   }
 
-  let performanceValue: number = calculateCombinedPerformance();
+  let performanceValue: number = await calculateCombinedPerformance();
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

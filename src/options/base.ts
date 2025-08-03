@@ -21,10 +21,10 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "050725",
+  ppSystem: "080325",
   installTimestamp: 0,
   totalFocusTime: 0,
-  secondaryPpSystem: "040625",
+  secondaryPpSystem: "test",
   totalExecutionCount: 0
 };
 
@@ -53,7 +53,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		  "050725": "05-07-25 (v1.3.0)",
 		  "051425": "05-14-25 (v1.4.0)",
           "060925": "06-09-25 (v1.5.0, Current)",
-          "test": "Test System (v1.6.0b, EXPERIMENTAL)"
+		  "080325": "08-03-25 (v1.6.0, Current)",
+          "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);
@@ -73,8 +74,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		  "042925": "04-29-25 (v1.2.0)",
 		  "050725": "05-07-25 (v1.3.0)",
           "051425": "05-14-25 (v1.4.0)",
-		  "060925": "06-09-25 (v1.5.0, Current)",
-          "test": "Test System (v1.6.0b, EXPERIMENTAL)"
+		  "080325": "08-03-25 (v1.6.0, Current)",
+          "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.secondaryPpSystem);

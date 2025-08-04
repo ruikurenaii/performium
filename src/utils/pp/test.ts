@@ -49,7 +49,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const ACCURACY_MULTIPLIER = 1.02;
   const FLASHLIGHT_MULTIPLIER = 1.01;
 
-  const OVERALL_MULTIPLIER = 1.05;
+  const OVERALL_MULTIPLIER = 1.00;
 
   const circleSize = difficultyFactors.CS;
 
@@ -100,6 +100,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
       strainValue += totalWords * (totalLinks + 1);
 
+      let objectRadius = 54.4 - 4.48 * circleSize;
+      let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
+    
+      strainValue *= smallCircleSizeBonus;
+
       return strainValue * STRAIN_MULTIPLIER;
     }
   }
@@ -110,11 +115,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     const totalNotes = this.app.vault.getMarkdownFiles().length;
 
     accuracyValue += totalNotes * (1 + (circleSize / 10));
-
-    let objectRadius = 54.4 - 4.48 * circleSize;
-    let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
-    
-    accuracyValue *= smallCircleSizeBonus;
 
     return accuracyValue * ACCURACY_MULTIPLIER;
   }
@@ -141,13 +141,17 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     const accuracy = await calculateAccuracy() ?? 0;
     const flashlight = await calculateFlashlight() ?? 0;
 
-    let calculatedPerformance = Math.pow((aim + speed + strain + accuracy + flashlight) * OVERALL_MULTIPLIER, 1 + (pi / 150));
+    let calculatedPerformance = ((aim ** 1.1) + (speed ** 1.1) + (strain ** 1.1) + (accuracy ** 1.1) + (flashlight ** 1.1)) ** (1 / 1.1);
+
+    calculatedPerformance *= OVERALL_MULTIPLIER;
 
     const totalExecutionCount = plugin.settings.totalExecutionCount;
     const executionBonus: number = ((417 - (1 / 3)) / 2) * (1 - Math.pow(0.9975, totalExecutionCount));
 
     const executionBonusMultiplier = 1 + (executionBonus / 100);
     calculatedPerformance *= executionBonusMultiplier;
+
+    calculatedPerformance *= 1 + (pi / 1000);
 
     return calculatedPerformance;
   }

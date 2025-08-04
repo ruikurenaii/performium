@@ -24,21 +24,21 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const totalFocusTime = plugin.settings.totalFocusTime || 0;
   
   const totalFiles = vaultStats.totalFiles;
-  const totalFolders = vaultStats.totalFolders;
+  // const totalFolders = vaultStats.totalFolders;
   const totalWords = vaultStats.totalWords;
-  const totalChars = vaultStats.totalChars;
-  const totalSentences = vaultStats.totalSentences;
-  const totalParagraphs = vaultStats.totalParagraphs;
-  const totalTags = vaultStats.totalTags;
-  const averageWordsPerFile = vaultStats.averageWordsPerFile;
-  const averageSentencesPerFile = vaultStats.averageSentencesPerFile;
-  const averageWordsPerSentence = vaultStats.averageWordsPerSentence;
-  const averageSentencesPerParagraph = vaultStats.averageSentencesPerParagraph;
-  const averageCharsPerSentence = vaultStats.averageCharsPerSentence;
-  const averageParagraphLength = vaultStats.averageParagraphLength;
-  const averageSentenceLength = vaultStats.averageSentenceLength;
-  const longestSentenceLength = vaultStats.longestSentenceLength;
-  const longestParagraphLength = vaultStats.longestParagraphLength;
+  // const totalChars = vaultStats.totalChars;
+  // const totalSentences = vaultStats.totalSentences;
+  // const totalParagraphs = vaultStats.totalParagraphs;
+  // const totalTags = vaultStats.totalTags;
+  // const averageWordsPerFile = vaultStats.averageWordsPerFile;
+  // const averageSentencesPerFile = vaultStats.averageSentencesPerFile;
+  // const averageWordsPerSentence = vaultStats.averageWordsPerSentence;
+  // const averageSentencesPerParagraph = vaultStats.averageSentencesPerParagraph;
+  // const averageCharsPerSentence = vaultStats.averageCharsPerSentence;
+  // const averageParagraphLength = vaultStats.averageParagraphLength;
+  // const averageSentenceLength = vaultStats.averageSentenceLength;
+  // const longestSentenceLength = vaultStats.longestSentenceLength;
+  // const longestParagraphLength = vaultStats.longestParagraphLength;
 
   // pi, obviously
   const pi = Math.PI;
@@ -65,6 +65,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
       const totalLinks = wikiLinks + mdLinks;
 
       aimValue += totalLinks;
+
+      const linkDistance = totalLinks / ((wikiLinks.length * 0.8) + (mdLinks.length * 1.1));
+      aimValue += linkDistance;
 
       return aimValue * AIM_MULTIPLIER;
     }
@@ -108,6 +111,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     accuracyValue += totalNotes * (1 + (circleSize / 10));
 
+    let objectRadius = 54.4 - 4.48 * circleSize;
+    let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
+    
+    accuracyValue *= smallCircleSizeBonus;
+
     return accuracyValue * ACCURACY_MULTIPLIER;
   }
 
@@ -118,7 +126,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     const focusTime = totalFocusTime;
 
     if (focusTime > 0) {
-      flashValue = vaultTime / focusTime;
+      flashValue = (vaultTime - focusTime) / 3600000;
     } else {
       flashValue = 1; // Default value if no focus time is set
     }
@@ -133,7 +141,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     const accuracy = await calculateAccuracy() ?? 0;
     const flashlight = await calculateFlashlight() ?? 0;
 
-    return Math.pow((aim + speed + strain + accuracy + flashlight) * OVERALL_MULTIPLIER, 1 + (pi / 150));
+    let calculatedPerformance = Math.pow((aim + speed + strain + accuracy + flashlight) * OVERALL_MULTIPLIER, 1 + (pi / 150));
+
+    const totalExecutionCount = plugin.settings.totalExecutionCount;
+    const executionBonus: number = ((417 - (1 / 3)) / 2) * (1 - Math.pow(0.9975, totalExecutionCount));
+
+    const executionBonusMultiplier = 1 + (executionBonus / 100);
+    calculatedPerformance *= executionBonusMultiplier;
+
+    return calculatedPerformance;
   }
 
   let performanceValue: number = await calculateCombinedPerformance();

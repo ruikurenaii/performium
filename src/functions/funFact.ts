@@ -29,7 +29,7 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
     `Before Performium, the developer relied on ChatGPT about the plugin names, and yet, this name was taken, which was originally thought by the developer himself!`,
     `If you're not sure what different performance point systems mean, newer versions mean newer components, like having new lines the weren't in the older versions in the source code!`,
     `There are a variety of facts you can get! Try to get them all, will you?`,
-	`The first version of Performium's pp system wasn't complex enough, while the test version has more of it, but the values may break!`,
+	  `The first version of Performium's pp system wasn't complex enough, while the test version has more of it, but the values may break!`,
     `The developer tried to work as hard as they could, but they're still not getting some money! (Leaving a donation would be fine)`,
     `Performium v1.2.0 added another update to the pp system, with some changes similar to osu!`,
     `I wasn't happy watching the developer suffer making everything including this...`,
@@ -54,7 +54,7 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
     `Reworks take longer than expected, unless it minorly impacts the performance points system!`,
     `The bigger your vault, the longer it would take the performance calculation to finish!`,
     `This plugin's integration is not official, and may differ from the official osu! performance points system`,
-	`I- Shucks... I forgot what I have to say again, this is quite annoying though...`,
+	  `I- Shucks... I forgot what I have to say again, this is quite annoying though...`,
     `Before releasing a new update to the plugin, reworks to the performance points system can take a while to be done. To test these reworks being done for the next update, beta builds are available in the GitHub repository!`,
     `The developer can't have more ideas to put in this tab, so while they're thinking of some new stuff, join the discord server and suggest some facts!`,
     `Performium 1.5.0 might be the longest update to ever release in this plugin's history!`

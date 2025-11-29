@@ -56,33 +56,22 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   async function calculateAim() {
     let aimValue = 0;
 
-    for (const file of this.app.vault.getMarkdownFiles()) {
-      const content = await this.app.vault.cachedRead(file);
+    const vaultFiles = app.vault.getFiles();
+    const vaultFolders = app.vault.getAllFolders();
 
-      const wikiLinks = content.match(/\[\[.*?\]\]/g);
-      const mdLinks = content.match(/\[.*?\]\(.*?\)/g);
+    aimValue += vaultFiles.length / vaultFolders.length;
 
-      const totalLinks = wikiLinks + mdLinks;
-
-      aimValue += totalLinks;
-
-      const linkDistance = totalLinks / ((wikiLinks.length * 0.8) + (mdLinks.length * 1.1));
-      aimValue += linkDistance;
-
-      return aimValue * AIM_MULTIPLIER;
-    }
+    return aimValue * AIM_MULTIPLIER;
   }
 
   async function calculateSpeed() {
     let speedValue = 0;
 
-    const wpm = await calculateWPM(plugin);
-
-    speedValue += wpm;
-
     const averageNotesPerDay = totalFiles / vaultAge.daysSinceCreation;
+    const averageWordsPerDay = totalWords / vaultAge.daysSinceCreation;
 
     speedValue += averageNotesPerDay;
+    speedValue += averageWordsPerDay;
 
     return speedValue * SPEED_MULTIPLIER;
   }

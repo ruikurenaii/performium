@@ -40,7 +40,7 @@ const context = await esbuild.context({
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
-	outfile: "main.js",
+	outfile: "/home/sebastian/Documents/Obsidian/Arch Linux/.obsidian/plugins/performosu-beta/main.js",
 	minify: prod,
 });
 

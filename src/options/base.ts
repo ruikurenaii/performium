@@ -6,8 +6,8 @@
 
 */
 
-import { App, PluginSettingTab, Setting, Plugin } from "obsidian";
-import { generateFact } from "../functions/funFact";
+import { App, PluginSettingTab, Setting, Notice } from "obsidian";
+import { generateFact } from "../functions/funFactBeta";
 import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
 import { getTopPerformanceEntries } from "../functions/getTopPerformanceEntries";
@@ -48,12 +48,12 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
-		  "041325": "04-13-25 (v1.1.0)",
-		  "042925": "04-29-25 (v1.2.0)",
-		  "050725": "05-07-25 (v1.3.0)",
-		  "051425": "05-14-25 (v1.4.0)",
-          "060925": "06-09-25 (v1.5.0, Current)",
-		  "080325": "08-03-25 (v1.6.0, Current)",
+		      "041325": "04-13-25 (v1.1.0)",
+		      "042925": "04-29-25 (v1.2.0)",
+		      "050725": "05-07-25 (v1.3.0)",
+		      "051425": "05-14-25 (v1.4.0)",
+          "060925": "06-09-25 (v1.5.0)",
+		      "080325": "08-03-25 (v1.6.0, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
@@ -70,11 +70,11 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
-		  "041325": "04-13-25 (v1.1.0)",
-		  "042925": "04-29-25 (v1.2.0)",
-		  "050725": "05-07-25 (v1.3.0)",
+		      "041325": "04-13-25 (v1.1.0)",
+		      "042925": "04-29-25 (v1.2.0)",
+		      "050725": "05-07-25 (v1.3.0)",
           "051425": "05-14-25 (v1.4.0)",
-		  "080325": "08-03-25 (v1.6.0, Current)",
+		      "080325": "08-03-25 (v1.6.0, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
@@ -91,8 +91,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		  .addButton(button => {
         button.setButtonText("Check")
 			  button.onClick(() => {
-          const modal = new FocusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
-          modal.open();
+          new Notice('This feature is no longer available, thank you for using the plugin!');
+          // const modal = new FocusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
+          // modal.open();
 				});
 			});
 

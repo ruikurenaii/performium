@@ -122,7 +122,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   let aimValue = Math.sqrt(totalLinks);
   let accuracyValue = (angleValue / 360) * 100;
-  let speedValue = totalWords / overallTime;
+  let speedValue = overallTime > 0 ? totalWords / overallTime : 0;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
   const importance = totalWords + totalLinks * 10;

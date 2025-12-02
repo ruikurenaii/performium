@@ -40,6 +40,8 @@ const context = await esbuild.context({
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
+	// it's best to change this to where it should be placed. i use linux, so that's why the directory looks like this
+	// recommended: "./"
 	outfile: "/home/sebastian/Documents/Obsidian/Arch Linux/.obsidian/plugins/performosu-beta/main.js",
 	minify: prod,
 });

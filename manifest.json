@@ -1,8 +1,8 @@
 {
 	"id": "performosu-beta",
 	"name": "Performium",
-	"version": "1.6.0",
-	"minAppVersion": "1.10.0",
+	"version": "1.5.0",
+	"minAppVersion": "1.11.0",
 	"description": "Integrates the osu! Performance Points system to gamify your note-taking experience!",
 	"author": "Louie Kurenai",
 	"authorUrl": "https://ruikurenaii.github.io/",

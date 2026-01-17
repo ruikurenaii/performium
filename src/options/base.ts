@@ -7,8 +7,9 @@
 */
 
 import { App, PluginSettingTab, Setting, Notice } from "obsidian";
-import { generateFact } from "../functions/funFactBeta";
-import { FocusTimeModal } from "../modals/focusTimeModal";
+import { generateFact as generateFactBeta } from "../functions/funFactBeta";
+import { generateFact } from "../functions/funFact";
+// import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
 import { getTopPerformanceEntries } from "../functions/getTopPerformanceEntries";
 
@@ -21,7 +22,7 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "080325",
+  ppSystem: "011726",
   installTimestamp: 0,
   totalFocusTime: 0,
   secondaryPpSystem: "test",
@@ -44,7 +45,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     
     new Setting(containerEl)
       .setName("Performance points system version")
-      .setDesc("Select a performance points system used for calculaton and comparison. Remember: Changing the pp system can change the way performance points are calculated, giving off different values!")
+      .setDesc("Choose a preferred performance points system that will be used to calculate performance values. Different performance point systems give off different values from the default!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
@@ -53,7 +54,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		      "050725": "05-07-25 (v1.3.0)",
 		      "051425": "05-14-25 (v1.4.0)",
           "060925": "06-09-25 (v1.5.0)",
-		      "080325": "08-03-25 (v1.6.0, Current)",
+		      "080325": "08-03-25 (v1.6.0)",
+          "011726": "01-17-26 (v1.6.1, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
@@ -75,6 +77,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		      "050725": "05-07-25 (v1.3.0)",
           "051425": "05-14-25 (v1.4.0)",
 		      "080325": "08-03-25 (v1.6.0, Current)",
+          "011726": "01-17-26 (v1.6.1, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         

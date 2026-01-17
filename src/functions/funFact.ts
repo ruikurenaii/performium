@@ -15,8 +15,8 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
     `This is a fun fact that may be useless, but it may change every time you open this?`,
     `The higher the size of your vault, the higher you gain performance points!`,
     `Is it just me, or something feels odd around here?`,
-    `Older performance point systems can be put in the settings for future updates!`,
-    `Chicken jockey!!`,
+    `Older performance point systems (including the current system) are more likely to be archived in the settings for future updates!`,
+    `A!`,
     `The developer is an osu! player that goes under the name of hoshinoTaka01?`,
     `The creation date of Performium was also the same day as it was released!`,
     `The beta versions of the plugin are available in the actions tab, but it requires a GitHub account!`,
@@ -44,12 +44,12 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
     `If you are reading this, then I would like to congratulate you! You are now officially reading the longest line you have ever saw possible in this \"Fun Fact\" section! Have you know how long it took you to get this one? I mean, I had no clue about this either, so don't ask me, haha!`,
     `Who said things aren't going well right now?`,
     `YAP YAP YAPPATRON, I HAD ENOUGH YAPPING FOR TODAY 🗣️🔥`,
-    `In the 11th of May, 2025, the developer\'s phone storage had more than 100 beta builds of performium for mobile testing!`,
+    `Days prior to the public appearance of the plugin, the developer\'s phone storage had more than 100 beta builds of performium for mobile testing!`,
     `After Performium v1.3.0 has been released, the developer switched to developing this plugin on a laptop!`,
     `Almost every commit before releasing Performium v1.4.0 are all pp rebalances and parity with osu! minor and major pp reworks!`,
     `Who said making this plugin wasn\'t possible at all?`,
     `No one had ever thought of integrating the osu! pp system into the app until the 6th of April, 2025!`,
-    `At May 15, 2025, at 1:46 AM (GMT +7), the plugin has been approved!`,
+    `At May 15, 2025, at 1:46 AM (GMT +8), the plugin has been approved!`,
     `More features of the plugin are coming soon!`,
     `Reworks take longer than expected, unless it minorly impacts the performance points system!`,
     `The bigger your vault, the longer it would take the performance calculation to finish!`,
@@ -57,7 +57,9 @@ export function generateFact(installTimestamp: number, entries: PerformanceEntry
 	  `I- Shucks... I forgot what I have to say again, this is quite annoying though...`,
     `Before releasing a new update to the plugin, reworks to the performance points system can take a while to be done. To test these reworks being done for the next update, beta builds are available in the GitHub repository!`,
     `The developer can't have more ideas to put in this tab, so while they're thinking of some new stuff, join the discord server and suggest some facts!`,
-    `Performium 1.5.0 might be the longest update to ever release in this plugin's history!`
+    `Performium 1.6.1 might be the longest update to ever release in this plugin's history!`,
+    `Happy 2026! Hope this update brings you the fixes everyone demanded to bring!`,
+    `Something feels a bit, fishy... Was something going on or?`
   ];
 
 	// putting other facts outside since the array can't be declared while it's black-scoped

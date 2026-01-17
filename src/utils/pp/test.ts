@@ -149,13 +149,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {
-    console.log("The value is 0pp or negative... Setting it to 0pp...")
+    console.log("The calculated value is 0pp or negative... Setting it to 0pp...")
 	  performanceValue = 0;
   } else if (Number.isNaN(performanceValue)) {
     // otherwise, if the value is not a number
-    console.log("The value is not a number... Setting it to 0pp...");
+    console.log("The calculated value is not a number... Setting it to 0pp...");
     performanceValue = 0;
+  } else if (performanceValue = Infinity) {
+    console.log("The calculated value is an infinite number, setting it to 0pp..")
   }
-
   return performanceValue;
 }

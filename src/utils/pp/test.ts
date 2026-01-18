@@ -31,9 +31,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // const totalSentences = vaultStats.totalSentences;
   // const totalParagraphs = vaultStats.totalParagraphs;
   // const totalTags = vaultStats.totalTags;
-  // const averageWordsPerFile = vaultStats.averageWordsPerFile;
-  // const averageSentencesPerFile = vaultStats.averageSentencesPerFile;
-  // const averageWordsPerSentence = vaultStats.averageWordsPerSentence;
+  const averageWordsPerFile = vaultStats.averageWordsPerFile;
+  const averageSentencesPerFile = vaultStats.averageSentencesPerFile;
+  const averageWordsPerSentence = vaultStats.averageWordsPerSentence;
   // const averageSentencesPerParagraph = vaultStats.averageSentencesPerParagraph;
   // const averageCharsPerSentence = vaultStats.averageCharsPerSentence;
   // const averageParagraphLength = vaultStats.averageParagraphLength;
@@ -101,7 +101,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   async function calculateAccuracy() {
     let accuracyValue = 0;
 
-    const totalNotes = this.app.vault.getMarkdownFiles().length;
+    accuracyValue += (averageSentencesPerFile / averageWordsPerFile) / (averageWordsPerSentence / 5);
 
     return accuracyValue * ACCURACY_MULTIPLIER;
   }

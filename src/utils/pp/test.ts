@@ -1,6 +1,7 @@
 /*
 
   test.ts: the test version of the pp system.
+  Just a reminder though: This is experimental, it'll more likely run into issues, depending on the vault.
   
 */
 
@@ -8,7 +9,7 @@ import PerformiumPlugin from "../../main";
 
 import { getVaultAge } from "../values/newEvaluators/vaultAge";
 import { calculateVaultStats } from "../../functions/vaultStats";
-import { calculateWPM } from "../values/newEvaluators/wordsPerMinute";
+// import { calculateWPM } from "../values/newEvaluators/wordsPerMinute";
 import { calculateVaultDifficultyFactors } from "../values/vaultDifficultyFactors";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
@@ -19,14 +20,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const vaultAge = getVaultAge(app);
 
-  const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
+  // const difficultyFactors = await calculateVaultDifficultyFactors(vaultStats);
 
   const totalFocusTime = plugin.settings.totalFocusTime || 0;
   
   const totalFiles = vaultStats.totalFiles;
   // const totalFolders = vaultStats.totalFolders;
   const totalWords = vaultStats.totalWords;
-  // const totalChars = vaultStats.totalChars;
+  const totalChars = vaultStats.totalChars;
   // const totalSentences = vaultStats.totalSentences;
   // const totalParagraphs = vaultStats.totalParagraphs;
   // const totalTags = vaultStats.totalTags;
@@ -51,7 +52,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   const OVERALL_MULTIPLIER = 1.00;
 
-  const circleSize = difficultyFactors.CS;
+  // const circleSize = difficultyFactors.CS;
 
   async function calculateAim() {
     let aimValue = 0;
@@ -67,11 +68,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   async function calculateSpeed() {
     let speedValue = 0;
 
-    const averageNotesPerDay = totalFiles / vaultAge.daysSinceCreation;
-    const averageWordsPerDay = totalWords / vaultAge.daysSinceCreation;
+    // comment out these unused variables
 
-    speedValue += averageNotesPerDay;
-    speedValue += averageWordsPerDay;
+    // const averageNotesPerDay = totalFiles / vaultAge.daysSinceCreation;
+    // const averageWordsPerDay = totalWords / vaultAge.daysSinceCreation;
+
+    // speedValue += averageNotesPerDay;
+    // speedValue += averageWordsPerDay;
+
+    speedValue += totalChars / totalWords;
 
     return speedValue * SPEED_MULTIPLIER;
   }
@@ -87,12 +92,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
       const totalLinks = wikiLinks + mdLinks;
 
-      strainValue += totalWords * (totalLinks + 1);
-
-      let objectRadius = 54.4 - 4.48 * circleSize;
-      let smallCircleSizeBonus: number = Math.max(1.0, 1.0 + (30 - objectRadius) / 40);
-    
-      strainValue *= smallCircleSizeBonus;
+      strainValue += totalWords * ((totalLinks + 1) / 10);
 
       return strainValue * STRAIN_MULTIPLIER;
     }
@@ -102,8 +102,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     let accuracyValue = 0;
 
     const totalNotes = this.app.vault.getMarkdownFiles().length;
-
-    accuracyValue += totalNotes * (1 + (circleSize / 10));
 
     return accuracyValue * ACCURACY_MULTIPLIER;
   }
@@ -130,6 +128,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     const accuracy = await calculateAccuracy() ?? 0;
     const flashlight = await calculateFlashlight() ?? 0;
 
+    // add the combined value
     let calculatedPerformance = ((aim ** 1.1) + (speed ** 1.1) + (strain ** 1.1) + (accuracy ** 1.1) + (flashlight ** 1.1)) ** (1 / 1.1);
 
     calculatedPerformance *= OVERALL_MULTIPLIER;
@@ -156,6 +155,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     console.log("The calculated value is not a number... Setting it to 0pp...");
     performanceValue = 0;
   } else if (performanceValue = Infinity) {
+    // if the value doesn't meet any of the previous conditions, execute this
     console.log("The calculated value is an infinite number, setting it to 0pp..")
   }
   return performanceValue;

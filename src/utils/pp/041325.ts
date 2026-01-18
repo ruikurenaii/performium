@@ -69,7 +69,23 @@ export async function calculatePerformance(app: App): Promise<number> {
   }
 														
   // gotta prevent inflation :)))))
-  const performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.7724538509;
+  let performanceValue: number = (fileValue + overallComplexityValue + totalLengthBonus + coherenceBonus + (informativenessValue ** 0.3825) + (readingBonus ** 0.5) + shortWordsNerf) / 1.7724538509;
+
+  // if the pp is below 0 and is a negative number
+  if (performanceValue < 0) {
+    console.log("The calculated value is 0pp or negative... Setting it to 0pp...")
+	  performanceValue = 0;
+  } else if (Number.isNaN(performanceValue)) {
+    // otherwise, if the value is not a number
+    console.log("The calculated value is not a number... Setting it to 0pp...");
+    performanceValue = 0;
+  } else if (performanceValue = Infinity) {
+    // if the value doesn't meet any of the previous conditions, execute this
+    console.log("The calculated value is an infinite number, setting it to 0pp..");
+    performanceValue = 0;
+  } else {
+    performanceValue = performanceValue;
+  }
 
   return performanceValue;
 }  

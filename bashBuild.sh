@@ -6,9 +6,9 @@ if [ ! -d 'performium' ]; then
   echo 'Directory created: performium'
 fi
 
+mv build/main.js performium/main.js
 cp styles.css performium/styles.css
 cp manifest.json performium/manifest.json
-mv build/main.js performium/main.js
 
 echo 'Moved files to directory: performium'
 
@@ -34,5 +34,10 @@ if yes_or_no "Do you want to move the plugin and it's contents?"; then
     rmdir 'performium'
     echo "Removed directory: performium"
 else
-    echo "Action skipped."
+    if yes_or_no "Do you want to remove the compiled plugin files?"l; then
+        rmdir 'performium'
+        echo "Removed directory: performium"
+    else
+        echo "Aborted the action."
+    fi
 fi

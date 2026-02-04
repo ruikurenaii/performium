@@ -22,7 +22,7 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "011726",
+  ppSystem: "020426",
   installTimestamp: 0,
   totalFocusTime: 0,
   secondaryPpSystem: "test",
@@ -55,7 +55,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		      "051425": "05-14-25 (v1.4.0)",
           "060925": "06-09-25 (v1.5.0)",
 		      "080325": "08-03-25 (v1.6.0)",
-          "011726": "01-17-26 (v1.6.1, Current)",
+          "011726": "01-17-26 (v1.6.1)",
+          "020426": "02-04-26 (v1.6.2, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
@@ -76,8 +77,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		      "042925": "04-29-25 (v1.2.0)",
 		      "050725": "05-07-25 (v1.3.0)",
           "051425": "05-14-25 (v1.4.0)",
-		      "080325": "08-03-25 (v1.6.0, Current)",
-          "011726": "01-17-26 (v1.6.1, Current)",
+		      "080325": "08-03-25 (v1.6.0)",
+          "011726": "01-17-26 (v1.6.1)",
+          "020426": "02-04-26 (v1.6.2, Current)",
           "test": "Test System (v1.7.0b, EXPERIMENTAL)"
         });
         
@@ -102,7 +104,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
-	let factText: string = generateFact(installTimestamp, entries);
+	let factText: string = generateFact();
 	  
     const totalTime = installTimestamp - Date.now();
 
@@ -117,5 +119,10 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		new Setting(containerEl)
 		  .setName("Did you know?")
 		  .setDesc(factText)
+
+    // version display, perhaps
+    new Setting(containerEl)
+      .setName("Performium v1.6.2")
+      .setDesc("Codename: Infocloud")
   }
 }

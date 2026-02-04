@@ -1,7 +1,8 @@
 import { getTimeSinceDate } from "./timeSinceDate";
 import { PerformanceEntry } from "../interfaces/performanceEntry";
 
-// it may not be used or i don't know.
+// it is unlikely to use this since it's not allowed as overriding the plugin is against the obsidian plugin guidelines.
+// for now, i will preserve this, perhaps.
 export function generateFact(installTimestamp: number, entries: PerformanceEntry[]): string {
   const array = [
     `Welcome to the other side! You are now in the beta version of Performium!`,

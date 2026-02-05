@@ -150,7 +150,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     // otherwise, if the value is not a number
     console.log("The calculated value is not a number... Setting it to 0pp...");
     performanceValue = 0;
-  } else if (performanceValue = Infinity) {
+  } else if (performanceValue === Infinity) {
     // if the value doesn't meet any of the previous conditions, execute this
     console.log("The calculated value is an infinite number, setting it to 0pp..");
     performanceValue = 0;

@@ -34,8 +34,8 @@ if yes_or_no "Do you want to move the plugin and it's contents?"; then
     rmdir 'performium'
     echo "Removed directory: performium"
 else
-    if yes_or_no "Do you want to remove the compiled plugin files?"l; then
-        rmdir 'performium'
+    if yes_or_no "Do you want to remove the compiled plugin files?"; then
+        rm -rf 'performium'
         echo "Removed directory: performium"
     else
         echo "Aborted the action."

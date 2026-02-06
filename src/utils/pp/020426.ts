@@ -1,8 +1,6 @@
 /*
 
-  test.ts: the test version of the pp system.
-  this will be an attempt to use some unused variables and rebalance them until it's ready for publish.
-  certain variables will be commented out until it's possible for use.
+  020426.ts: the system used for v1.6.2
   
 */
 

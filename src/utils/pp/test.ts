@@ -50,14 +50,12 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalParagraphs: totalParagraphs
   });
 
-  /*
   const burstScore = await calculateBurstScore({
     totalFiles: totalFiles,
     totalParagraphs: totalParagraphs,
     averageSentencesPerParagraph: averageSentencesPerParagraph,
     averageWordsPerSentence: averageWordsPerSentence
   });
-  */
 
   const vaultObjects = await calculateVaultObjects({
     totalFiles: totalFiles,
@@ -148,6 +146,22 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, angleValue));
   const finalAngleValue = Math.pow(Math.sin((3 / 4) * (clampedAngleBonus - pi / 6)), 2);
 
+  // calculate the vault penalty values since they're unused for many released systems now.
+  // this will be an attempt to punish the pp value for having unnecessary things in the vault.
+  const missVal = vaultPenalties.shit;
+  const okayVal = vaultPenalties.okay;
+  const mehVal = vaultPenalties.meh;
+
+  const rawPenalty = (missVal + (okayVal * (2 / 3)) + (mehVal * (1 / 3))) / 3;
+
+  let finalPenalty = Math.log2(rawPenalty);
+
+  if (rawPenalty > 50) {
+    finalPenalty += ((rawPenalty - 50) / 2) * ((1 + (Math.log2(rawPenalty - 50))) / 15);
+  }
+
+  let burstReward = Math.log(burstScore) * 2.25;
+
   // scale aim value with accuracy value
   aimValue *= accuracyValue;
 
@@ -221,7 +235,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const rhythmScore = Math.min(10, Math.max(0, rawRhythm * 1.8));
   const noteRhythmMultiplier = 1.0;
 
-  // apply this rhythm to aim and speed values
+  // apply the calculated rhythm values to aim and speed values
   aimValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 1.1);
   speedValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 0.975);
   accuracyValue *= (1 + (rhythmScore / 10)) * (noteRhythmMultiplier / 0.95);
@@ -267,11 +281,20 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // add bonuses for the final pp
   performanceValue += charAngleBonus + executionBonus;
 
+  // include the file count pp bonus asa a reward for users who have vaults with several amounts of files
+  performanceValue += fileCountBonus;
+
   // add a bit more pp to the final value
   performanceValue *= 1.006;
 
   // add the time bonus pp to the final value
   performanceValue += (Math.sqrt(Math.sqrt(totalFocusTime / (Math.sqrt(totalFocusTime) / (totalFocusTime * 0.00025)))) ** 1.05) / 4;
+  
+  // add the calculated vault penalty value to the final value
+  performanceValue -= finalPenalty;
+
+  // add the calculated burst reward value to the final value
+  performanceValue += burstReward;
 
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

@@ -35,7 +35,8 @@ export function generateFact(): string {
     `Performium here in Obsidian is not a plugin that is not meant to boost the app\'s performance!`,
     `I will always remind you that this is just a fan-made implementation of the osu! performance point system for Obsidian!`,
     `You saw something that wasn\'t meant to be seen.`,
-    `For now, you\'ll have to get used to getting bored from seeing this fun fact, so yeah. Have a cup of coffee while I do some work with the developer.`
+    `For now, you\'ll have to get used to getting bored from seeing this fun fact, so yeah. Have a cup of coffee while I do some work with the developer.`,
+    `In v1.6.2, every single system became unusable despite every single value outputting a zero!`
   ];
 
 	// count the total number of text lines

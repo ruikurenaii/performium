@@ -26,6 +26,9 @@ function yes_or_no {
     done
 }
 
+# for dev purposes, feel free to change the location
+PLUGIN_FOLDER="/home/sebastian/Documents/Obsidian/Arch Linux/.obsidian/plugins/performosu"
+
 if yes_or_no "Do you want to move the plugin and it's contents?"; then
     echo 'Moving the directory: performium'
     read -p 'Which directory? Directory: ' directory

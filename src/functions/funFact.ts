@@ -36,7 +36,11 @@ export function generateFact(): string {
     `I will always remind you that this is just a fan-made implementation of the osu! performance point system for Obsidian!`,
     `You saw something that wasn\'t meant to be seen.`,
     `For now, you\'ll have to get used to getting bored from seeing this fun fact, so yeah. Have a cup of coffee while I do some work with the developer.`,
-    `In v1.6.2, every single system became unusable despite every single value outputting a zero!`
+    `In v1.6.2, every single system became unusable despite every single value outputting a zero!`,
+    `Be reminded that the test system is very expermiental and can cause the calculated value to such numbers that are unordinary!`,
+    `67`,
+    `After every single release, unknown bugs show up, and of course, they weren\'t tested.`,
+    `Starting by the end of February 2026, updates will not take longer than expected since the development will go straight to major updates.`
   ];
 
 	// count the total number of text lines

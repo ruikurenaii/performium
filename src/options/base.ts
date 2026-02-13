@@ -122,7 +122,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     // version display, perhaps
     new Setting(containerEl)
-      .setName("Performium v1.6.3")
-      .setDesc("Codename: Jumpdrive")
+      .setName("Performium v1.7.0")
+      .setDesc("Codename: Kinetisphere")
   }
 }

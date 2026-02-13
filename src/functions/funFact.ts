@@ -33,14 +33,15 @@ export function generateFact(): string {
     `Future versions of Performium will (hopefully) make use of the new features implemented into Obsidian!`,
     `Using more plugins in Obsidian can slow down the load of the application!`,
     `Performium here in Obsidian is not a plugin that is not meant to boost the app\'s performance!`,
-    `I will always remind you that this is just a fan-made implementation of the osu! performance point system for Obsidian!`,
+    `There is this reminder where you should remember that this is just a fan-made implementation of the osu! performance point system for Obsidian!`,
     `You saw something that wasn\'t meant to be seen.`,
     `For now, you\'ll have to get used to getting bored from seeing this fun fact, so yeah. Have a cup of coffee while I do some work with the developer.`,
     `In v1.6.2, every single system became unusable despite every single value outputting a zero!`,
     `Be reminded that the test system is very expermiental and can cause the calculated value to such numbers that are unordinary!`,
     `67`,
     `After every single release, unknown bugs show up, and of course, they weren\'t tested.`,
-    `Starting by the end of February 2026, updates will not take longer than expected since the development will go straight to major updates.`
+    `Starting by the end of February 2026, updates will take longer than expected since the development will go straight to major updates.`,
+    `The developer might be busy making reworks, so just... don\'t disturb them, okay?`
   ];
 
 	// count the total number of text lines

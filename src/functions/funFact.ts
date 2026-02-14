@@ -41,7 +41,10 @@ export function generateFact(): string {
     `67`,
     `After every single release, unknown bugs show up, and of course, they weren\'t tested.`,
     `Starting by the end of February 2026, updates will take longer than expected since the development will go straight to major updates.`,
-    `The developer might be busy making reworks, so just... don\'t disturb them, okay?`
+    `The developer might be busy making reworks, so just... don\'t disturb them, okay?`,
+    `Hoping for your laptop to not explode during compilation will likely increase the chance for it to actually explode (Literally a myth)`,
+    `Nevermind, I think you knew what I was gonna say (YES YOU DO KNOW WHAT I WAS ABOUT TO SAY GODDAMNIT!)`,
+    `A full rewrite has been made with the new system! For the latest reworks before the next publish, try out the test performance points system!`
   ];
 
 	// count the total number of text lines

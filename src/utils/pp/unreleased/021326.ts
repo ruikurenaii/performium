@@ -115,7 +115,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalTasks += tasks ? tasks.length : 0;
   }
 
-  const vaultBpm = await calculateVaultBpm(app, totalTags, totalWords, totalFiles);
+  const vaultBpm = await calculateVaultBpm(totalTags, totalWords, totalFiles);
 
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
   // const installTimestamp = plugin.settings.installTimestamp ?? Date.now();
@@ -127,7 +127,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // const focusedTime = Math.trunc(totalFocusTime % (1000 * 60 * 60)) / (1000 * 60);
   // const overallTime = Math.trunc(totalPluginTime % (1000 * 60 * 60)) / (1000 * 60);
 
-  const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
+  const angleValue = await calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
   const strainCount = (averageSentenceLength * averageSentencesPerParagraph) + (longestSentenceLength * 0.25) + (longestParagraphLength * 0.1);
 
@@ -140,7 +140,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const importance = totalWords + totalLinks * 10;
   let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);
   
-  let starRating = calculateStarRating(totalParagraphs, angleValue);
+  let starRating = await calculateStarRating(totalParagraphs, angleValue);
 
   // add the wide angle bonus
   const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, angleValue));
@@ -223,7 +223,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     speedValue += 1;
   }
 
-  const wordComplexityBonus: number = wordComplexityStatistics.averageWordComplexity * (1 + (wordComplexityStatistics.wordDifficultyPercentage / 200));
+  const wordComplexityBonus: number = wordComplexityStatistics.averageWordComplexity * (1 + (await wordComplexityStatistics.wordDifficultyPercentage / 200));
 
   // scale strain with the percentage of difficult words
   strainValue *= 1 + (Math.sqrt(wordComplexityBonus) / 150);

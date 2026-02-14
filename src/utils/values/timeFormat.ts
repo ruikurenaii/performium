@@ -1,4 +1,4 @@
-export function timeFormat(time: number): string {
+export async function timeFormat(time: number): Promise<string> {
   const seconds = time / 1000;
   const minutes = seconds / 60;
   const hours = minutes / 60;

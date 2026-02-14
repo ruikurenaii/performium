@@ -1,6 +1,6 @@
 import { App } from "obsidian";
 
-export function getOrphanCount(app: App): number {
+export async function getOrphanCount(app: App): Promise<number> {
   const files = app.vault.getMarkdownFiles();
 
   let count = 0;

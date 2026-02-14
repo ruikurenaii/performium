@@ -1,6 +1,6 @@
 // this is just a remade version of my previous vault angle evaluator
 // for now, it will still be used since there is no plan on getting it removed
-export function calculateVaultCleanliness(totalFiles: number, totalFolders: number, totalParagraphs: number) {
+export async function calculateVaultCleanliness(totalFiles: number, totalFolders: number, totalParagraphs: number) {
   const numerator = totalFiles + totalFolders;
   const chaosFactor = totalParagraphs ? numerator / totalParagraphs : 1;
   const k = 12;

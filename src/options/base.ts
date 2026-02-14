@@ -22,7 +22,7 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "020426",
+  ppSystem: "021426",
   installTimestamp: 0,
   totalFocusTime: 0,
   secondaryPpSystem: "test",
@@ -56,8 +56,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           "060925": "06-09-25 (v1.5.0)",
 		      "080325": "08-03-25 (v1.6.0)",
           "011726": "01-17-26 (v1.6.1)",
-          "020426": "02-04-26 (v1.6.2, Current)",
-          "test": "Test System (v1.7.0b, EXPERIMENTAL)"
+          "020426": "02-04-26 (v1.6.2)",
+          "021426": "02-14-26 (v1.7.0, Current)",
+          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);
@@ -69,7 +70,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Secondary performance points system version")
-      .setDesc("Select a secondary performance points system used for comparison of pp. Remember: Kindly read what's on the first setting!")
+      .setDesc("Select a secondary performance points system used for comparison of pp. Remember: The same mechanic from the first setting also applies to this!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
           "040625": "04-06-25 (v1.0.0)",
@@ -79,8 +80,9 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           "051425": "05-14-25 (v1.4.0)",
 		      "080325": "08-03-25 (v1.6.0)",
           "011726": "01-17-26 (v1.6.1)",
-          "020426": "02-04-26 (v1.6.2, Current)",
-          "test": "Test System (v1.7.0b, EXPERIMENTAL)"
+          "020426": "02-04-26 (v1.6.2)",
+          "021426": "02-14-26 (v1.7.0, Current)",
+          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.secondaryPpSystem);
@@ -92,7 +94,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
 	  new Setting(containerEl)
 		  .setName("Total focus time")
-		  .setDesc("See how much time you've spent on notes")
+		  .setDesc("See how much time you've spent on reading or writing your notes")
 		  .addButton(button => {
         button.setButtonText("Check")
 			  button.onClick(() => {

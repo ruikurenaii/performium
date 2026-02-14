@@ -1,4 +1,4 @@
-export function calculateVaultAngle(totalFiles: number, totalFolders: number, totalParagraphs: number) {
+export async function calculateVaultAngle(totalFiles: number, totalFolders: number, totalParagraphs: number): Promise<number> {
   const numerator = totalFiles + totalFolders;
   const chaosFactor = totalParagraphs ? numerator / totalParagraphs : 1;
   const k = 6;

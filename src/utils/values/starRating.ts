@@ -1,8 +1,8 @@
-export function calculateStarRating(totalParagraphs: number, vaultAngle: number): number {
+export async function calculateStarRating(totalParagraphs: number, vaultAngle: number): Promise<number> {
   const paragraphScalingFactor = 0.0005;
   const angleScalingFactor = 0.05;
   const exponentialGrowthFactor = 0.0005;
-  const angleLogarithmBase = 2.7;
+  // const angleLogarithmBase = 2.7;
 
   const paragraphScaling = Math.log(totalParagraphs + 1) * paragraphScalingFactor;
   const paragraphExponentialDecay = Math.exp(totalParagraphs * exponentialGrowthFactor) - 1;

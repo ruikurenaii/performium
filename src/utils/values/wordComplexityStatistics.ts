@@ -1,6 +1,6 @@
 import { App } from "obsidian";
 
-function countSyllables(word: string): number {
+export async function countSyllables(word: string): Promise<number> {
   word = word.toLowerCase();
   if (word.length <= 3) return 1;
   word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
@@ -9,11 +9,11 @@ function countSyllables(word: string): number {
   return syllables ? syllables.length : 1;
 }
 
-function wordComplexity(word: string): number {
-  return word.length + countSyllables(word);
+async function wordComplexity(word: string): Promise<number> {
+  return word.length + await countSyllables(word);
 }
 
-function scaleToPercentage(value: number, min = 4, max = 20): number {
+async function scaleToPercentage(value: number, min = 4, max = 20): Promise<number> {
   const clamped = Math.max(min, Math.min(max, value));
   return ((clamped - min) / (max - min)) * 100;
 }
@@ -30,7 +30,7 @@ export async function calculateWordComplexityStats(app: App) {
 
     for (const word of words) {
       totalWords++;
-      totalComplexity += wordComplexity(word);
+      totalComplexity += await wordComplexity(word);
     }
   }
 

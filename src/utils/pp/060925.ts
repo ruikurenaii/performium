@@ -107,7 +107,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     totalTasks += tasks ? tasks.length : 0;
   }
 
-  const vaultBpm = await calculateVaultBpm(app, totalTags, totalWords, totalFiles);
+  const vaultBpm = await calculateVaultBpm(totalTags, totalWords, totalFiles);
 
   const totalFocusTime = plugin.settings.totalFocusTime ?? 0;
   const installTimestamp = plugin.settings.installTimestamp ?? Date.now();
@@ -121,17 +121,17 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 
   let aimValue = Math.sqrt(totalLinks);
-  let accuracyValue = (angleValue / 360) * 100;
+  let accuracyValue = (await angleValue / 360) * 100;
   let speedValue = overallTime > 0 ? totalWords / overallTime : 0;
   let strainValue = totalWords + totalHeaders * 2 + totalTasks * 3;
 
   const importance = totalWords + totalLinks * 10;
   let flashlightValue = (totalWords / 100) * Math.log2(importance + 1);
 	
-  let starRating = calculateStarRating(totalParagraphs, angleValue);
+  let starRating = await calculateStarRating(totalParagraphs, await angleValue);
 
   // add the wide angle bonus
-  const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, angleValue));
+  const clampedAngleBonus = Math.max(pi / 6, Math.min((5 * pi) / 6, await angleValue));
   const finalAngleValue = Math.pow(Math.sin((3 / 4) * (clampedAngleBonus - pi / 6)), 2);
 
   // scale aim value with accuracy value
@@ -178,7 +178,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     speedValue += 1;
   }
 
-  const wordComplexityBonus: number = wordComplexityStatistics.averageWordComplexity * (1 + (wordComplexityStatistics.wordDifficultyPercentage / 200));
+  const wordComplexityBonus: number = wordComplexityStatistics.averageWordComplexity * (1 + (await wordComplexityStatistics.wordDifficultyPercentage / 200));
 
   // scale strain with the percentage of difficult words
   strainValue *= 1 + (Math.sqrt(wordComplexityBonus) / 150);
@@ -209,7 +209,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // add bonus pp based on how many total characters a user's vault contains
   // multiply it depending on how clean the user's vault is (using the vault angle, with 360 degrees describing the cleanest vault)
-  const charAngleBonus: number = (totalChars / 968.75) * (1 + (0.45 * (angleValue / 360)));
+  const charAngleBonus: number = (totalChars / 968.75) * (1 + (0.45 * (await angleValue / 360)));
 	
   // add bonus pp based on how many times the performance points calculation has been executed.
   const executionBonus: number = ((417 - (1 / 3)) / 2) * (1 - Math.pow(0.9975, totalExecutionCount));

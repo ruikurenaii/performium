@@ -72,25 +72,25 @@ export async function calculatePerformance(app: App): Promise<number> {
 	const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
 	let angleBonus = 0;
 
-	const starRating = calculateStarRating(vaultStats.totalParagraphs, angleValue);
+	const starRating = calculateStarRating(vaultStats.totalParagraphs, await angleValue);
 	let starRatingBonus = 0; 
 
-  if (angleValue < 180 || angleValue >= 360) {
+  if (await angleValue < 180 || await angleValue >= 360) {
     // if the angle is more than a reflex angle
-		angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
-		starRatingBonus = (angleValue * starRating) / 1.2;
-	} else if (angleValue < 120 || angleValue > 180) {
+		angleBonus = (overallComplexityValue / (1.8275)) + (await angleValue / 10);
+		starRatingBonus = (await angleValue * await starRating) / 1.2;
+	} else if (await angleValue < 120 || await angleValue > 180) {
 		// if the angle is way obtuse, but not straight
-		angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (angleValue / 15);
-		starRatingBonus = (angleValue * starRating) / 1.5;
-	} else if (angleValue < 90 || angleValue > 120) {
+		angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (await angleValue / 15);
+		starRatingBonus = (await angleValue * await starRating) / 1.5;
+	} else if (await angleValue < 90 || await angleValue > 120) {
 		// if the angle is obtuse
-		angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (angleValue / 20);
-		starRatingBonus = (angleValue * starRating) / 1.9;
-	} else if (angleValue < 89) {
+		angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (await angleValue / 20);
+		starRatingBonus = (await angleValue * await starRating) / 1.9;
+	} else if (await angleValue < 89) {
 		// if the angle is an acute angle (just like in osu!)
-		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
-		starRatingBonus = (angleValue * starRating) / 2.4;
+		angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (await angleValue / 10)) * -1;
+		starRatingBonus = (await angleValue * await starRating) / 2.4;
   }
 	
   // i had to prevent inflation and attempt to balance these values.

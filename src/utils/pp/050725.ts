@@ -100,25 +100,25 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   const angleValue = calculateVaultAngle(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
   let angleBonus = 0;
   
-  const starRating = calculateStarRating(vaultStats.totalParagraphs, angleValue);
+  const starRating = calculateStarRating(vaultStats.totalParagraphs, await angleValue);
   let starRatingBonus = 0;
   
-  if (angleValue < 180 || angleValue >= 360) {
+  if (await angleValue < 180 || await angleValue >= 360) {
     // if the angle is more than a straight angle, but a reflex angle
-    angleBonus = (overallComplexityValue / (1.8275)) + (angleValue / 10);
-    starRatingBonus = (angleValue * starRating) / 1.2;
-  } else if (angleValue < 120 || angleValue > 180) {
+    angleBonus = (overallComplexityValue / (1.8275)) + (await angleValue / 10);
+    starRatingBonus = (await angleValue * await starRating) / 1.2;
+  } else if (await angleValue < 120 || await angleValue > 180) {
     // if the angle is way obtuse, but not straight
-    angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (angleValue / 15);
-    starRatingBonus = (angleValue * starRating) / 1.5;
-  } else if (angleValue < 90 || angleValue > 120) {
+    angleBonus = (overallComplexityValue / (1.8275 ** 2)) + (await angleValue / 15);
+    starRatingBonus = (await angleValue * await starRating) / 1.5;
+  } else if (await angleValue < 90 || await angleValue > 120) {
     // if the angle is obtuse
-    angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (angleValue / 20);
-    starRatingBonus = (angleValue * starRating) / 1.9;
-  } else if (angleValue < 89) {
+    angleBonus = (overallComplexityValue / (1.8275 ** 3)) + (await angleValue / 20);
+    starRatingBonus = (await angleValue * await starRating) / 1.9;
+  } else if (await angleValue < 89) {
     // if the angle is an acute angle (just like in osu!)
-    angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (angleValue / 10)) * -1;
-    starRatingBonus = (angleValue * starRating) / 2.4;
+    angleBonus = ((overallComplexityValue / (1.8275 ** 1)) + (await angleValue / 10)) * -1;
+    starRatingBonus = (await angleValue * await starRating) / 2.4;
   }
   
   const averageToLongestSentenceRatio = longestSentenceLength / averageSentenceLength;
@@ -140,7 +140,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // const bonusValue = (417 - (1 / 3)) * (1 - (0.995 ** Math.min(1000, totalFiles)));
   const bonusValue = (417 - (1 / 3)) * (1 - (0.9996 ** totalFiles));
   
-  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue;
+  let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + (combinedValue * (await starRating / 2.3)) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue;
   
   // if the pp is below 0 and is a negative number
   if (performanceValue < 0) {

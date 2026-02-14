@@ -1,8 +1,7 @@
 /*
 
-  test.ts: the test version of the pp system.
-  this will be an attempt to fully rewrite the performance values and rebalance them until it's ready for publish.
-  certain variables will be commented out until it's possible for use.
+  test.ts: the pp system used for update v1.7.0.
+  this should be the final rewrite for this update, but that does not mean that there won't be any more rewrites for future systems.
   
 */
 
@@ -98,7 +97,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // if the pp is below 0 and/or a negative number
   if (performanceValue <= 0) {
     console.log("The calculated value is 0pp or negative... Setting it to 0pp...")
-	  performanceValue = 0;
+    performanceValue = 0;
   } else if (Number.isNaN(performanceValue)) {
     // otherwise, if the value is not a number
     console.log("The calculated value is not a number... Setting it to 0pp...");

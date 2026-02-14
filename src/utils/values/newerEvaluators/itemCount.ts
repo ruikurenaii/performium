@@ -1,6 +1,6 @@
 import { TAbstractFile, TFile, TFolder } from "obsidian";
 
-export function getAllFolders() {
+export async function getAllFolders() {
   const allItems: TAbstractFile[] = this.app.vault.getAllLoadedFiles();
 
   return allItems.filter(

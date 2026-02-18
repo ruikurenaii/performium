@@ -1,9 +1,9 @@
-import { TFile, TFolder, Notice, Vault, App, Plugin, Modal } from "obsidian";
+import { Notice, App, Plugin, Modal } from "obsidian";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "./options/base";
 import { comparePerformanceModal } from "./modals/comparePerformanceModal";
-import { HighestPerformanceModal } from "./modals/highestPerformanceModal";
-import { getTopPerformanceEntries } from "./functions/getTopPerformanceEntries";
-import { showAllPerformanceEntries } from "./functions/showPerformanceEntries";
+// import { HighestPerformanceModal } from "./modals/highestPerformanceModal";
+// import { getTopPerformanceEntries } from "./functions/getTopPerformanceEntries";
+// import { showAllPerformanceEntries } from "./functions/showPerformanceEntries";
 import { savePerformanceToFile } from "./functions/savePerformanceToFile";
 
 // import different performance points systems
@@ -49,7 +49,8 @@ export default class PerformiumPlugin extends Plugin {
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
         this.settings.totalExecutionCount++;
-		this.saveSettings();
+        this.settings.totalExperience += performanceValue;
+		    this.saveSettings();
       }
     });
     
@@ -61,7 +62,8 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
-		this.settings.totalExecutionCount++;
+		    this.settings.totalExecutionCount++;
+        this.settings.totalExperience += performanceValue;
         this.saveSettings();
       },
     );
@@ -73,10 +75,12 @@ export default class PerformiumPlugin extends Plugin {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
         await savePerformanceToFile(this.app, performanceValue);
-        await savePerformanceToFile(this.app, secondaryPerformanceValue);
+        // await savePerformanceToFile(this.app, secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
+        this.settings.totalExperience += performanceValue;
+        this.settings.totalExperience += secondaryPerformanceValue;
 		this.saveSettings();
       }
     });
@@ -88,10 +92,12 @@ export default class PerformiumPlugin extends Plugin {
         const performanceValue = await this.calculatePerformance();
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
         await savePerformanceToFile(this.app, performanceValue);
-        await savePerformanceToFile(this.app, secondaryPerformanceValue); 
+        // await savePerformanceToFile(this.app, secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
+        this.settings.totalExperience += performanceValue;
+        this.settings.totalExperience += secondaryPerformanceValue;
 		this.saveSettings();
       },
     );

@@ -1,4 +1,4 @@
-import { App, Modal, Notice } from "obsidian";
+import { App, Modal } from "obsidian";
 import { PerformanceEntry } from "../interfaces/performanceEntry";
 
 export class HighestPerformanceModal extends Modal {

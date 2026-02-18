@@ -33,12 +33,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     // make use of the character-to-word ratio
     let characterToWordRatio: number = totalWords / vaultStats.totalChars;
 
-    // add bonuses for lengthy words
+    // add a variable similar to the visual calculation of the cs (circle size) formula from the osu! game
     let wordRadiusValue = 64 * (1 - (0.7 * ((characterToWordRatio - 2.5) / 5)));
 
     // debug
-    console.log('wordRadiusValue: ' + wordRadiusValue);
+    // console.log('wordRadiusValue: ' + wordRadiusValue);
 
+    // add a bonus with the use of the recently made value
     let wordLengthMultiplier = Math.max(1.0, 1.0 + (30 - wordRadiusValue) / 40);
 
     // add it as a bonus

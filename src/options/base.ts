@@ -7,11 +7,12 @@
 */
 
 import { App, PluginSettingTab, Setting, Notice } from "obsidian";
-import { generateFact as generateFactBeta } from "../functions/funFactBeta";
+// import { generateFact as generateFactBeta } from "../functions/funFactBeta";
 import { generateFact } from "../functions/funFact";
 // import { FocusTimeModal } from "../modals/focusTimeModal";
 import PerformiumPlugin from "../main";
-import { getTopPerformanceEntries } from "../functions/getTopPerformanceEntries";
+// import { getTopPerformanceEntries } from "../functions/getTopPerformanceEntries";
+import { AccountStatisticsModal } from "src/modals/accountStatisticsModal";
 
 export interface PerformiumBaseSettings {
   ppSystem: string;
@@ -19,6 +20,7 @@ export interface PerformiumBaseSettings {
   totalFocusTime?: number;
   secondaryPpSystem: string;
   totalExecutionCount: number;
+  totalExperience: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
@@ -26,7 +28,8 @@ export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   installTimestamp: 0,
   totalFocusTime: 0,
   secondaryPpSystem: "test",
-  totalExecutionCount: 0
+  totalExecutionCount: 0,
+  totalExperience: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {
@@ -41,7 +44,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-	const entries = await getTopPerformanceEntries(this.app);
+	// const entries = await getTopPerformanceEntries(this.app);
     
     new Setting(containerEl)
       .setName("Performance points system version")
@@ -104,11 +107,22 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 				});
 			});
 
+    new Setting(containerEl)
+		  .setName("Total experience")
+		  .setDesc("See how much experience you've got from calculating performance values!")
+		  .addButton(button => {
+        button.setButtonText("Check")
+			  button.onClick(() => {
+          const modal = new AccountStatisticsModal(this.app, this.plugin.settings.totalExperience ?? 0, this.plugin.settings.totalExecutionCount ?? 0);
+          modal.open();
+				});
+			});
+
     const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
 	let factText: string = generateFact();
 	  
-    const totalTime = installTimestamp - Date.now();
+    // const totalTime = installTimestamp - Date.now();
 
 	  /*  
     containerEl.createEl("p", {

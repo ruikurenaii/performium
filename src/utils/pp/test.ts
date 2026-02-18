@@ -13,6 +13,8 @@ import { calculateVaultStats } from "src/functions/vaultStats";
 import { getOrphanCount } from "../values/newerEvaluators/orphanCount";
 import { calculateVaultCleanliness } from "../values/newerEvaluators/vaultCleanliness";
 import { getAllFiles, getAllFolders } from "../values/newerEvaluators/itemCount";
+// simport { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
+import { getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -22,9 +24,42 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   let performanceValue = 0;
 
+  let totalWords = await getTotalWordCount(app);
+
   async function calculateReadability(): Promise<number> {
     // readability function
     let value = 0;
+
+    // make use of the character-to-word ratio
+    let characterToWordRatio: number = totalWords / vaultStats.totalChars;
+
+    // add bonuses for lengthy words
+    let wordRadiusValue = 64 * (1 - (0.7 * ((characterToWordRatio - 2.5) / 5)));
+
+    // debug
+    console.log('wordRadiusValue: ' + wordRadiusValue);
+
+    let wordLengthMultiplier = Math.max(1.0, 1.0 + (30 - wordRadiusValue) / 40);
+
+    // add it as a bonus
+    value += wordRadiusValue * wordLengthMultiplier;
+
+    return value;
+  }
+
+  async function calculateVaultRating(): Promise<number> {
+    // vault rating function
+    let value = 1;
+
+    // for the multiplier of the value
+    let vaultCleanlinessValue = await calculateVaultCleanliness(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
+
+    return value + (vaultCleanlinessValue / 9.95);
+  }
+
+  async function calculateInformability() {
+    // function to get values from equations with uses of the vault stats
+    let value = 1;
 
     // use various vault stats to make a readable value
     let wordToSentenceRatio = vaultStats.totalWords / vaultStats.totalSentences;
@@ -47,24 +82,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     value += fileToFolderRatio;
 
-    // add some value with the use of total characters typed in the vault
-    let characterBonus = Math.log(vaultStats.totalChars) + (vaultStats.totalChars / 3000);
-
-    value += characterBonus * Math.pow(Math.PI, 0.65);
-
-    value += ((417 - (1 / 3)) / 4) * (1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
-
-    return value;
-  }
-
-  async function calculateVaultRating(): Promise<number> {
-    // vault rating function
-    let value = 1;
-
-    // for the multiplier of the value
-    let vaultCleanlinessValue = await calculateVaultCleanliness(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
-
-    return value + (vaultCleanlinessValue / 9.95);
+    return value
   }
 
   async function calculateStatRating(): Promise<number> {
@@ -83,6 +101,24 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     // apply it to the value as a penalty
     value -= orphanCount;
 
+    console.log(value);
+
+    // let wikiLinkCount = await countAllWikiLinks(app);
+    // let allLinkCount = await countAllLinks(app);
+
+    // let allLinkTowikiLinkRatio = allLinkCount / wikiLinkCount;
+    // let wikiLinkToAllLinkRatio = wikiLinkCount / allLinkCount;
+
+    // apply certain values as pieces of a penalty
+    // value += ((allLinkTowikiLinkRatio + wikiLinkToAllLinkRatio) / Math.E) - 10;
+
+    // add some value with the use of total characters typed in the vault
+    let characterBonus = Math.log(vaultStats.totalChars) + (vaultStats.totalChars / 3000);
+
+    value += characterBonus * Math.pow(Math.PI, 0.625);
+
+    value += ((417 - (1 / 3)) / 4) * (1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
+
     return value;
   }
 
@@ -90,26 +126,23 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let readabilityValue = await calculateReadability();
   let vaultRatingValue = await calculateVaultRating();
   let statRatingValue = await calculateStatRating();
+  let informabilityValue = await calculateInformability();
 
-  performanceValue += ((readabilityValue + statRatingValue) * vaultRatingValue) / 1.1;
+  performanceValue += ((readabilityValue + statRatingValue + informabilityValue) * vaultRatingValue) / 1.1;
 
-  console.log(performanceValue);
+  // debug
+  console.log('readabilityValue: ' + readabilityValue);
+  console.log('statRatingValue: ' + statRatingValue);
+  console.log('informabilityValue: ' + informabilityValue);
+  console.log('vaultRatingValue: ' + vaultRatingValue);
 
-  // if the pp is below 0 and/or a negative number
-  if (performanceValue <= 0) {
-    console.log("The calculated value is 0pp or negative... Setting it to 0pp...")
-	  performanceValue = 0;
-  } else if (Number.isNaN(performanceValue)) {
-    // otherwise, if the value is not a number
-    console.log("The calculated value is not a number... Setting it to 0pp...");
+  // console.log('performanceValue: ' + performanceValue);
+
+  // cleaner value handling
+  if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
+    console.log("Invalid performance value. Setting to 0pp...");
     performanceValue = 0;
-  } else if (performanceValue === Infinity) {
-    // if the value doesn't meet any of the previous conditions, execute this
-    console.log("The calculated value is an infinite number, setting it to 0pp..");
-    performanceValue = 0;
-  } else {
-    performanceValue = performanceValue;
-  }
+  }  
 
   return performanceValue;
 }

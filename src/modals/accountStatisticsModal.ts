@@ -62,7 +62,10 @@ export class AccountStatisticsModal extends Modal {
 
     // this.setContent(`Level: ${await getLevelFromValue(Math.floor(this.experience))}\nTotal Experience: ${new Intl.NumberFormat().format(Math.floor(this.experience))}`)
 
-    let fillPercentage = (this.experience / await getRequiredValueForLevel(level + 1)) * 100;
+    const currentLevelXP = await getRequiredValueForLevel(level);
+    const nextLevelXP = await getRequiredValueForLevel(level + 1);
+
+    const fillPercentage = ((this.experience - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
     let fillPercentageStr = `${fillPercentage.toFixed(2)}%`;
 
     contentEl.createEl("p", {

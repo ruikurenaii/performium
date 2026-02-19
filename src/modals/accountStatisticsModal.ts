@@ -38,19 +38,64 @@ export class AccountStatisticsModal extends Modal {
     
       return level - 1;
     }
+
+    async function getRequiredValueForLevel(level: number): Promise<number> {
+      if (!Number.isFinite(level) || level < 0) {
+        throw new Error("Level must be a non-negative finite number.");
+      }
+    
+      const requiredValue =
+        500 +
+        Math.floor(
+          Math.pow(2 * level, 3) +
+          1.5 * level -
+          Math.pow(level, 2)
+        );
+    
+      return requiredValue;
+    }
     
     this.setTitle("Account Statistics");
 
+    // get the level
+    let level = await getLevelFromValue(Math.floor(this.experience));
+
     // this.setContent(`Level: ${await getLevelFromValue(Math.floor(this.experience))}\nTotal Experience: ${new Intl.NumberFormat().format(Math.floor(this.experience))}`)
 
+    let fillPercentage = (this.experience / await getRequiredValueForLevel(level + 1)) * 100;
+    let fillPercentageStr = `${fillPercentage.toFixed(2)}%`;
+
     contentEl.createEl("p", {
-      text: `Level: ${await getLevelFromValue(Math.floor(this.experience))}`,
+      text: `Level: ${level}`,
 	    cls: "main-window-value"
 	  });
 
+    const expProgressContainer = contentEl.createEl("div", {
+      cls: "experience-progressbar"
+    })
+
+    const expProgressFill = expProgressContainer.createEl("div", {
+      cls: "experience-progressbar-fill"
+    });
+
+    expProgressContainer.createEl("p", {
+      text: ``
+    })
+
+    // debug
+    console.log(fillPercentageStr);
+
+    expProgressFill.style.width = `${fillPercentageStr}`;
+
     contentEl.createEl("p", {
-      text: `Total Experience: ${new Intl.NumberFormat().format(Math.floor(this.experience))}`
+      text: `Total Experience: ${new Intl.NumberFormat().format(Math.floor(this.experience))} XP`
 	  });
+
+    contentEl.createEl("p", {
+      text: `To next level: ${new Intl.NumberFormat().format(Math.floor(await getRequiredValueForLevel(level + 1) - this.experience))} XP`
+	  });
+
+    contentEl.createEl("br");
 
     contentEl.createEl("p", {
       text: `Total Performance Calculations: ${new Intl.NumberFormat().format(Math.floor(this.totalExecutions))}`

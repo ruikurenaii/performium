@@ -108,8 +108,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 			});
 
     new Setting(containerEl)
-		  .setName("Total experience")
-		  .setDesc("See how much experience you've got from calculating performance values!")
+		  .setName("Account")
+		  .setDesc("See the statistice of your account that you've made from calculating performance values!")
 		  .addButton(button => {
         button.setButtonText("Check")
 			  button.onClick(() => {

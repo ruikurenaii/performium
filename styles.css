@@ -77,5 +77,5 @@
   height: 100%;
   width: 0%;
   background-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
-  transition: width 1.5s ease-out;
+  transition: width 1.5s ease-out; 
 }

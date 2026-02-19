@@ -109,7 +109,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
 		  .setName("Account")
-		  .setDesc("See the statistice of your account that you've made from calculating performance values!")
+		  .setDesc("See the statistics of your account that you've made from calculating performance values!")
 		  .addButton(button => {
         button.setButtonText("Check")
 			  button.onClick(() => {
@@ -118,7 +118,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 				});
 			});
 
-    const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
+    // const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
 	let factText: string = generateFact();
 	  

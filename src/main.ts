@@ -49,7 +49,9 @@ export default class PerformiumPlugin extends Plugin {
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
         this.settings.totalExecutionCount++;
-        this.settings.totalExperience += performanceValue;
+        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        this.settings.totalExperience += rewardValue;
+        new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       }
     });
@@ -63,7 +65,9 @@ export default class PerformiumPlugin extends Plugin {
         new PerformanceModal(this.app, performanceValue).open();
         new Notice("Performance points calculation has started");
 		    this.settings.totalExecutionCount++;
-        this.settings.totalExperience += performanceValue;
+        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        this.settings.totalExperience += rewardValue;
+        new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
         this.saveSettings();
       },
     );
@@ -79,9 +83,10 @@ export default class PerformiumPlugin extends Plugin {
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
-        this.settings.totalExperience += performanceValue;
-        this.settings.totalExperience += secondaryPerformanceValue;
-		this.saveSettings();
+        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        this.settings.totalExperience += rewardValue;
+        new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
+		    this.saveSettings();
       }
     });
     
@@ -96,9 +101,10 @@ export default class PerformiumPlugin extends Plugin {
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
-        this.settings.totalExperience += performanceValue;
-        this.settings.totalExperience += secondaryPerformanceValue;
-		this.saveSettings();
+        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        this.settings.totalExperience += rewardValue;
+        new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
+		    this.saveSettings();
       },
     );
 

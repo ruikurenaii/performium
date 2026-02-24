@@ -18,13 +18,13 @@ export class AccountStatisticsModal extends Modal {
 	  contentEl.addClass("account-statistics-window-class");
 
     async function getLevelFromValue(value: number): Promise<number> {
-      if (value < 500) return 0;
+      if (value < 10) return 0;
     
       let level = 0;
     
       while (true) {
         const required =
-          500 +
+          10 +
           Math.floor(
             (2 * level) ** 3 +
             1.5 * level -
@@ -45,7 +45,7 @@ export class AccountStatisticsModal extends Modal {
       }
     
       const requiredValue =
-        500 +
+        10 +
         Math.floor(
           Math.pow(2 * level, 3) +
           1.5 * level -

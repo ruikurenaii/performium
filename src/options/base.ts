@@ -81,6 +81,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 		      "042925": "04-29-25 (v1.2.0)",
 		      "050725": "05-07-25 (v1.3.0)",
           "051425": "05-14-25 (v1.4.0)",
+          "060925": "06-09-25 (v1.5.0)",
 		      "080325": "08-03-25 (v1.6.0)",
           "011726": "01-17-26 (v1.6.1)",
           "020426": "02-04-26 (v1.6.2)",
@@ -95,28 +96,30 @@ export class PerformiumSettingsTab extends PluginSettingTab {
         });
       });
 
-	  new Setting(containerEl)
-		  .setName("Total focus time")
-		  .setDesc("See how much time you've spent on reading or writing your notes")
-		  .addButton(button => {
-        button.setButtonText("Check")
-			  button.onClick(() => {
-          new Notice('This feature is no longer available, thank you for using the plugin!');
-          // const modal = new FocusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
-          // modal.open();
-				});
-			});
+      /*
+	    new Setting(containerEl)
+		    .setName("Total focus time")
+  		  .setDesc("See how much time you've spent on reading or writing your notes")
+	  	  .addButton(button => {
+          button.setButtonText("Check")
+			    button.onClick(() => {
+            new Notice('This feature is no longer available, thank you for using the plugin!');
+            // const modal = new FocusTimeModal(this.app, this.plugin.settings.totalFocusTime ?? 0);
+            // modal.open();
+				  });
+			  });
+      */
 
-    new Setting(containerEl)
-		  .setName("Account")
-		  .setDesc("See the statistics of your account that you've made from calculating performance values!")
-		  .addButton(button => {
-        button.setButtonText("Check")
-			  button.onClick(() => {
-          const modal = new AccountStatisticsModal(this.app, this.plugin.settings.totalExperience ?? 0, this.plugin.settings.totalExecutionCount ?? 0);
-          modal.open();
-				});
-			});
+      new Setting(containerEl)
+	  	  .setName("Account")
+		    .setDesc("See the statistics of your account that you've made from calculating performance values!")
+		    .addButton(button => {
+          button.setButtonText("Check")
+	  		  button.onClick(() => {
+            const modal = new AccountStatisticsModal(this.app, this.plugin.settings.totalExperience ?? 0, this.plugin.settings.totalExecutionCount ?? 0);
+            modal.open();
+				  });
+		  	});
 
     // const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 

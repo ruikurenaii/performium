@@ -81,10 +81,6 @@ export class AccountStatisticsModal extends Modal {
       cls: "experience-progressbar-fill"
     });
 
-    expProgressContainer.createEl("p", {
-      text: ``
-    })
-
     // debug
     console.log(fillPercentageStr);
 

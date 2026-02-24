@@ -38,9 +38,9 @@ export class comparePerformanceModal extends Modal {
       cls: "semi-header-text-style"
     });
 
-	contentEl.createEl('p', {
+	  contentEl.createEl('p', {
       text: " ",
-	  cls: "margin-element"
+	    cls: "margin-element"
     });
 
     contentEl.createEl('p', {
@@ -52,9 +52,9 @@ export class comparePerformanceModal extends Modal {
       cls: "semi-header-text-style"
     });
 
-	contentEl.createEl('p', {
+  	contentEl.createEl('p', {
       text: " ",
-	  cls: "margin-element"
+	    cls: "margin-element"
     });
 
     contentEl.createEl('p', {

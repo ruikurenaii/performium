@@ -2,12 +2,13 @@
 // import { getTimeSinceDate } from "./timeSinceDate";
 // import { PerformanceEntry } from "../interfaces/performanceEntry";
 // import { getTopPerformanceEntries } from "./getTopPerformanceEntries";
+import PerformiumPlugin from "../main";
 
 // it may not be used or i don't know.
-export function generateFact(): string {
+export function generateFact(plugin: PerformiumPlugin): string {
   const array = [
     `As of January 22, 2026, the old fun facts were removed in favor of the new ones!`,
-    `I use Arch Linux by the way!`,
+    `As of this update, Performium is being developed in Arch Linux!`,
     `PP stands for performance points! It also came from the rhythm game, osu!`,
     `You have encountered the most useless fun fact ever.`,
     `If you force yourself to step away from your gadgets and focus on your studies, it\'s uncertain to know that either it\'s effective or not.`,
@@ -26,8 +27,7 @@ export function generateFact(): string {
     `I just wanna be honest here, this project was almost discontinued until the development is back after a long, unannounced hiatus!`,
     `You are one of the early birds to get this plugin during it\'s early development stage!`,
     `There were beta versions of the fun facts section, but they were never used!`,
-    `More features will be added to Performium!`,
-    `Was there a secret code for breaking the vault or am I dumb enough that this small sheet of paper I have didn\'t give the right password...`,
+    `More features will be planned for addition to Performium!`,
     `At May 15, 2025, at 1:46 AM (GMT +8), the plugin has been approved!`,
     `Some older fun facts from the previous versions of Performium were preserved. Hope you could still remember some older lines that got preserved in the meantime.`,
     `Future versions of Performium will (hopefully) make use of the new features implemented into Obsidian!`,
@@ -35,7 +35,6 @@ export function generateFact(): string {
     `Performium here in Obsidian is not a plugin that is not meant to boost the app\'s performance!`,
     `There is this reminder where you should remember that this is just a fan-made implementation of the osu! performance point system for Obsidian!`,
     `You saw something that wasn\'t meant to be seen.`,
-    `For now, you\'ll have to get used to getting bored from seeing this fun fact, so yeah. Have a cup of coffee while I do some work with the developer.`,
     `In v1.6.2, every single system became unusable despite every single value outputting a zero!`,
     `Be reminded that the test system is very expermiental and can cause the calculated value to such numbers that are unordinary!`,
     `67`,
@@ -43,9 +42,12 @@ export function generateFact(): string {
     `Starting by the end of February 2026, updates will take longer than expected since the development will go straight to major updates.`,
     `The developer might be busy making reworks, so just... don\'t disturb them, okay?`,
     `Hoping for your laptop to not explode during compilation will likely increase the chance for it to actually explode (Literally a myth)`,
-    `Nevermind, I think you knew what I was gonna say (YES YOU DO KNOW WHAT I WAS ABOUT TO SAY GODDAMNIT!)`,
-    `A full rewrite has been made with the new system! For the latest reworks before the next publish, try out the test performance points system!`
+    `A full rewrite has been made with the new system! For the latest reworks before the next publish, try out the test performance points system!`,
+    `A setting has been removed from the plugin, but it\'s data used for it will still remain functional!`,
+    `A total amount of two people have contributed to this project as of this update!`,
   ];
+
+  array.push(`You have calculated the total performance points of your Obsidian vault ${new Intl.NumberFormat().format(Math.floor(plugin.settings.totalExecutionCount))} times!`)
 
 	// count the total number of text lines
   array.push(`There are a total of ${array.length + 1} fun facts to encounter! Try to find them all!`);

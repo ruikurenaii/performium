@@ -195,21 +195,11 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   let performanceValue: number = ((angleBonus + starRatingBonus) / 2.05) + ((combinedValue * (1 + (await starRating / 15))) / 17.5) + (roughnessPenalty * (3.1415926535 / 0.875)) + (factorBonus / (2.7182818284 * 1.05)) + (overallPenalty / -1.1) + (timeBonus / 9.8) + bonusValue + Math.pow(lengthBonus, 0.25) + Math.pow(burstScore, 0.25);
   
-  // if the pp is below 0 and is a negative number
-  if (performanceValue < 0) {
-    console.log("The calculated value is 0pp or negative... Setting it to 0pp...")
-	  performanceValue = 0;
-  } else if (Number.isNaN(performanceValue)) {
-    // otherwise, if the value is not a number
-    console.log("The calculated value is not a number... Setting it to 0pp...");
+  // cleaner value handling
+  if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
+    console.log("Invalid performance value. Setting to 0pp...");
     performanceValue = 0;
-  } else if (!Number.isFinite(performanceValue)) {
-    // if the value doesn't meet any of the previous conditions, execute this
-    console.log("The calculated value is an infinite number, setting it to 0pp..");
-    performanceValue = 0;
-  } else {
-    performanceValue = performanceValue;
-  }
+  }  
 
   return performanceValue;
 }

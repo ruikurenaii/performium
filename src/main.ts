@@ -48,8 +48,10 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
         this.settings.totalExecutionCount++;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
         let rewardValue = (150 + Math.log(Math.max(1, performanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       }
@@ -63,8 +65,10 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue).open();
 		    this.settings.totalExecutionCount++;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
         let rewardValue = (150 + Math.log(Math.max(1, performanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
         this.saveSettings();
       },
@@ -80,8 +84,11 @@ export default class PerformiumPlugin extends Plugin {
         // await savePerformanceToFile(this.app, secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         this.settings.totalExecutionCount += 2;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+				this.settings.maxSecondaryPerformanceValue = Math.max(this.settings.secondaryPerformanceValue, this.settings.maxSecondaryPerformanceValue);
         let rewardValue = (300 + Math.log(Math.max(1, performanceValue)) + Math.log(Math.max(1, secondaryPerformanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       }
@@ -97,8 +104,11 @@ export default class PerformiumPlugin extends Plugin {
         // await savePerformanceToFile(this.app, secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         this.settings.totalExecutionCount += 2;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+				this.settings.maxSecondaryPerformanceValue = Math.max(this.settings.secondaryPerformanceValue, this.settings.maxSecondaryPerformanceValue);
         let rewardValue = (300 + Math.log(Math.max(1, performanceValue)) + Math.log(Math.max(1, secondaryPerformanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       },

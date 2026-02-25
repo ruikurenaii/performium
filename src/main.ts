@@ -83,7 +83,7 @@ export default class PerformiumPlugin extends Plugin {
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
-        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        let rewardValue = 300 * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
@@ -101,7 +101,7 @@ export default class PerformiumPlugin extends Plugin {
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
         new Notice("Performance points comparison has started");
         this.settings.totalExecutionCount += 2;
-        let rewardValue = 150 * (1 + (this.settings.totalExecutionCount / 1000));
+        let rewardValue = 300 * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();

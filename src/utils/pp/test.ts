@@ -2,6 +2,7 @@
 
   test.ts: the test version of the pp system.
   this will be an attempt to fully rewrite the performance values and rebalance them until it's ready for publish.
+  while it might use some older evaluators, most of the code uses the new ones.
   certain variables will be commented out until it's possible for use.
   
 */
@@ -82,6 +83,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     let fileToFolderRatio = await getAllFiles() / await getAllFolders();
 
     value += fileToFolderRatio;
+
+    value += Math.log(vaultStats.totalSentences);
 
     return value
   }

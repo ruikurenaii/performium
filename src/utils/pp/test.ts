@@ -140,13 +140,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // console.log('performanceValue: ' + performanceValue);
 
   // cleaner value handling
-  if (!Number.isFinite(performanceValue) || performanceValue < 0) {
-    console.log("Invalid performance value. Resetting to 0pp...");
+  if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
+    console.log("Invalid performance value. Setting to 0pp...");
     performanceValue = 0;
-  } else if (performanceValue === 0) {
-    console.log("Performance value is 0. Forcing reset...");
-    performanceValue = 0;
-	}
+  }
 
   return performanceValue;
 }

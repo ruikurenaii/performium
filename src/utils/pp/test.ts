@@ -84,7 +84,17 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     value += fileToFolderRatio;
 
+    // add a bonus with math logarithm
     value += Math.log(vaultStats.totalSentences);
+
+    // estimate the number of words and sentences in a paragraph
+    let paragraphWordCount = wordToSentenceRatio * sentencetoParagraphRatio;
+
+    // debug
+    // console.log(`${paragraphWordCount}pp`);
+
+    // add as a bonus
+    value += Math.log(paragraphWordCount) * (1 + ((paragraphWordCount / 25) / 10));
 
     return value
   }
@@ -119,7 +129,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     // add some value with the use of total characters typed in the vault
     let characterBonus = Math.log(vaultStats.totalChars) + (vaultStats.totalChars / 3000);
 
-    value += characterBonus * Math.pow(Math.PI, 0.625);
+    value += characterBonus * Math.pow(Math.PI, 0.6);
 
     value += ((417 - (1 / 3)) / 4) * (1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
 
@@ -135,10 +145,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   performanceValue += ((readabilityValue + statRatingValue + informabilityValue) * vaultRatingValue) / 1.1;
 
   // debug
-  console.log('readabilityValue: ' + readabilityValue);
-  console.log('statRatingValue: ' + statRatingValue);
-  console.log('informabilityValue: ' + informabilityValue);
-  console.log('vaultRatingValue: ' + vaultRatingValue);
+  console.log(`readabilityValue: ${readabilityValue.toFixed(2)}pp`);
+  console.log(`statRatingValue: ${statRatingValue.toFixed(2)}pp`);
+  console.log(`informabilityValue: ${informabilityValue.toFixed(2)}pp`);
+  console.log(`vaultRatingValue: ${vaultRatingValue.toFixed(2)}pp`);
 
   // console.log('performanceValue: ' + performanceValue);
 

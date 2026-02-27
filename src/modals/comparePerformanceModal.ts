@@ -1,16 +1,21 @@
 import { App, Modal } from "obsidian";
+import { getPerformanceVersion } from "src/functions/getPerformanceVersion";
 
 export class comparePerformanceModal extends Modal {
   ppValue: number;
   secondaryPpValue: number;
+  setting: string;
+  secondarySetting: string;
 
-  constructor(app: App, ppValue: number, secondaryPpValue: number) {
+  constructor(app: App, ppValue: number, secondaryPpValue: number, setting: string, secondarySetting: string) {
     super(app);
     this.ppValue = ppValue;
     this.secondaryPpValue = secondaryPpValue;
+    this.setting = setting;
+    this.secondarySetting = secondarySetting;
   }
 
-  onOpen() {
+  async onOpen() {
     const { contentEl } = this;
     const difference = this.secondaryPpValue - this.ppValue;
 
@@ -38,10 +43,12 @@ export class comparePerformanceModal extends Modal {
       cls: "semi-header-text-style"
     });
 
-	  contentEl.createEl('p', {
-      text: " ",
-	    cls: "margin-element"
+    contentEl.createEl('p', {
+      text: `Main PP System Version: ${await getPerformanceVersion(this.setting)}`,
+      cls: 'muted-text-style'
     });
+
+	  contentEl.createEl('hr');
 
     contentEl.createEl('p', {
       text: "Compared performance value:"
@@ -50,6 +57,11 @@ export class comparePerformanceModal extends Modal {
     contentEl.createEl('p', {
       text: `${new Intl.NumberFormat().format(Math.trunc(this.secondaryPpValue))}pp`,
       cls: "semi-header-text-style"
+    });
+
+    contentEl.createEl('p', {
+      text: `Compared PP System Version: ${await getPerformanceVersion(this.secondarySetting)}`,
+      cls: 'muted-text-style'
     });
 
   	contentEl.createEl('p', {

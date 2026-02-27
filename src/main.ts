@@ -18,6 +18,7 @@ import { calculatePerformance as calculatePerformance011726 } from "./utils/pp/0
 import { calculatePerformance as calculatePerformance020426 } from "./utils/pp/020426";
 import { calculatePerformance as calculatePerformance021426 } from "./utils/pp/021426";
 import { calculatePerformance as calculatePerformanceTest } from "./utils/pp/test";
+import { getPerformanceVersion } from "./functions/getPerformanceVersion";
 
 export default class PerformiumPlugin extends Plugin {
   settings: PerformiumBaseSettings;
@@ -46,7 +47,7 @@ export default class PerformiumPlugin extends Plugin {
       callback: async () => {
         const performanceValue = await this.calculatePerformance();
         await savePerformanceToFile(this.app, performanceValue);
-        new PerformanceModal(this.app, performanceValue).open();
+        new PerformanceModal(this.app, performanceValue, this.settings.ppSystem).open();
         this.settings.totalExecutionCount++;
         let rewardValue = (150 + Math.log(performanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
@@ -61,7 +62,7 @@ export default class PerformiumPlugin extends Plugin {
       async () => {
         const performanceValue = await this.calculatePerformance();
         await savePerformanceToFile(this.app, performanceValue);
-        new PerformanceModal(this.app, performanceValue).open();
+        new PerformanceModal(this.app, performanceValue, this.settings.ppSystem).open();
 		    this.settings.totalExecutionCount++;
         let rewardValue = (150 + Math.log(performanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
@@ -78,7 +79,7 @@ export default class PerformiumPlugin extends Plugin {
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
         await savePerformanceToFile(this.app, performanceValue);
         // await savePerformanceToFile(this.app, secondaryPerformanceValue);
-        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
+        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue, this.settings.ppSystem, this.settings.secondaryPpSystem).open();
         this.settings.totalExecutionCount += 2;
         let rewardValue = (300 + Math.log(performanceValue) + Math.log(secondaryPerformanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
@@ -95,7 +96,7 @@ export default class PerformiumPlugin extends Plugin {
         const secondaryPerformanceValue = await this.calculateSecondaryPerformance();
         await savePerformanceToFile(this.app, performanceValue);
         // await savePerformanceToFile(this.app, secondaryPerformanceValue); 
-        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue).open();
+        new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue, this.settings.ppSystem, this.settings.secondaryPpSystem).open();
         this.settings.totalExecutionCount += 2;
         let rewardValue = (300 + Math.log(performanceValue) + Math.log(secondaryPerformanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
         this.settings.totalExperience += rewardValue;
@@ -191,13 +192,15 @@ export default class PerformiumPlugin extends Plugin {
 
 export class PerformanceModal extends Modal {
   private performanceValue: number;
+  private setting: string;
   
-  constructor(app: App, performanceValue: number) {
+  constructor(app: App, performanceValue: number, setting: string) {
     super(app);
     this.performanceValue = performanceValue;
+    this.setting = setting;
   }
   
-  onOpen() {
+  async onOpen() {
     const startTime = new Date();
     let st = startTime.getTime();
     
@@ -237,8 +240,11 @@ export class PerformanceModal extends Modal {
       text: `Total CPU time: ${timeTakenText}`,
       cls: "main-window-time",
     });
-    
-    new Notice("Performance calculation successfully finished!");
+
+    contentEl.createEl("p", {
+      text: `PP System Version: ${await getPerformanceVersion(this.setting)}`,
+      cls: "main-window-version"
+    });
   }
   
   onClose() {

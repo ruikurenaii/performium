@@ -142,13 +142,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   let statRatingValue = await calculateStatRating();
   let informabilityValue = await calculateInformability();
 
-  performanceValue += ((readabilityValue + statRatingValue + informabilityValue) * vaultRatingValue) / 1.1;
+  performanceValue += ((readabilityValue + statRatingValue + informabilityValue) * vaultRatingValue) / 1.075;
 
   // debug
-  console.log(`readabilityValue: ${readabilityValue.toFixed(2)}pp`);
-  console.log(`statRatingValue: ${statRatingValue.toFixed(2)}pp`);
-  console.log(`informabilityValue: ${informabilityValue.toFixed(2)}pp`);
-  console.log(`vaultRatingValue: ${vaultRatingValue.toFixed(2)}pp`);
+  console.log(`readabilityValue: ${(readabilityValue * vaultRatingValue) / 1.075}pp`);
+  console.log(`statRatingValue: ${(statRatingValue * vaultRatingValue) / 1.075}pp`);
+  console.log(`informabilityValue: ${(informabilityValue * vaultRatingValue) / 1.075}pp`);
+  console.log(`vaultRatingValue: ${vaultRatingValue / 1.075}x`);
 
   // console.log('performanceValue: ' + performanceValue);
 

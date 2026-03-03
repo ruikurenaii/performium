@@ -99,7 +99,28 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     return value
   }
 
-  async function calculateStatRating(): Promise<number> {
+  async function calcualtePenalties(): Promise<number> {
+    // function to calculate penalties
+    let value = 0;
+
+    // if the words are too short
+    let characterToWordRatio = vaultStats.totalChars / await getTotalWordCount(app);
+    
+    value += (Math.E ** ((4 - characterToWordRatio) / 2)) * 50;
+
+    // get the total amount of orphans in the vault
+    let orphanCount: number = await getOrphanCount(app);
+
+    // apply it to the value as a penalty
+    value += orphanCount;
+
+    // add a multiplier to make things fair
+    value *= 1 + 0.015 * Math.log(1 + vaultStats.totalChars);
+
+    return value;
+  }
+
+  async function calculateStatBonuses(): Promise<number> {
     // stat rating function
     let value = 0;
 
@@ -108,12 +129,6 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     // as well as making use of the vault's folders
     value += Math.log(vaultStats.totalFolders) * 1.5;
-
-    // get the total amount of orphans in the vault
-    let orphanCount: number = await getOrphanCount(app);
-
-    // apply it to the value as a penalty
-    value -= orphanCount;
 
     console.log(value);
 
@@ -139,15 +154,17 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   // calculate the full value
   let readabilityValue = await calculateReadability();
   let vaultRatingValue = await calculateVaultRating();
-  let statRatingValue = await calculateStatRating();
+  let statBonusValue = await calculateStatBonuses();
   let informabilityValue = await calculateInformability();
+  let penaltyValue = await calcualtePenalties();
 
-  performanceValue += ((readabilityValue + statRatingValue + informabilityValue) * vaultRatingValue) / 1.075;
+  performanceValue += ((readabilityValue + statBonusValue + informabilityValue - penaltyValue) * vaultRatingValue) / 1.075;
 
   // debug
   console.log(`readabilityValue: ${(readabilityValue * vaultRatingValue) / 1.075}pp`);
-  console.log(`statRatingValue: ${(statRatingValue * vaultRatingValue) / 1.075}pp`);
+  console.log(`statBonusValue: ${(statBonusValue * vaultRatingValue) / 1.075}pp`);
   console.log(`informabilityValue: ${(informabilityValue * vaultRatingValue) / 1.075}pp`);
+  console.log(`penaltyValue: ${(penaltyValue * vaultRatingValue) / 1.075}pp`);
   console.log(`vaultRatingValue: ${vaultRatingValue / 1.075}x`);
 
   // console.log('performanceValue: ' + performanceValue);

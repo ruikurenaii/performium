@@ -1,6 +1,7 @@
 // Note: this is a requested feature by @lulunac27a on GitHub
 // for now, it'll be a modal, no further updates may be planned unless it's for user interface updates.
 import { Modal, App } from "obsidian";
+import { getWeightedPP } from "src/functions/weightPP";
 
 export class AccountStatisticsModal extends Modal {
   experience: number;
@@ -95,6 +96,10 @@ export class AccountStatisticsModal extends Modal {
 	  });
 
     contentEl.createEl("br");
+
+    contentEl.createEl("p", {
+      text: `Total Weighted PP: ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(this.app)))}pp`
+    })
 
     contentEl.createEl("p", {
       text: `Total Performance Calculations: ${new Intl.NumberFormat().format(Math.floor(this.totalExecutions))}`

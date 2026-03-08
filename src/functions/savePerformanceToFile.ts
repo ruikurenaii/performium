@@ -1,7 +1,7 @@
 import { App } from "obsidian";
 
 export async function savePerformanceToFile(app: App, value: number) {
-  const filePath = `.obsidian/pp-entries.json`;
+  const filePath = `.${app.vault.configDir}/pp-entries.json`;
   const adapter = app.vault.adapter;
 
   const now = new Date();

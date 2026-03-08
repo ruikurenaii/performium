@@ -115,7 +115,10 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     value += orphanCount;
 
     // add a multiplier to make things fair
-    value *= 1 + 0.015 * Math.log(1 + vaultStats.totalChars);
+    value *= 1 + 0.055 * Math.log(1 + vaultStats.totalChars);
+
+    // add another use to the character-to-word ratio variable 
+    value += (characterToWordRatio / 2) * (characterToWordRatio * (1 / 125));
 
     return value;
   }
@@ -147,6 +150,9 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     value += characterBonus * Math.pow(Math.PI, 0.6);
 
     value += ((417 - (1 / 3)) / 4) * (1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
+
+    // add a small multiplier to the full value
+    value += (Math.log(value) + (1 + (value * 0.025))) / 125;
 
     return value;
   }

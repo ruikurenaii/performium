@@ -123,7 +123,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     // const installTimestamp = this.plugin.settings.installTimestamp ?? Date.now();
 
-	  let factText: string = generateFact(this.plugin);
+	  let factText: string = await generateFact(this.plugin, this.app);
 	  
     // const totalTime = installTimestamp - Date.now();
 

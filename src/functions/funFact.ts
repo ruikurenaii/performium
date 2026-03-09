@@ -3,9 +3,11 @@
 // import { PerformanceEntry } from "../interfaces/performanceEntry";
 // import { getTopPerformanceEntries } from "./getTopPerformanceEntries";
 import PerformiumPlugin from "../main";
+import { getWeightedPP } from "./weightPP";
+import { App } from "obsidian";
 
 // it may not be used or i don't know.
-export function generateFact(plugin: PerformiumPlugin): string {
+export async function generateFact(plugin: PerformiumPlugin, app: App): Promise<string> {
   const array = [
     `As of January 22, 2026, the old fun facts were removed in favor of the new ones!`,
     `As of this update, Performium is being developed in Arch Linux!`,
@@ -51,6 +53,9 @@ export function generateFact(plugin: PerformiumPlugin): string {
 
 	// count the total number of text lines
   array.push(`There are a total of ${array.length + 1} fun facts to encounter! Try to find them all!`);
+
+  // make use of the newly-made weighted pp
+  array.push(`From all the performance calculations you have executed, weighting them all would give you a total amount of ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(app)))}`);
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;

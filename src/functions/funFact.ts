@@ -51,11 +51,11 @@ export async function generateFact(plugin: PerformiumPlugin, app: App): Promise<
 
   array.push(`You have calculated the total performance points of your Obsidian vault ${new Intl.NumberFormat().format(Math.floor(plugin.settings.totalExecutionCount))} times!`)
 
-	// count the total number of text lines
-  array.push(`There are a total of ${array.length + 1} fun facts to encounter! Try to find them all!`);
-
   // make use of the newly-made weighted pp
   array.push(`From all the performance calculations you have executed, weighting them all would give you a total amount of ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(app)))}`);
+
+	// count the total number of text lines
+  array.push(`There are a total of ${array.length + 1} fun facts to encounter! Try to find them all!`);
 
 	let fact: string = array[Math.floor(Math.random() * array.length)];
 	return fact;

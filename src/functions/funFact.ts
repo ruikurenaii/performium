@@ -39,7 +39,8 @@ export async function generateFact(plugin: PerformiumPlugin, app: App): Promise<
     `You saw something that wasn\'t meant to be seen.`,
     `In v1.6.2, every single system became unusable despite every single value outputting a zero!`,
     `Be reminded that the test system is very expermiental and can cause the calculated value to such numbers that are unordinary!`,
-    `67`,
+    // had to comment out this line: `67`,
+    `The weighted PP value is calculated the way it was also done in the osu! game!`,
     `After every single release, unknown bugs show up, and of course, they weren\'t tested.`,
     `Starting by the end of February 2026, updates will take longer than expected since the development will go straight to major updates.`,
     `The developer might be busy making reworks, so just... don\'t disturb them, okay?`,
@@ -52,7 +53,7 @@ export async function generateFact(plugin: PerformiumPlugin, app: App): Promise<
   array.push(`You have calculated the total performance points of your Obsidian vault ${new Intl.NumberFormat().format(Math.floor(plugin.settings.totalExecutionCount))} times!`)
 
   // make use of the newly-made weighted pp
-  array.push(`From all the performance calculations you have executed, weighting them all would give you a total amount of ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(app)))}`);
+  array.push(`From all the performance calculations you have executed, weighting them all would give you a total amount of ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(app)))}pp!`);
 
 	// count the total number of text lines
   array.push(`There are a total of ${array.length + 1} fun facts to encounter! Try to find them all!`);

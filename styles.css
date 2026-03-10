@@ -75,3 +75,21 @@
   background-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
   transition: width 1.5s ease-out; 
 }
+
+.performance-entry {
+  font-size: 15.5pt;
+  background-color: #FFFFFF10;
+  font-weight: bolder;
+  text-align: center;
+
+  padding-top: 7.5px;
+  padding-bottom: 7.5px;
+
+  border-radius: 10px;
+
+  margin: 12.5px;
+}
+
+.center {
+  text-align: center;
+}

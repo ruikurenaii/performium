@@ -1,4 +1,4 @@
-import { App, Modal } from "obsidian";
+import { App, Modal, Notice } from "obsidian";
 import { getAllNumberValues } from "src/functions/extractJSONNumbers";
 import { getWeightedPP } from "src/functions/weightPP";
 
@@ -20,14 +20,33 @@ export class TopPerformanceModal extends Modal {
 
     const valuesArray = await getAllNumberValues(data);
 
-    valuesArray.sort(function(a, b) {
+    let weightedPP = await getWeightedPP(this.app);
+
+    // debug
+    // console.log(valuesArray);
+
+    // remove empty integer items
+    if (valuesArray.includes(0)) {
+      new Notice('There are values that aren\'t more than zero.');
+    }
+
+    // use the new array without the items that are filtered
+    const newValuesArray = valuesArray.filter(value => value !== 0);
+
+    newValuesArray.sort(function(a, b) {
       return b - a;
     });
 
     contentEl.createEl('h1', {
-      text: `Total Weighted PP: ${new Intl.NumberFormat().format(Math.trunc(await getWeightedPP(this.app)))}pp`,
-      cls: 'center'
+      text: `Total Weighted PP: ${new Intl.NumberFormat().format(Math.trunc(weightedPP))}pp`,
+      cls: 'top-performance-heading'
     });
+
+    // estimated leveling thru the use of the weighted pp
+    contentEl.createEl('p', {
+      text: `Estimated player level: Level ${Math.trunc(Math.log(weightedPP * 5) + (weightedPP * 0.001))}`,
+      cls: 'center'
+    })
 
     contentEl.createEl('hr');
 
@@ -36,15 +55,15 @@ export class TopPerformanceModal extends Modal {
       cls: 'center'
     });
 
-    valuesArray.forEach((value: number, index: number) => {
+    newValuesArray.forEach((value: number, index: number) => {
       contentEl.createEl('p', {
-        text: `#${index + 1} - ${new Intl.NumberFormat().format(Math.trunc(value))}pp`,
+        text: `#${index + 1} - ${new Intl.NumberFormat().format(Math.trunc(value))}pp (${new Intl.NumberFormat().format(Math.trunc(value * (0.95 ** index)))}pp)`,
         cls: 'performance-entry'
       });
     });
 
     contentEl.createEl('p', {
-      text: `Total scores: ${valuesArray.length} scores`,
+      text: `Total scores: ${newValuesArray.length} scores`,
       cls: 'center'
     })
   }

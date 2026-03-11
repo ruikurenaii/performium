@@ -93,3 +93,8 @@
 .center {
   text-align: center;
 }
+
+.top-performance-heading {
+  text-align: center;
+  padding-top: 10px;
+}

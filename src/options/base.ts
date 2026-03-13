@@ -61,7 +61,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           "011726": "01-17-26 (v1.6.1)",
           "020426": "02-04-26 (v1.6.2)",
           "021426": "02-14-26 (v1.7.0, Current)",
-          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
+          "test": "Test System (v1.8.0b, EXPERIMENTAL)",
+					"max": "Maximum Points from All Systems"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);
@@ -86,7 +87,8 @@ export class PerformiumSettingsTab extends PluginSettingTab {
           "011726": "01-17-26 (v1.6.1)",
           "020426": "02-04-26 (v1.6.2)",
           "021426": "02-14-26 (v1.7.0, Current)",
-          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
+          "test": "Test System (v1.8.0b, EXPERIMENTAL)",
+					"max": "Maximum Points from All Systems"
         });
         
         dropdown.setValue(this.plugin.settings.secondaryPpSystem);

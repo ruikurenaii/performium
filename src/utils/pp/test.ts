@@ -14,7 +14,8 @@ import { calculateVaultStats } from "src/functions/vaultStats";
 import { getOrphanCount } from "../values/newerEvaluators/orphanCount";
 import { calculateVaultCleanliness } from "../values/newerEvaluators/vaultCleanliness";
 import { getAllFiles, getAllFolders } from "../values/newerEvaluators/itemCount";
-// simport { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
+// import { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
+import { getFileExtensionCount } from "src/functions/getFileExtensionCount";
 import { getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
@@ -153,6 +154,16 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     // add a small multiplier to the full value
     value += (Math.log(value) + (1 + (value * 0.025))) / 125;
+
+    // make use of bases (for now)
+    const fileExtensionArray = await getFileExtensionCount(this.app);
+
+    // debug
+    console.log(fileExtensionArray);
+
+    let baseCount = fileExtensionArray.base;
+
+    value += Math.log(baseCount) ** (1 + (0.001 * baseCount));
 
     return value;
   }

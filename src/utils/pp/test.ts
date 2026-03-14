@@ -186,7 +186,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
   // console.log('performanceValue: ' + performanceValue);
 
-  // cleaner value handling
+  // cleaner value handling (since v1.7.0)
   if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
     console.log("Invalid performance value. Setting to 0pp...");
     performanceValue = 0;

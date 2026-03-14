@@ -21,6 +21,9 @@ export interface PerformiumBaseSettings {
   secondaryPpSystem: string;
   totalExecutionCount: number;
   totalExperience: number;
+	maxPerformanceValue: number;
+	maxSecondaryPerformanceValue: number;
+	totalRewards: number;
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
@@ -29,7 +32,10 @@ export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
   totalFocusTime: 0,
   secondaryPpSystem: "test",
   totalExecutionCount: 0,
-  totalExperience: 0
+  totalExperience: 0,
+	maxPerformanceValue: 0,
+	maxSecondaryPerformanceValue: 0,
+	totalRewards: 0
 };
 
 export class PerformiumSettingsTab extends PluginSettingTab {

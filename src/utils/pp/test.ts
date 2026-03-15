@@ -16,7 +16,7 @@ import { calculateVaultCleanliness } from "../values/newerEvaluators/vaultCleanl
 import { getAllFiles, getAllFolders } from "../values/newerEvaluators/itemCount";
 // import { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
 import { getFileExtensionCount } from "src/functions/getFileExtensionCount";
-import { getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
+import { getTotalSentences, getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -120,6 +120,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     // add another use to the character-to-word ratio variable 
     value += (characterToWordRatio / 2) * (characterToWordRatio * (1 / 125));
+
+    // add another penalty
+    let totalSentences = await getTotalSentences(this.app);
+    let wordToSentenceRatio = totalWords / totalSentences;
+    let characterToSentenceRatio = (characterToWordRatio * wordToSentenceRatio) / totalSentences;
+
+    // add the penalty value to the overall value
+    value += Math.max(10, (Math.log(characterToSentenceRatio) * 3) + (characterToSentenceRatio * 0.0025));
 
     return value;
   }

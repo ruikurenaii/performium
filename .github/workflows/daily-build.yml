@@ -1,5 +1,5 @@
 name: Daily Build
-run-name: Performium Daily Build (#${{ github.run_number }} - v1.8.0${{ github.run_number}})
+run-name: Performium Daily Build (#${{ github.run_number }} - v1.8.1${{ github.run_number}})
 
 on:
   schedule:

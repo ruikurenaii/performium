@@ -1,11 +1,11 @@
 name: Daily Build
-run-name: Performium Daily Build (\#${{ github.run_number }} - v${{ steps.date.outputs.date }})
+run-name: Performium Daily Build (#${{ github.run_number }} - v${{ steps.date.outputs.date }})
 
 on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch: # Allow manual trigger
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest

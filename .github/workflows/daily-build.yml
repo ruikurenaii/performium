@@ -5,12 +5,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch: # Allow manual trigger
-    inputs:
-      branch_name:
-        description: 'Branch'
-        required: true
-        default: 'main'
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest

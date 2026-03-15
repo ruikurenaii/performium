@@ -164,14 +164,14 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     value += (Math.log(value) + (1 + (value * 0.025))) / 125;
 
     // make use of bases (for now)
-    const fileExtensionArray = await getFileExtensionCount(this.app);
+    // const fileExtensionArray = await getFileExtensionCount(this.app);
 
     // debug
-    console.log(fileExtensionArray);
+    // console.log(fileExtensionArray);
 
-    let baseCount = fileExtensionArray.base;
+    // let baseCount = fileExtensionArray.base;
 
-    value += Math.log(baseCount) ** (1 + (0.001 * baseCount));
+    // value += Math.log(baseCount) ** (1 + (0.001 * baseCount));
 
     return value;
   }

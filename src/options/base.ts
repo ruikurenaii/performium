@@ -24,7 +24,7 @@ export interface PerformiumBaseSettings {
 }
 
 export const DEFAULT_SETTINGS: PerformiumBaseSettings = {
-  ppSystem: "021426",
+  ppSystem: "031526",
   installTimestamp: 0,
   totalFocusTime: 0,
   secondaryPpSystem: "test",
@@ -141,7 +141,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     // version display, perhaps
     new Setting(containerEl)
-      .setName("Performium v1.7.0")
-      .setDesc("Codename: Kinetisphere")
+      .setName("Performium v1.8.0")
+      .setDesc("Codename: Lightcore")
   }
 }

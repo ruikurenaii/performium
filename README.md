@@ -21,6 +21,8 @@ This plugin adds a ribbon and command of a new function meant to calculate the p
 - Complexity
 - Information
 
+It also adds a ribbon and command where you can see all of the values you have calculated throughout the times you have the plugin installed and enabled!
+
 ## Preview
 - ![image](https://github.com/user-attachments/assets/149e6167-c5e0-4c99-b050-4540dbeee7e0)
 

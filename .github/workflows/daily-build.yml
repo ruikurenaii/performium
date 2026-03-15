@@ -15,19 +15,27 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT && echo $DATE
         
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Display Node.js version
         run: node --version
+
       - name: Install dependencies
         run: npm install
+
+      - name: Fix npm audit issues
+        run: npm audit fix --force
+
       - name: Run build script
         run: bash bashQuickBuild.sh
+
       - name: Export artifacts
         uses: actions/upload-artifact@v4
         with: 

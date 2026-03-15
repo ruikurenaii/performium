@@ -1,5 +1,5 @@
 name: Daily Build
-run-name: Performium Daily Build (#${{ github.run_number }} - v${{ github.run_attempt && github.repository && 'auto' || 'manual' }})
+run-name: Performium Daily Build (#${{ github.run_number }} - v1.7.0${{ github.run_number}})
 
 on:
   schedule:

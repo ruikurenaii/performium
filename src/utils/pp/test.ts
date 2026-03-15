@@ -127,7 +127,7 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     let characterToSentenceRatio = (characterToWordRatio * wordToSentenceRatio) / totalSentences;
 
     // add the penalty value to the overall value
-    value += Math.max(10, (Math.log(characterToSentenceRatio) * 3) + (characterToSentenceRatio * 0.0025));
+    value += Math.max(10, ((Math.log(characterToSentenceRatio) * 3) - (characterToSentenceRatio * 0.0025)) + 20);
 
     return value;
   }

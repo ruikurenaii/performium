@@ -11,7 +11,8 @@ const performanceVersions: Record<string, string> = {
   "011726": "v20260117 (v1.6.1)",
   "020426": "v20260204 (v1.6.2)",
   "021426": "v20260214 (v1.7.0)",
-  "test": `v${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")} (v1.8.0b)`
+  "031526": "v20260315 (v1.8.0)",
+  "test": `v${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")} (v1.9.0b)`
 };
 
 export async function getPerformanceVersion(version: string): Promise<string> {

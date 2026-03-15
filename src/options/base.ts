@@ -51,17 +51,18 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .setDesc("Choose a preferred performance points system that will be used to calculate performance values. Different performance point systems give off different values from the default!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
-          "040625": "04-06-25 (v1.0.0)",
-		      "041325": "04-13-25 (v1.1.0)",
-		      "042925": "04-29-25 (v1.2.0)",
-		      "050725": "05-07-25 (v1.3.0)",
-		      "051425": "05-14-25 (v1.4.0)",
-          "060925": "06-09-25 (v1.5.0)",
-		      "080325": "08-03-25 (v1.6.0)",
-          "011726": "01-17-26 (v1.6.1)",
-          "020426": "02-04-26 (v1.6.2)",
-          "021426": "02-14-26 (v1.7.0, Current)",
-          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
+          "040625": "v20250406 (v1.0.0)",
+		      "041325": "v20250413 (v1.1.0)",
+		      "042925": "v20250429 (v1.2.0)",
+		      "050725": "v20250507 (v1.3.0)",
+          "051425": "v20250514 (v1.4.0)",
+          "060925": "v20250609 (v1.5.0)",
+		      "080325": "v20250803 (v1.6.0)",
+          "011726": "v20260117 (v1.6.1)",
+          "020426": "v20260204 (v1.6.2)",
+          "021426": "v20260214 (v1.7.0)",
+          "031526": "v20260315 (v1.8.0, Current)",
+          "test": "Test System (v1.9.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.ppSystem);
@@ -76,17 +77,18 @@ export class PerformiumSettingsTab extends PluginSettingTab {
       .setDesc("Select a secondary performance points system used for comparison of pp. Remember: The same mechanic from the first setting also applies to this!")
       .addDropdown(dropdown => {
         dropdown.addOptions({
-          "040625": "04-06-25 (v1.0.0)",
-		      "041325": "04-13-25 (v1.1.0)",
-		      "042925": "04-29-25 (v1.2.0)",
-		      "050725": "05-07-25 (v1.3.0)",
-          "051425": "05-14-25 (v1.4.0)",
-          "060925": "06-09-25 (v1.5.0)",
-		      "080325": "08-03-25 (v1.6.0)",
-          "011726": "01-17-26 (v1.6.1)",
-          "020426": "02-04-26 (v1.6.2)",
-          "021426": "02-14-26 (v1.7.0, Current)",
-          "test": "Test System (v1.8.0b, EXPERIMENTAL)"
+          "040625": "v20250406 (v1.0.0)",
+		      "041325": "v20250413 (v1.1.0)",
+		      "042925": "v20250429 (v1.2.0)",
+		      "050725": "v20250507 (v1.3.0)",
+          "051425": "v20250514 (v1.4.0)",
+          "060925": "v20250609 (v1.5.0)",
+		      "080325": "v20250803 (v1.6.0)",
+          "011726": "v20260117 (v1.6.1)",
+          "020426": "v20260204 (v1.6.2)",
+          "021426": "v20260214 (v1.7.0)",
+          "031526": "v20260315 (v1.8.0, Current)",
+          "test": "Test System (v1.9.0b, EXPERIMENTAL)"
         });
         
         dropdown.setValue(this.plugin.settings.secondaryPpSystem);
@@ -141,7 +143,7 @@ export class PerformiumSettingsTab extends PluginSettingTab {
 
     // version display, perhaps
     new Setting(containerEl)
-      .setName("Performium v1.8.0")
-      .setDesc("Codename: Lightcore")
+      .setName("Performium v1.8.1")
+      .setDesc("Codename: Mindlink")
   }
 }

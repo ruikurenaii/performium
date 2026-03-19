@@ -13,202 +13,196 @@ import { calculateVaultStats } from "src/functions/vaultStats";
 // the new evaluators used for the rewritten code
 import { getOrphanCount } from "../values/newerEvaluators/orphanCount";
 import { calculateVaultCleanliness } from "../values/newerEvaluators/vaultCleanliness";
-import { getAllFiles, getAllFolders } from "../values/newerEvaluators/itemCount";
+import {
+	getAllFiles,
+	getAllFolders,
+} from "../values/newerEvaluators/itemCount";
 // import { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
 import { getFileExtensionCount } from "src/functions/getFileExtensionCount";
-import { getTotalSentences, getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
+import {
+	getTotalSentences,
+	getTotalWordCount,
+} from "../values/newerEvaluators/newVaultStats";
 import { getListItemCount } from "../values/newerEvaluators/listItemCount";
+import { getTaskCount } from "../values/newerEvaluators/taskCount";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
-export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
-  const app = plugin.app;
+export async function calculatePerformance(
+	plugin: PerformiumPlugin,
+): Promise<number> {
+	const app = plugin.app;
 
-  let vaultStats = await calculateVaultStats(app);
+	const vaultStats = await calculateVaultStats(app);
 
-  let performanceValue = 0;
+	let performanceValue = 0;
 
-  let totalWords = await getTotalWordCount(app);
+	const totalWords = await getTotalWordCount(app);
+	const totalSentences = vaultStats.totalSentences;
+	const totalFiles = vaultStats.totalFiles;
+	const totalFolders = vaultStats.totalFolders;
 
-  async function calculateReadability(): Promise<number> {
-    // readability function
-    let value = 0;
+	const characterToWordRatio = vaultStats.totalChars / totalWords;
+	const wordToSentenceRatio = totalWords / totalSentences;
+	const sentenceToParagraphRatio = totalSentences / vaultStats.totalParagraphs;
 
-    // make use of the character-to-word ratio
-    let characterToWordRatio: number = totalWords / vaultStats.totalChars;
+	// -------------------------
+	// CALCULATORS
+	// -------------------------
 
-    // add a variable similar to the visual calculation of the cs (circle size) formula from the osu! game
-    let wordRadiusValue = 64 * (1 - (0.7 * ((characterToWordRatio - 2.5) / 5)));
+	function calculateReadability(): number {
+		const wordRadiusValue = 64 * (1 - 0.7 * ((characterToWordRatio - 2.5) / 5));
 
-    // debug
-    // console.log('wordRadiusValue: ' + wordRadiusValue);
+		const wordLengthMultiplier = Math.max(
+			1.0,
+			1.0 + (30 - wordRadiusValue) / 40,
+		);
 
-    // add a bonus with the use of the recently made value
-    let wordLengthMultiplier = Math.max(1.0, 1.0 + (30 - wordRadiusValue) / 40);
+		return wordRadiusValue * wordLengthMultiplier;
+	}
 
-    // add it as a bonus
-    value += wordRadiusValue * wordLengthMultiplier;
+	async function calculateVaultRating(): Promise<number> {
+		let baseMultiplier = 1;
 
-    return value;
-  }
+		const vaultCleanlinessValue = await calculateVaultCleanliness(
+			totalFiles,
+			totalFolders,
+			vaultStats.totalParagraphs,
+		);
 
-  async function calculateVaultRating(): Promise<number> {
-    // vault rating function
-    let value = 1;
+		baseMultiplier += vaultCleanlinessValue / 9.95;
 
-    // for the multiplier of the value
-    let vaultCleanlinessValue = await calculateVaultCleanliness(vaultStats.totalFiles, vaultStats.totalFolders, vaultStats.totalParagraphs);
+		let taskCount = await getTaskCount(this.app);
 
-    return value + (vaultCleanlinessValue / 9.95);
-  }
+		baseMultiplier += taskCount.completedTasks / taskCount.totalTasks / 25;
 
-  async function calculateInformability() {
-    // function to get values from equations with uses of the vault stats
-    let value = 1;
+		return baseMultiplier;
+	}
 
-    // use various vault stats to make a readable value
-    let wordToSentenceRatio = vaultStats.totalWords / vaultStats.totalSentences;
-    let sentencetoParagraphRatio = vaultStats.totalSentences / vaultStats.totalParagraphs;
+	async function calculateInformability(): Promise<number> {
+		let value = 1;
 
-    // context bonus
-    let contextBonus = 0;
+		const contextBonus =
+			sentenceToParagraphRatio >= 3
+				? (Math.log(sentenceToParagraphRatio) +
+						Math.log(sentenceToParagraphRatio * 1.5)) *
+					2
+				: Math.log(sentenceToParagraphRatio) * 2;
 
-    if (sentencetoParagraphRatio >= 3) {
-      contextBonus += (Math.log(sentencetoParagraphRatio) + Math.log(sentencetoParagraphRatio * 1.5)) * 2;
-    } else {
-      contextBonus += Math.log(sentencetoParagraphRatio) * 2;
-    }
+		value += contextBonus;
 
-    value += contextBonus;
+		value += (wordToSentenceRatio * sentenceToParagraphRatio) / 5 / totalFiles;
 
-    value += ((wordToSentenceRatio * sentencetoParagraphRatio) / 5) / vaultStats.totalFiles;
+		const [fileCount, folderCount, listItemCount] = await Promise.all([
+			getAllFiles(),
+			getAllFolders(),
+			getListItemCount(app),
+		]);
 
-    let fileToFolderRatio = await getAllFiles() / await getAllFolders();
+		const fileToFolderRatio = fileCount / folderCount;
+		value += fileToFolderRatio;
 
-    value += fileToFolderRatio;
+		value += Math.log(totalSentences);
 
-    // add a bonus with math logarithm
-    value += Math.log(vaultStats.totalSentences);
+		const paragraphWordCount = wordToSentenceRatio * sentenceToParagraphRatio;
 
-    // estimate the number of words and sentences in a paragraph
-    let paragraphWordCount = wordToSentenceRatio * sentencetoParagraphRatio;
+		value += Math.log(paragraphWordCount) * (1 + paragraphWordCount / 250);
 
-    // debug
-    // console.log(`${paragraphWordCount}pp`);
+		console.log("List item count: " + listItemCount);
 
-    // add as a bonus
-    value += Math.log(paragraphWordCount) * (1 + ((paragraphWordCount / 25) / 10));
+		value += Math.log(listItemCount) + Math.PI;
 
-    // get the list item count
-    let listItemCount = await getListItemCount(this.app);
+		return value;
+	}
 
-    // debug
-    console.log('List item count: ' + await getListItemCount(this.app));
+	async function calculatePenalties(): Promise<number> {
+		let value = 0;
 
-    // make use of the list item count and add as a value
-    value += Math.log(listItemCount) + Math.PI;
+		value += Math.E ** ((4 - characterToWordRatio) / 2) * 50;
 
-    return value
-  }
+		const [orphanCount, totalSentencesLocal] = await Promise.all([
+			getOrphanCount(app),
+			getTotalSentences(app),
+		]);
 
-  async function calcualtePenalties(): Promise<number> {
-    // function to calculate penalties
-    let value = 0;
+		value += orphanCount;
 
-    // if the words are too short
-    let characterToWordRatio = vaultStats.totalChars / await getTotalWordCount(app);
-    
-    value += (Math.E ** ((4 - characterToWordRatio) / 2)) * 50;
+		value *= 1 + 0.055 * Math.log(1 + vaultStats.totalChars);
 
-    // get the total amount of orphans in the vault
-    let orphanCount: number = await getOrphanCount(app);
+		value += (characterToWordRatio / 2) * (characterToWordRatio * (1 / 125));
 
-    // apply it to the value as a penalty
-    value += orphanCount;
+		const characterToSentenceRatio =
+			vaultStats.totalChars / totalSentencesLocal;
 
-    // add a multiplier to make things fair
-    value *= 1 + 0.055 * Math.log(1 + vaultStats.totalChars);
+		value += Math.max(
+			10,
+			Math.log(characterToSentenceRatio) * 3 -
+				characterToSentenceRatio * 0.0025 +
+				20,
+		);
 
-    // add another use to the character-to-word ratio variable 
-    value += (characterToWordRatio / 2) * (characterToWordRatio * (1 / 125));
+		return value;
+	}
 
-    // add another penalty
-    let totalSentences = await getTotalSentences(this.app);
-    let wordToSentenceRatio = totalWords / totalSentences;
-    let characterToSentenceRatio = (characterToWordRatio * wordToSentenceRatio) / totalSentences;
+	function calculateStatBonuses(): number {
+		let value = 0;
 
-    // add the penalty value to the overall value
-    value += Math.max(10, ((Math.log(characterToSentenceRatio) * 3) - (characterToSentenceRatio * 0.0025)) + 20);
+		value += Math.log(totalFiles) * Math.PI;
+		value += Math.log(totalFolders) * 1.5;
 
-    return value;
-  }
+		const characterBonus =
+			Math.log(vaultStats.totalChars) + vaultStats.totalChars / 3000;
 
-  async function calculateStatBonuses(): Promise<number> {
-    // stat rating function
-    let value = 0;
+		value += characterBonus * Math.pow(Math.PI, 0.6);
 
-    // get the bonus value of the vault's file count with mathematic logarithms
-    value += Math.log(vaultStats.totalFiles) * Math.PI;
+		value +=
+			((417 - 1 / 3) / 4) *
+			(1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
 
-    // as well as making use of the vault's folders
-    value += Math.log(vaultStats.totalFolders) * 1.5;
+		value += (Math.log(value) + (1 + value * 0.025)) / 125;
 
-    console.log(value);
+		return value;
+	}
 
-    // let wikiLinkCount = await countAllWikiLinks(app);
-    // let allLinkCount = await countAllLinks(app);
+	const [
+		readabilityValue,
+		vaultRatingValue,
+		statBonusValue,
+		informabilityValue,
+		penaltyValue,
+	] = await Promise.all([
+		Promise.resolve(calculateReadability()),
+		calculateVaultRating(),
+		Promise.resolve(calculateStatBonuses()),
+		calculateInformability(),
+		calculatePenalties(),
+	]);
 
-    // let allLinkTowikiLinkRatio = allLinkCount / wikiLinkCount;
-    // let wikiLinkToAllLinkRatio = wikiLinkCount / allLinkCount;
+	// -------------------------
+	// FINAL CALCULATION
+	// -------------------------
 
-    // apply certain values as pieces of a penalty
-    // value += ((allLinkTowikiLinkRatio + wikiLinkToAllLinkRatio) / Math.E) - 10;
+	performanceValue =
+		((readabilityValue + statBonusValue + informabilityValue - penaltyValue) *
+			vaultRatingValue) /
+		1.075;
 
-    // add some value with the use of total characters typed in the vault
-    let characterBonus = Math.log(vaultStats.totalChars) + (vaultStats.totalChars / 3000);
+	// DEBUG
+	console.log(
+		`readabilityValue: ${(readabilityValue * vaultRatingValue) / 1.075}pp`,
+	);
+	console.log(
+		`statBonusValue: ${(statBonusValue * vaultRatingValue) / 1.075}pp`,
+	);
+	console.log(
+		`informabilityValue: ${(informabilityValue * vaultRatingValue) / 1.075}pp`,
+	);
+	console.log(`penaltyValue: ${(penaltyValue * vaultRatingValue) / 1.075}pp`);
+	console.log(`vaultRatingValue: ${vaultRatingValue / 1.075}x`);
 
-    value += characterBonus * Math.pow(Math.PI, 0.6);
+	if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
+		console.log("Invalid performance value. Setting to 0pp...");
+		performanceValue = 0;
+	}
 
-    value += ((417 - (1 / 3)) / 4) * (1 - Math.pow(0.9975, plugin.settings.totalExecutionCount));
-
-    // add a small multiplier to the full value
-    value += (Math.log(value) + (1 + (value * 0.025))) / 125;
-
-    // make use of bases (for now)
-    // const fileExtensionArray = await getFileExtensionCount(this.app);
-
-    // debug
-    // console.log(fileExtensionArray);
-
-    // let baseCount = fileExtensionArray.base;
-
-    // value += Math.log(baseCount) ** (1 + (0.001 * baseCount));
-
-    return value;
-  }
-
-  // calculate the full value
-  let readabilityValue = await calculateReadability();
-  let vaultRatingValue = await calculateVaultRating();
-  let statBonusValue = await calculateStatBonuses();
-  let informabilityValue = await calculateInformability();
-  let penaltyValue = await calcualtePenalties();
-
-  performanceValue += ((readabilityValue + statBonusValue + informabilityValue - penaltyValue) * vaultRatingValue) / 1.075;
-
-  // debug
-  console.log(`readabilityValue: ${(readabilityValue * vaultRatingValue) / 1.075}pp`);
-  console.log(`statBonusValue: ${(statBonusValue * vaultRatingValue) / 1.075}pp`);
-  console.log(`informabilityValue: ${(informabilityValue * vaultRatingValue) / 1.075}pp`);
-  console.log(`penaltyValue: ${(penaltyValue * vaultRatingValue) / 1.075}pp`);
-  console.log(`vaultRatingValue: ${vaultRatingValue / 1.075}x`);
-
-  // console.log('performanceValue: ' + performanceValue);
-
-  // cleaner value handling (since v1.7.0)
-  if (!Number.isFinite(performanceValue) || performanceValue <= 0) {
-    console.log("Invalid performance value. Setting to 0pp...");
-    performanceValue = 0;
-  }
-
-  return performanceValue;
+	return performanceValue;
 }

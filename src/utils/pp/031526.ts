@@ -133,7 +133,8 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
     // as well as making use of the vault's folders
     value += Math.log(vaultStats.totalFolders) * 1.5;
 
-    console.log(value);
+    // debug
+    // console.log(value);
 
     // let wikiLinkCount = await countAllWikiLinks(app);
     // let allLinkCount = await countAllLinks(app);
@@ -167,11 +168,13 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
   performanceValue += ((readabilityValue + statBonusValue + informabilityValue - penaltyValue) * vaultRatingValue) / 1.075;
 
   // debug
+  /*
   console.log(`readabilityValue: ${(readabilityValue * vaultRatingValue) / 1.075}pp`);
   console.log(`statBonusValue: ${(statBonusValue * vaultRatingValue) / 1.075}pp`);
   console.log(`informabilityValue: ${(informabilityValue * vaultRatingValue) / 1.075}pp`);
   console.log(`penaltyValue: ${(penaltyValue * vaultRatingValue) / 1.075}pp`);
   console.log(`vaultRatingValue: ${vaultRatingValue / 1.075}x`);
+  */
 
   // console.log('performanceValue: ' + performanceValue);
 

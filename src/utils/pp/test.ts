@@ -17,6 +17,7 @@ import { getAllFiles, getAllFolders } from "../values/newerEvaluators/itemCount"
 // import { countAllLinks, countAllWikiLinks } from "../values/newerEvaluators/linkCount";
 import { getFileExtensionCount } from "src/functions/getFileExtensionCount";
 import { getTotalSentences, getTotalWordCount } from "../values/newerEvaluators/newVaultStats";
+import { getListItemCount } from "../values/newerEvaluators/listItemCount";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
 export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
@@ -96,6 +97,15 @@ export async function calculatePerformance(plugin: PerformiumPlugin): Promise<nu
 
     // add as a bonus
     value += Math.log(paragraphWordCount) * (1 + ((paragraphWordCount / 25) / 10));
+
+    // get the list item count
+    let listItemCount = await getListItemCount(this.app);
+
+    // debug
+    console.log('List item count: ' + await getListItemCount(this.app));
+
+    // make use of the list item count and add as a value
+    value += Math.log(listItemCount) + Math.PI;
 
     return value
   }

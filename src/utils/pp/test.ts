@@ -60,7 +60,7 @@ export async function calculatePerformance(
 		return wordRadiusValue * wordLengthMultiplier;
 	}
 
-	async function calculateVaultRating(): Promise<number> {
+	const calculateVaultRating = async (): Promise<number> => {
 		let baseMultiplier = 1;
 
 		const vaultCleanlinessValue = await calculateVaultCleanliness(
@@ -71,13 +71,12 @@ export async function calculatePerformance(
 
 		baseMultiplier += vaultCleanlinessValue / 9.95;
 
-		let taskCount = await getTaskCount(this.app);
+		const taskCount = await getTaskCount(app);
 
 		baseMultiplier += taskCount.completedTasks / taskCount.totalTasks / 25;
 
 		return baseMultiplier;
-	}
-
+	};
 	async function calculateInformability(): Promise<number> {
 		let value = 1;
 

@@ -6,7 +6,9 @@ export async function savePerformanceToFile(app: App, value: number) {
 
   const now = new Date();
   const year = now.getFullYear().toString();
-  const monthDay = `${(now.getMonth() + 1).toString().padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")}`;
+  const month = (now.getMonth() + 1).toString();
+  const day = now.getDate().toString();
+  const monthDay = `${month.length === 1 ? `0${month}` : month}-${day.length === 1 ? `0${day}` : day}`;
 
   let data: Record<string, Record<string, number[]>> = {};
 

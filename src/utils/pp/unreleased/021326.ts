@@ -18,7 +18,7 @@ import { calculateVaultBpm } from "../../values/vaultBpm";
 import { calculateWordComplexityStats } from "../../values/wordComplexityStatistics";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
-export async function calculatePerformance(plugin: PerformiumPlugin): Promise<number> {
+export async function calculatePerformance(this: any, plugin: PerformiumPlugin): Promise<number> {
   const app = plugin.app;
 
   const wordComplexityStatistics = await calculateWordComplexityStats(app);

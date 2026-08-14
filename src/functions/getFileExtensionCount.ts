@@ -1,6 +1,6 @@
 import { App } from 'obsidian';
 
-export async function getFileExtensionCount(app: App): Promise<any> {
+export async function getFileExtensionCount(this: any, app: App): Promise<any> {
   const counts: Record<string, number> = {};
 
   this.app.vault.getFiles().forEach((file: { extension: any; }) => {

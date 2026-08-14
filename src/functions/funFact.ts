@@ -48,6 +48,7 @@ export async function generateFact(plugin: PerformiumPlugin, app: App): Promise<
     `A full rewrite has been made with the new system! For the latest reworks before the next publish, try out the test performance points system!`,
     `A setting has been removed from the plugin, but it\'s data used for it will still remain functional!`,
     `A total amount of two people have contributed to this project as of this update!`,
+    `Without the essential core plugins, this plugin will end up breaking.`
   ];
 
   array.push(`You have calculated the total performance points of your Obsidian vault ${new Intl.NumberFormat().format(Math.floor(plugin.settings.totalExecutionCount))} times!`)

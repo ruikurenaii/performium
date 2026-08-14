@@ -9,7 +9,7 @@ import { calculateVaultStats } from "../../../functions/vaultStats";
 import { PerformiumBaseSettings, PerformiumSettingsTab, DEFAULT_SETTINGS } from "../../../options/base";
 
 // the function to calculate the pp values from the entire vault (confusion, my bad)
-export async function calculatePerformance(app: App): Promise<number> {
+export async function calculatePerformance(this: any, app: App): Promise<number> {
 	const vaultStats = await calculateVaultStats(app);
   
   // variables

@@ -1,5 +1,7 @@
 const date = new Date();
 
+const formatDatePart = (value: number): string => (value < 10 ? `0${value}` : `${value}`);
+
 const performanceVersions: Record<string, string> = {
   "040625": "v20250406 (v1.0.0)",
   "041325": "v20250413 (v1.1.0)",
@@ -12,7 +14,7 @@ const performanceVersions: Record<string, string> = {
   "020426": "v20260204 (v1.6.2)",
   "021426": "v20260214 (v1.7.0)",
   "031526": "v20260315 (v1.8.0)",
-  "test": `v${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")} (v1.9.0b)`
+  "test": `v${date.getFullYear()}${formatDatePart(date.getMonth() + 1)}${formatDatePart(date.getDate())} (v1.9.0b)`
 };
 
 export async function getPerformanceVersion(version: string): Promise<string> {

@@ -83,7 +83,7 @@ export class AccountStatisticsModal extends Modal {
     });
 
     // debug
-    console.log(fillPercentageStr);
+    // console.log(fillPercentageStr);
 
     expProgressFill.style.width = `${fillPercentageStr}`;
 

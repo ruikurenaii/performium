@@ -2,6 +2,8 @@
 # Performium
 A small quality-of-life Obsidian plugin that integrates a mechanic from osu!
 
+**!! this project is no longer being maintained !!**
+
 ## What is Performium?
 Performium is a plugin that integrates the Performance Points system from the rhythm game osu! straight to Obsidian, adding a bit of fun and gamifying your note-taking experience. Not to be confused by it's name, this plugin does not intend to boost the app's performance, though there is a project with the same name, but it was intended for something else.
 

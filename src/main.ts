@@ -50,8 +50,10 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue, this.settings.ppSystem).open();
         this.settings.totalExecutionCount++;
-        let rewardValue = (150 + Math.log(performanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+        let rewardValue = (150 + Math.log(Math.max(1, performanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       }
@@ -65,8 +67,10 @@ export default class PerformiumPlugin extends Plugin {
         await savePerformanceToFile(this.app, performanceValue);
         new PerformanceModal(this.app, performanceValue, this.settings.ppSystem).open();
 		    this.settings.totalExecutionCount++;
-        let rewardValue = (150 + Math.log(performanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+        let rewardValue = (150 + Math.log(Math.max(1, performanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
         this.saveSettings();
       },
@@ -82,8 +86,11 @@ export default class PerformiumPlugin extends Plugin {
         // await savePerformanceToFile(this.app, secondaryPerformanceValue);
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue, this.settings.ppSystem, this.settings.secondaryPpSystem).open();
         this.settings.totalExecutionCount += 2;
-        let rewardValue = (300 + Math.log(performanceValue) + Math.log(secondaryPerformanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+				this.settings.maxSecondaryPerformanceValue = Math.max(this.settings.secondaryPerformanceValue, this.settings.maxSecondaryPerformanceValue);
+        let rewardValue = (300 + Math.log(Math.max(1, performanceValue)) + Math.log(Math.max(1, secondaryPerformanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       }
@@ -99,8 +106,11 @@ export default class PerformiumPlugin extends Plugin {
         // await savePerformanceToFile(this.app, secondaryPerformanceValue); 
         new comparePerformanceModal(this.app, performanceValue, secondaryPerformanceValue, this.settings.ppSystem, this.settings.secondaryPpSystem).open();
         this.settings.totalExecutionCount += 2;
-        let rewardValue = (300 + Math.log(performanceValue) + Math.log(secondaryPerformanceValue)) * (1 + (this.settings.totalExecutionCount / 1000));
-        this.settings.totalExperience += rewardValue;
+				this.settings.maxPerformanceValue = Math.max(this.settings.performanceValue, this.settings.maxPerformanceValue);
+				this.settings.maxSecondaryPerformanceValue = Math.max(this.settings.secondaryPerformanceValue, this.settings.maxSecondaryPerformanceValue);
+        let rewardValue = (300 + Math.log(Math.max(1, performanceValue)) + Math.log(Math.max(1, secondaryPerformanceValue))) * (1 + (this.settings.totalExecutionCount / 1000));
+				this.settings.totalRewards += rewardValue;
+        this.settings.totalExperience = this.settings.maxPerformanceValue + this.settings.maxSecondaryPerformanceValue + this.settings.totalRewards;
         new Notice(`You have been rewarded ${new Intl.NumberFormat().format(Math.floor(rewardValue))} XP!`);
 		    this.saveSettings();
       },
@@ -126,7 +136,19 @@ export default class PerformiumPlugin extends Plugin {
   }
   
   async calculatePerformance(): Promise < number > {
-    if (this.settings.ppSystem === "test") {
+		if (this.settings.ppSystem === "max") {
+			return Math.max(calculatePerformanceTest(this), 
+											calculatePerformance021426(this), 
+											calculatePerformance020426(this), 
+											calculatePerformance011726(this), 
+											calculatePerformance080325(this),
+											calculatePerformance060925(this),
+											calculatePerformance051425(this),
+											calculatePerformance050725(this),
+											calculatePerformance042925(this.app),
+											calculatePerformance041325(this.app),
+											calculatePerformance040625(this.app));//get maximum performance points value of all the below systems
+    else if (this.settings.ppSystem === "test") {
       return calculatePerformanceTest(this);
     } else if (this.settings.ppSystem === "031526") {
       return calculatePerformance031526(this);
@@ -154,7 +176,19 @@ export default class PerformiumPlugin extends Plugin {
   }
 
   async calculateSecondaryPerformance(): Promise < number > {
-    if (this.settings.secondaryPpSystem === "test") {
+			if (this.settings.secondaryPpSystem === "max") {
+			return Math.max(calculatePerformanceTest(this), 
+											calculatePerformance021426(this), 
+											calculatePerformance020426(this), 
+											calculatePerformance011726(this), 
+											calculatePerformance080325(this),
+											calculatePerformance060925(this),
+											calculatePerformance051425(this),
+											calculatePerformance050725(this),
+											calculatePerformance042925(this.app),
+											calculatePerformance041325(this.app),
+											calculatePerformance040625(this.app));//get maximum performance points value of all the below systems
+    else if (this.settings.secondaryPpSystem === "test") {
       return calculatePerformanceTest(this);
     } else if (this.settings.secondaryPpSystem === "031526") {
       return calculatePerformance031526(this);

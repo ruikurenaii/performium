@@ -8,7 +8,7 @@ A small quality-of-life Obsidian plugin that integrates a mechanic from osu!
 Performium is a plugin that integrates the Performance Points system from the rhythm game osu! straight to Obsidian, adding a bit of fun and gamifying your note-taking experience. Not to be confused by it's name, this plugin does not intend to boost the app's performance, though there is a project with the same name, but it was intended for something else.
 
 ## What are Performance Points?
-Performance points, known shortly as *pp*, is the main metric for the plugin, and it's also used in osu! as the current main ranking metric.
+Performance points, known shortly as *pp*, is the main metric for the plugin, and it's also used in it's derivative game, osu!, as the current main ranking metric.
 
 For more information, you might want to [check this out](https://osu.ppy.sh/wiki/en/Performance_points)!
 
